@@ -4,7 +4,7 @@ import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 
 const bioLines = [
-  "Hi, I'm Morsal!!!",
+  "Hi, I'm Morsal!",
   "",
   "UX/UI Designer with a marketing brain and a slight obsession with getting the details right. IT bachelor's degree, 6+ years in telecom marketing, and a passion for design that eventually took over. Now I build brands and digital experiences that actually work.",
   "",
