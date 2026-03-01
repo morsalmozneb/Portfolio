@@ -1,0 +1,414 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(0.1 0.02 280);
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.15 0.025 280);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.15 0.025 280);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.65 0.2 280);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.2 0.03 280);
+  --secondary-foreground: oklch(0.9 0 0);
+  --muted: oklch(0.2 0.02 280);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.55 0.18 280);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.25 0.04 280);
+  --input: oklch(0.25 0.04 280);
+  --ring: oklch(0.55 0.18 280);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  /* Unified radius token — 12px used everywhere for interactive elements */
+  --radius: 0.75rem;
+  /* Card/image radius — 16px for larger surface areas */
+  --radius-card: 1rem;
+  /* ─── 12-Column Grid System ─── */
+  --content-max: 1080px;
+  --grid-gutter: 1.5rem;   /* 24px */
+  --grid-gutter-lg: 3rem;  /* 48px */
+  --sidebar: oklch(0.12 0.025 280);
+  --sidebar-foreground: oklch(0.9 0 0);
+  --sidebar-primary: oklch(0.65 0.2 280);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.2 0.04 280);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.25 0.04 280);
+  --sidebar-ring: oklch(0.55 0.18 280);
+  --brand-purple: #8C91F7;
+  --brand-purple-light: #A8ADFF;
+  --brand-purple-dark: #6B70D4;
+  --glow-purple: rgba(140, 145, 247, 0.3);
+}
+
+@theme inline {
+  --font-sans: 'Inter', 'Geist', 'Geist Fallback', sans-serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom cursor - hide default but allow pointer detection */
+* {
+  cursor: none;
+}
+a, button, [role="button"], input, select, textarea, label[for], summary {
+  cursor: pointer;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.1 0.02 280);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.3 0.04 280);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.4 0.06 280);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes float-1 {
+  0%   { transform: translate(0px, 0px); }
+  20%  { transform: translate(-50px, -35px); }
+  40%  { transform: translate(30px, -70px); }
+  60%  { transform: translate(60px, -25px); }
+  80%  { transform: translate(-25px, -55px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+@keyframes float-2 {
+  0%   { transform: translate(0px, 0px); }
+  25%  { transform: translate(65px, -45px); }
+  50%  { transform: translate(-35px, -80px); }
+  75%  { transform: translate(-55px, -30px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+@keyframes float-3 {
+  0%   { transform: translate(0px, 0px); }
+  33%  { transform: translate(-45px, -60px); }
+  66%  { transform: translate(60px, -35px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.4); }
+}
+
+@keyframes icon-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+/* Glass card style */
+.glass-card {
+  background: linear-gradient(135deg, rgba(140, 145, 247, 0.08) 0%, rgba(20, 18, 40, 0.6) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(140, 145, 247, 0.15);
+}
+
+.glass-card:hover {
+  border-color: rgba(140, 145, 247, 0.35);
+  box-shadow: 0 0 30px rgba(140, 145, 247, 0.12), 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Letter highlight animation */
+@keyframes letter-chase {
+  0%, 100% { color: rgba(228, 228, 228, 1); }
+  50% { color: #8C91F7; text-shadow: 0 0 10px rgba(140, 145, 247, 0.5); }
+}
+
+/* Footer logo scan animation */
+@keyframes logo-scan {
+  0% { transform: translateX(-120%); }
+  40% { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
+}
+
+
+/* Subtle horizontal section divider */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(140, 145, 247, 0.18) 30%, rgba(140, 145, 247, 0.28) 50%, rgba(140, 145, 247, 0.18) 70%, transparent 100%);
+  margin: 0 auto;
+}
+
+/* Smooth section fade-in utility */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.section-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CTA sparkle button */
+.sparkle-btn {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Sparkle particles - hidden by default, twinkle on hover near button edges */
+.sparkle-particle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  left: calc(var(--x, 50) * 1%);
+  top: calc(var(--y, 50) * 1%);
+  width: var(--size, 8px);
+  height: var(--size, 8px);
+  color: rgba(140, 145, 247, 0.85);
+  opacity: 0;
+  visibility: hidden;
+}
+.sparkle-particle svg {
+  width: 100%;
+  height: 100%;
+}
+.sparkle-btn:hover .sparkle-particle {
+  visibility: visible;
+  animation: sparkle-twinkle calc(var(--duration, 3) * 1s) calc(var(--delay, 0) * -1s) ease-in-out infinite;
+}
+
+@keyframes sparkle-twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+  25% { opacity: 1; transform: scale(1) rotate(45deg); }
+  50% { opacity: 0.4; transform: scale(0.6) rotate(90deg); }
+  75% { opacity: 0.9; transform: scale(0.9) rotate(135deg); }
+}
+
+/* Glint sweep inside button */
+.sparkle-glint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+.sparkle-glint::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 20%,
+    rgba(140, 145, 247, 0.08) 40%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(140, 145, 247, 0.08) 60%,
+    rgba(255, 255, 255, 0.04) 80%,
+    transparent 100%
+  );
+  transform: translateX(-120%) skewX(-15deg);
+  animation: sparkle-glide 4s ease-in-out infinite;
+}
+.sparkle-btn:hover .sparkle-glint::after {
+  animation: sparkle-glide 2.2s ease-in-out infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 20%,
+    rgba(140, 145, 247, 0.14) 40%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(140, 145, 247, 0.14) 60%,
+    rgba(255, 255, 255, 0.06) 80%,
+    transparent 100%
+  );
+}
+
+/* Contact page icon floating animations - subtle circular motion, each at different timing */
+@keyframes contact-float-1 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-3px) translateX(1.5px); }
+  50% { transform: translateY(-1px) translateX(-2px); }
+  75% { transform: translateY(-4px) translateX(1px); }
+}
+
+@keyframes contact-float-2 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-2px) translateX(-2px); }
+  50% { transform: translateY(-4px) translateX(1px); }
+  75% { transform: translateY(-1.5px) translateX(-1px); }
+}
+
+@keyframes contact-float-3 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-4px) translateX(1px); }
+  50% { transform: translateY(-2px) translateX(-1.5px); }
+  75% { transform: translateY(-3px) translateX(2px); }
+}
+
+/* Pause float on hover, brighten */
+.contact-icon-float {
+  transition: all 0.3s ease;
+}
+a:hover .contact-icon-float {
+  animation-play-state: paused !important;
+  background: rgba(140, 145, 247, 0.1) !important;
+  box-shadow: 0 0 16px rgba(140, 145, 247, 0.2);
+}
+
+/* Pulsing green availability dot */
+@keyframes availability-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.5); }
+}
+
+@keyframes sparkle-glide {
+  0% { transform: translateX(-120%) skewX(-15deg); }
+  100% { transform: translateX(250%) skewX(-15deg); }
+}
+
+/* ─── 12-Column Grid System ──────────────────────────────────── */
+
+/*
+ * Bleed wrapper — background stretches full viewport width.
+ * Wrap each <section> in this if you need a full-bleed bg colour/gradient.
+ */
+.bleed-section {
+  width: 100%;
+  position: relative;
+}
+
+/*
+ * Content container — constrains all content to --content-max (1080px)
+ * and keeps it horizontally centred.
+ * Use this as the direct child of .bleed-section or any section element.
+ */
+.content-wrap {
+  max-width: var(--content-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--grid-gutter);
+  padding-right: var(--grid-gutter);
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .content-wrap {
+    padding-left: var(--grid-gutter-lg);
+    padding-right: var(--grid-gutter-lg);
+  }
+}
+
+/* Unified page-level heading style */
+.page-heading {
+  font-size: 2.25rem;
+  line-height: 1.1;
+  font-weight: 700;
+  color: #e4e4e4;
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .page-heading {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-heading {
+    font-size: 3.75rem;
+  }
+}
+
+/* Remove Spline's white background — target canvas, any injected wrapper divs,
+   and force WebGL alpha via the onLoad callback in spline-face.tsx */
+.spline-wrap,
+.spline-wrap canvas,
+.spline-wrap > div,
+.spline-wrap > div > canvas {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/*
+ * 12-column grid — use inside .content-wrap for column-based layouts.
+ * Children can span columns via Tailwind col-span-* utilities.
+ */
+.col-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--grid-gutter);
+}
+
+/* Convenience span helpers (supplement Tailwind col-span-*) */
+.col-full    { grid-column: span 12; }
+.col-half    { grid-column: span 6; }
+.col-third   { grid-column: span 4; }
+.col-quarter { grid-column: span 3; }
+
+@media (max-width: 767px) {
+  .col-half,
+  .col-third,
+  .col-quarter { grid-column: span 12; }
+}
