@@ -1,10 +1,114 @@
 "use client"
 
 import { useState, useRef, useCallback, useEffect } from "react"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { projects as allProjects } from "@/components/projects/project-data"
 import { SparkleButton } from "@/components/sparkle-button"
+
+/* ── Glitch text component ────────────────────────────────────────── */
+const GLITCH_CHARS = "!<>-_\\/[]{}—=+*^?#@$%&"
+
+function GlitchText({ text, trigger }: { text: string; trigger: boolean }) {
+  const [display, setDisplay] = useState(text)
+  const [glitching, setGlitching] = useState(false)
+
+  useEffect(() => {
+    if (!trigger) return
+    let iter = 0
+    const total = 20
+    setGlitching(true)
+    const id = setInterval(() => {
+      iter++
+      const progress = iter / total
+      setDisplay(
+        text
+          .split("")
+          .map((char, i) => {
+            if (char === " ") return " "
+            if (i / text.length < progress) return char
+            return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]
+          })
+          .join("")
+      )
+      if (iter >= total) {
+        clearInterval(id)
+        setDisplay(text)
+        setGlitching(false)
+      }
+    }, 45)
+    return () => clearInterval(id)
+  }, [trigger, text])
+
+  return (
+    <span
+      className="relative inline-block"
+      style={{
+        textShadow: glitching
+          ? "2px 0 rgba(255,0,80,0.6), -2px 0 rgba(0,200,255,0.6)"
+          : "0 0 20px rgba(140,145,247,0.3)",
+        transition: "text-shadow 0.1s",
+      }}
+    >
+      {display}
+    </span>
+  )
+}
+
+/* ── Loading bar ──────────────────────────────────────────────────── */
+function LoadingBar({ trigger }: { trigger: boolean }) {
+  const [progress, setProgress] = useState(0)
+  const [done, setDone] = useState(false)
+
+  useEffect(() => {
+    if (!trigger) return
+    let p = 0
+    const id = setInterval(() => {
+      p += Math.random() * 12 + 4
+      if (p >= 100) {
+        p = 100
+        clearInterval(id)
+        setTimeout(() => setDone(true), 400)
+      }
+      setProgress(p)
+    }, 60)
+    return () => clearInterval(id)
+  }, [trigger])
+
+  if (done) return null
+
+  return (
+    <motion.div
+      className="w-full mb-6"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: trigger ? 1 : 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className="flex items-center gap-3 mb-1.5">
+        <span className="text-[9px] font-mono tracking-[0.3em] text-[#8C91F7]/60 uppercase">
+          Loading Projects
+        </span>
+        <span className="text-[9px] font-mono text-[#8C91F7]/40">
+          {Math.round(progress)}%
+        </span>
+      </div>
+      <div
+        className="h-[2px] w-full rounded-full overflow-hidden"
+        style={{ background: "rgba(140,145,247,0.1)" }}
+      >
+        <motion.div
+          className="h-full rounded-full"
+          style={{
+            background: "linear-gradient(90deg, #8C91F7, #a8acff)",
+            boxShadow: "0 0 8px rgba(140,145,247,0.8)",
+            width: `${progress}%`,
+          }}
+          transition={{ duration: 0.06 }}
+        />
+      </div>
+    </motion.div>
+  )
+}
 
 /* ── 3D Tilt Card Wrapper ────────────────────────────────────── */
 
@@ -104,6 +208,10 @@ export function ProjectsSection() {
   return (
     <section id="projects" className="relative py-16 lg:py-28" ref={ref}>
       <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
+
+        {/* Loading bar */}
+        <LoadingBar trigger={isInView} />
+
         {/* Section header */}
         <div className="flex items-end justify-between mb-8 lg:mb-12">
           <motion.div
@@ -111,14 +219,12 @@ export function ProjectsSection() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <p className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-2">
+            <p className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-2 font-mono">
               Featured Work
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#E4E4E4] text-balance">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#E4E4E4] text-balance font-mono">
               {"Recent "}
-              <span className="text-[#8C91F7]" style={{ textShadow: "0 0 20px rgba(140, 145, 247, 0.3)" }}>
-                Projects
-              </span>
+              <GlitchText text="Projects" trigger={isInView} />
             </h2>
           </motion.div>
 
