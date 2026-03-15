@@ -217,7 +217,7 @@ export function ToolsSection() {
                 rotateX:         lidAngle,
                 transformOrigin: "center bottom",
                 width:    "100%",
-                height:   330,
+                height: "clamp(180px, 28vw, 330px)",
                 border:   "11px solid #2a2a2c",
                 borderBottom: "none",
                 borderRadius: "14px 14px 0 0",
@@ -385,7 +385,7 @@ export function ToolsSection() {
               style={{
                 width:           "103%",
                 marginLeft:      "-1.5%",
-                height:          220,
+                height: "clamp(120px, 18vw, 220px)",
                 transform:       "rotateX(62deg)",
                 transformOrigin: "center top",
                 background:      "linear-gradient(180deg, #3a3a3c 0%, #2e2e30 50%, #282828 100%)",
