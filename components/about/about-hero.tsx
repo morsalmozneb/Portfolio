@@ -200,11 +200,11 @@ export function AboutHero() {
         @keyframes twinkle { 0%,100% { opacity: 0.15; } 50% { opacity: 0.5; } }
       `}</style>
 
-      <section ref={ref} className="relative pt-28 pb-6 overflow-visible">
+      <section ref={ref} className="relative pt-10 lg:pt-14 pb-6 overflow-visible">
         <div className="w-full max-w-[1080px] mx-auto px-6 lg:px-12">
 
           {/* Header text */}
-          <motion.p className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-2"
+          <motion.p className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-2 font-mono"
             initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
             Hello, Nice To Meet You
           </motion.p>

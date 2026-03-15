@@ -20,7 +20,7 @@ export function AboutBio() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section className="relative py-16 lg:py-28" ref={ref}>
+    <section className="relative py-10 lg:py-16" ref={ref}>
       <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
         <div className="max-w-3xl">
           {bioLines.map((line, i) => {

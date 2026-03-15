@@ -206,7 +206,7 @@ export function ProjectsSection() {
   const project = allProjects[current]
 
   return (
-    <section id="projects" className="relative py-16 lg:py-28" ref={ref}>
+    <section id="projects" className="relative py-10 lg:py-16" ref={ref}>
       <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
 
         {/* Loading bar */}

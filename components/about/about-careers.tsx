@@ -246,7 +246,7 @@ export function AboutCareers() {
   const [activeIndex, setActiveIndex] = useState(0)
 
   return (
-    <section className="relative py-16 lg:py-28" ref={ref}>
+    <section className="relative py-10 lg:py-16" ref={ref}>
       <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
 
         {/* Header */}
@@ -258,8 +258,8 @@ export function AboutCareers() {
           style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}
         >
           <div>
-            <p className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-2">Careers</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#E4E4E4]">
+            <p className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-2 font-mono">Careers</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#E4E4E4] font-mono">
               {"My "}
               <span className="text-[#8C91F7]" style={{ textShadow: "0 0 20px rgba(140,145,247,0.3)" }}>
                 Journey
