@@ -37,87 +37,246 @@ const slideVariants = {
   exit:   (d: number) => ({ x: d > 0 ? -240 : 240, opacity: 0, scale: 0.9, transition: { duration: 0.32, ease: eOut } }),
 }
 
+/* ── Individual key component ─────────────────────────────────────── */
+function Key({ flex = 1, label = "", fnKey = false }: { flex?: number; label?: string; fnKey?: boolean }) {
+  if (fnKey) {
+    return (
+      <div
+        style={{
+          flex,
+          height: 13,
+          background: "linear-gradient(168deg, #272729 0%, #1e1e20 100%)",
+          borderRadius: "2px 2px 1.5px 1.5px",
+          border: "0.5px solid rgba(255,255,255,0.03)",
+          boxShadow:
+            "0 1px 0 rgba(255,255,255,0.05) inset, " +
+            "0 -1px 0 rgba(0,0,0,0.5) inset, " +
+            "0 1.5px 3px rgba(0,0,0,0.7)",
+        }}
+      />
+    )
+  }
+  return (
+    <div
+      style={{
+        flex,
+        height: 20,
+        background: "linear-gradient(168deg, #2e2e30 0%, #272729 50%, #222224 100%)",
+        borderRadius: "3.5px 3.5px 2px 2px",
+        border: "0.5px solid rgba(255,255,255,0.04)",
+        boxShadow:
+          "0 1.5px 0 rgba(255,255,255,0.07) inset, " +
+          "0 -2px 0 rgba(0,0,0,0.55) inset, " +
+          "1px 0 0 rgba(255,255,255,0.02) inset, " +
+          "-1px 0 0 rgba(255,255,255,0.02) inset, " +
+          "0 3px 5px rgba(0,0,0,0.75)",
+        display: "flex",
+        alignItems: "flex-end",
+        justifyContent: "center",
+        paddingBottom: 2,
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Keyboard backlight bleed through key gap */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "60%",
+          height: 1,
+          background: "rgba(140,145,247,0.1)",
+          filter: "blur(0.8px)",
+        }}
+      />
+      {label && (
+        <span
+          style={{
+            fontSize: 4.5,
+            color: "rgba(255,255,255,0.2)",
+            fontFamily: "system-ui, -apple-system, sans-serif",
+            zIndex: 1,
+            position: "relative",
+            lineHeight: 1,
+          }}
+        >
+          {label}
+        </span>
+      )}
+    </div>
+  )
+}
+
 /* ── Keyboard component ───────────────────────────────────────────── */
 function Keyboard() {
-  // rows: [key count, left-modifier width multiplier, right-modifier width multiplier]
-  const rows: [number, number, number][] = [
-    [12, 1, 2.0],   // numbers row + backspace
-    [12, 1.5, 1.5], // QWERTY row
-    [11, 1.9, 2.0], // ASDF row
-    [10, 2.4, 2.4], // ZXCV row
+  // Each row: array of [label, flex?]
+  const rows: Array<Array<[string, number?]>> = [
+    [["1"],["2"],["3"],["4"],["5"],["6"],["7"],["8"],["9"],["0"],["-"],["="],["⌫",2.1]],
+    [["⇥",1.6],["Q"],["W"],["E"],["R"],["T"],["Y"],["U"],["I"],["O"],["P"],["["],["\\",1.8]],
+    [["⇪",1.9],["A"],["S"],["D"],["F"],["G"],["H"],["J"],["K"],["L"],[";"],["'"],["↵",2.3]],
+    [["⇧",2.4],["Z"],["X"],["C"],["V"],["B"],["N"],["M"],[","],["."],["/"],[" ⇧",2.4]],
+  ]
+
+  const spaceRow: Array<[string, number]> = [
+    ["fn",1.2],["⌃",1.1],["⌥",1.2],["⌘",1.3],["",5.8],["⌘",1.3],["⌥",1.2],["◁",1.0],["△▽",1.0],["▷",1.0],
   ]
 
   return (
-    <div style={{ padding: "14px 20px 0", display: "flex", flexDirection: "column", gap: 4 }}>
-      {/* ── Function / ESC row ── */}
-      <div style={{ display: "flex", gap: 3, marginBottom: 2 }}>
-        {Array.from({ length: 16 }, (_, i) => (
-          <div
-            key={i}
-            style={{
-              flex: i === 0 ? 1.2 : 1,
-              height: 14,
-              background: "linear-gradient(180deg, #252527 0%, #1c1c1e 100%)",
-              borderRadius: 2,
-              boxShadow: "0 1px 0 rgba(255,255,255,0.06) inset, 0 1px 3px rgba(0,0,0,0.7)",
-            }}
-          />
+    <div
+      style={{
+        padding: "8px 12px 0",
+        display: "flex",
+        flexDirection: "column",
+        gap: 3,
+        position: "relative",
+      }}
+    >
+      {/* Keyboard backlight ambient — very subtle purple glow */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(ellipse at 50% 65%, rgba(140,145,247,0.042) 0%, transparent 62%)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+
+      {/* Fn / media key row */}
+      <div style={{ display: "flex", gap: 2, position: "relative", zIndex: 1 }}>
+        {Array.from({ length: 14 }, (_, i) => (
+          <Key key={i} flex={i === 0 ? 1.3 : i === 13 ? 1.9 : 1} fnKey />
         ))}
       </div>
 
-      {/* ── Main key rows ── */}
-      {rows.map(([count, lw, rw], ri) => (
-        <div key={ri} style={{ display: "flex", gap: 3 }}>
-          {Array.from({ length: count }, (_, ki) => {
-            const isFirst = ki === 0
-            const isLast  = ki === count - 1
-            const flex    = isFirst ? lw : isLast ? rw : 1
-            return (
-              <div
-                key={ki}
-                style={{
-                  flex,
-                  height: 22,
-                  background: "linear-gradient(180deg, #272729 0%, #1e1e20 100%)",
-                  borderRadius: 4,
-                  boxShadow:
-                    "0 1px 0 rgba(255,255,255,0.07) inset, 0 -1px 0 rgba(0,0,0,0.4) inset, 0 2px 5px rgba(0,0,0,0.65)",
-                }}
-              />
-            )
-          })}
+      {/* Main key rows */}
+      {rows.map((row, ri) => (
+        <div key={ri} style={{ display: "flex", gap: 2, position: "relative", zIndex: 1 }}>
+          {row.map(([label, flex], ki) => (
+            <Key key={ki} flex={flex ?? 1} label={label.trim()} />
+          ))}
         </div>
       ))}
 
-      {/* ── Space bar row ── */}
-      <div style={{ display: "flex", gap: 3 }}>
-        {[1.2, 1, 5.5, 1, 1, 1, 1.2].map((flex, i) => (
+      {/* Bottom modifier + spacebar row */}
+      <div style={{ display: "flex", gap: 2, position: "relative", zIndex: 1 }}>
+        {spaceRow.map(([label, flex], i) => (
           <div
             key={i}
             style={{
               flex,
-              height: 22,
-              background: "linear-gradient(180deg, #272729 0%, #1e1e20 100%)",
-              borderRadius: 4,
+              height: 20,
+              background:
+                i === 4
+                  ? "linear-gradient(168deg, #313133 0%, #2a2a2c 50%, #252527 100%)"
+                  : "linear-gradient(168deg, #2e2e30 0%, #272729 50%, #222224 100%)",
+              borderRadius: "3.5px 3.5px 2px 2px",
+              border: "0.5px solid rgba(255,255,255,0.04)",
               boxShadow:
-                "0 1px 0 rgba(255,255,255,0.07) inset, 0 -1px 0 rgba(0,0,0,0.4) inset, 0 2px 5px rgba(0,0,0,0.65)",
+                "0 1.5px 0 rgba(255,255,255,0.07) inset, " +
+                "0 -2px 0 rgba(0,0,0,0.55) inset, " +
+                "0 3px 5px rgba(0,0,0,0.75)",
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "center",
+              paddingBottom: 2,
+              position: "relative",
+              overflow: "hidden",
             }}
-          />
+          >
+            {i === 4 ? (
+              /* Spacebar — wider backlight bleed */
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "22%",
+                  height: 1,
+                  background: "rgba(140,145,247,0.16)",
+                  filter: "blur(1.5px)",
+                }}
+              />
+            ) : label ? (
+              <>
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: "60%",
+                    height: 1,
+                    background: "rgba(140,145,247,0.1)",
+                    filter: "blur(0.8px)",
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: 3.8,
+                    color: "rgba(255,255,255,0.2)",
+                    fontFamily: "system-ui, -apple-system, sans-serif",
+                    zIndex: 1,
+                    position: "relative",
+                  }}
+                >
+                  {label}
+                </span>
+              </>
+            ) : null}
+          </div>
         ))}
       </div>
 
-      {/* ── Trackpad ── */}
-      <div style={{ display: "flex", justifyContent: "center", paddingTop: 12 }}>
+      {/* Trackpad */}
+      <div style={{ display: "flex", justifyContent: "center", paddingTop: 8 }}>
         <div
           style={{
-            width: "42%",
-            height: 72,
-            background: "linear-gradient(180deg, #2e2e30 0%, #262628 100%)",
-            borderRadius: 8,
-            border: "1px solid rgba(255,255,255,0.05)",
-            boxShadow: "0 0 0 1px rgba(0,0,0,0.5) inset, 0 1px 0 rgba(255,255,255,0.04) inset",
+            width: "40%",
+            height: 62,
+            background:
+              "linear-gradient(170deg, #343436 0%, #2d2d2f 30%, #282828 100%)",
+            borderRadius: 10,
+            border: "0.5px solid rgba(255,255,255,0.055)",
+            boxShadow:
+              "0 0 0 1px rgba(0,0,0,0.65) inset, " +
+              "0 1.5px 0 rgba(255,255,255,0.055) inset, " +
+              "0 2px 8px rgba(0,0,0,0.5)",
+            position: "relative",
+            overflow: "hidden",
           }}
-        />
+        >
+          {/* Glass sheen highlight at top */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "40%",
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.036) 0%, transparent 100%)",
+              borderRadius: "10px 10px 0 0",
+            }}
+          />
+          {/* Subtle finger-rest indicator */}
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: 20,
+              height: 20,
+              borderRadius: "50%",
+              border: "0.5px solid rgba(255,255,255,0.035)",
+            }}
+          />
+        </div>
       </div>
     </div>
   )
@@ -134,15 +293,15 @@ export function ToolsSection() {
     offset: ["start 0.9", "start 0.1"],
   })
 
-  // -110° = closed flat against base, 8° = open / leaning back
-  const rawLid = useTransform(scrollYProgress, [0, 1], [-110, 8])
-  const lidAngle = useSpring(rawLid, { stiffness: 46, damping: 21, restDelta: 0.001 })
+  // -110° = closed flat, 8° = open / leaning back
+  const rawLid    = useTransform(scrollYProgress, [0, 1], [-110, 8])
+  const lidAngle  = useSpring(rawLid, { stiffness: 46, damping: 21, restDelta: 0.001 })
 
   // Screen content fades in once lid passes ~-55° (halfway open)
-  const rawScreen = useTransform(lidAngle, [-110, -55, 8], [0, 0, 1])
+  const rawScreen     = useTransform(lidAngle, [-110, -55, 8], [0, 0, 1])
   const screenOpacity = useSpring(rawScreen, { stiffness: 80, damping: 22 })
 
-  // Scroll hint fades out as soon as the user starts scrolling into section
+  // Scroll hint fades out as soon as the user starts scrolling
   const hintOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0])
 
   /* ── Tool carousel ───────────────────────────────────────────── */
@@ -188,24 +347,19 @@ export function ToolsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-
           {/*
            *  3D perspective container.
-           *  perspectiveOrigin "50% 38%" = viewer is slightly above the laptop.
-           *
-           *  Layout (top → bottom in DOM / normal flow):
-           *    1. Screen lid  — motion.div, rotateX driven by scroll, origin: center bottom
-           *    2. Hinge strip — static thin bar
-           *    3. Keyboard base — rotateX(62deg), origin: center top, keyboard keys inside
-           *    4. Foot / shadow
-           *
-           *  Both the screen and the base share the same pivot line (the boundary
-           *  between their divs), so they always appear to hinge from the same point.
+           *  Layout (top to bottom):
+           *    1. Screen lid      — motion.div, rotateX driven by scroll, origin: center bottom
+           *    2. Hinge assembly  — twin barrel caps + bridge strip
+           *    3. Keyboard base   — rotateX(62deg), speaker grilles + keyboard + trackpad
+           *    4. Foot shelf
+           *    5. Ground shadow
            */}
           <div
             style={{
-              perspective:       "1300px",
-              perspectiveOrigin: "50% 38%",
+              perspective:       "1400px",
+              perspectiveOrigin: "50% 36%",
               width:    "100%",
               maxWidth: 700,
             }}
@@ -217,170 +371,327 @@ export function ToolsSection() {
                 rotateX:         lidAngle,
                 transformOrigin: "center bottom",
                 width:    "100%",
-                height: "clamp(180px, 28vw, 330px)",
-                border:   "11px solid #2a2a2c",
-                borderBottom: "none",
-                borderRadius: "14px 14px 0 0",
-                background:   "#08070f",
-                overflow:     "hidden",
-                boxShadow:
-                  "0 -3px 0 rgba(255,255,255,0.05) inset, " +
-                  "0 -24px 60px rgba(140,145,247,0.06)",
+                height: "clamp(200px, 30vw, 360px)",
+                borderRadius: "16px 16px 3px 3px",
                 position: "relative",
+                // Space-gray aluminum exterior shell
+                background:
+                  "linear-gradient(175deg, #474748 0%, #3d3d3f 22%, #343436 58%, #2c2c2e 100%)",
+                boxShadow:
+                  "0 2px 0 rgba(255,255,255,0.21) inset, " +
+                  "2px 0 0 rgba(255,255,255,0.07) inset, " +
+                  "-2px 0 0 rgba(255,255,255,0.07) inset, " +
+                  "0 -1px 0 rgba(0,0,0,0.38) inset, " +
+                  "0 -18px 55px rgba(140,145,247,0.08), " +
+                  "0 8px 36px rgba(0,0,0,0.6)",
               }}
             >
-              {/* Lid inner gloss on top bezel */}
+
+              {/* ── Inner screen glass recess ── */}
               <div
                 style={{
-                  position:   "absolute",
-                  inset:       0,
-                  borderRadius: "4px 4px 0 0",
-                  background:
-                    "linear-gradient(180deg, rgba(255,255,255,0.035) 0%, transparent 14%)",
-                  pointerEvents: "none",
-                  zIndex: 10,
+                  position:     "absolute",
+                  // top/sides = bezel width; bottom = thin chin
+                  inset:        "11px 13px 5px 13px",
+                  borderRadius: "6px 6px 3px 3px",
+                  background:   "#07070e",
+                  boxShadow:
+                    "0 0 0 1px rgba(0,0,0,0.95) inset, " +
+                    "0 2px 14px rgba(0,0,0,0.9) inset, " +
+                    "0 0 0 0.5px rgba(255,255,255,0.035)",
+                  overflow: "hidden",
                 }}
-              />
+              >
+                {/* Screen glass glare — subtle top-left diagonal streak */}
+                <div
+                  style={{
+                    position:      "absolute",
+                    inset:          0,
+                    background:
+                      "linear-gradient(148deg, rgba(255,255,255,0.024) 0%, transparent 36%)",
+                    pointerEvents: "none",
+                    zIndex:        30,
+                  }}
+                />
 
-              {/* Camera dot */}
+                {/* ── Screen content fades in as lid opens ── */}
+                <motion.div
+                  style={{ opacity: screenOpacity }}
+                  className="relative w-full h-full"
+                  onMouseEnter={() => setPaused(true)}
+                  onMouseLeave={() => setPaused(false)}
+                >
+                  {/* macOS-style menu bar */}
+                  <div
+                    style={{
+                      position:     "absolute",
+                      top: 0, left: 0, right: 0,
+                      height:       18,
+                      background:
+                        "linear-gradient(180deg, rgba(18,16,28,0.97) 0%, rgba(13,12,22,0.94) 100%)",
+                      borderBottom: "0.5px solid rgba(255,255,255,0.06)",
+                      display:      "flex",
+                      alignItems:   "center",
+                      justifyContent: "space-between",
+                      padding:      "0 8px",
+                      zIndex:       25,
+                    }}
+                  >
+                    {/* Traffic-light dots */}
+                    <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+                      {["#FF5F57", "#FEBC2E", "#28C840"].map((c, i) => (
+                        <div
+                          key={i}
+                          style={{
+                            width:        5,
+                            height:       5,
+                            borderRadius: "50%",
+                            background:   c,
+                            opacity:      0.7,
+                            boxShadow:    `0 0 4px ${c}88`,
+                          }}
+                        />
+                      ))}
+                    </div>
+                    {/* Window title placeholder */}
+                    <div
+                      style={{
+                        width:        56,
+                        height:       4,
+                        borderRadius: 2,
+                        background:   "rgba(255,255,255,0.09)",
+                      }}
+                    />
+                    {/* Right-side icons */}
+                    <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
+                      {[18, 13, 10].map((w, i) => (
+                        <div
+                          key={i}
+                          style={{
+                            width:        w,
+                            height:       3,
+                            borderRadius: 1.5,
+                            background:   "rgba(255,255,255,0.11)",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Ambient colour glow (below menu bar) */}
+                  <div
+                    className="absolute pointer-events-none transition-all duration-700"
+                    style={{
+                      top: 18, left: 0, right: 0, bottom: 0,
+                      background: `radial-gradient(ellipse at 50% 55%, ${tool.color}1c 0%, transparent 66%)`,
+                    }}
+                  />
+
+                  {/* Subtle dot grid (below menu bar) */}
+                  <div
+                    className="absolute pointer-events-none"
+                    style={{
+                      top: 18, left: 0, right: 0, bottom: 0,
+                      backgroundImage:
+                        "radial-gradient(circle, rgba(140,145,247,0.18) 1px, transparent 1px)",
+                      backgroundSize: "28px 28px",
+                      opacity: 0.28,
+                    }}
+                  />
+
+                  {/* ── Tool slide ── */}
+                  <AnimatePresence mode="wait" custom={direction}>
+                    <motion.div
+                      key={current}
+                      custom={direction}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      className="absolute inset-0 flex flex-col items-center justify-center gap-5 px-8"
+                      style={{ top: 18 }}
+                    >
+                      {/* Icon badge */}
+                      <div
+                        className="flex items-center justify-center rounded-[18px] font-black text-3xl select-none"
+                        style={{
+                          width:      88,
+                          height:     88,
+                          background: tool.bg,
+                          border:     `1.5px solid ${tool.color}55`,
+                          color:      tool.color,
+                          boxShadow:
+                            `0 0 40px ${tool.color}20, ` +
+                            `0 0 8px ${tool.color}18, ` +
+                            `0 0 0 4px ${tool.color}08`,
+                          letterSpacing: "-0.01em",
+                        }}
+                      >
+                        {tool.abbr}
+                      </div>
+
+                      {/* Name + description */}
+                      <div className="text-center">
+                        <h3 className="text-xl font-bold mb-1.5" style={{ color: "#E4E4E4" }}>
+                          {tool.name}
+                        </h3>
+                        <p
+                          className="text-sm leading-relaxed max-w-[260px] mx-auto"
+                          style={{ color: "rgba(228,228,228,0.45)" }}
+                        >
+                          {tool.desc}
+                        </p>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Invisible prev / next click zones */}
+                  <button
+                    className="absolute left-0 top-0 h-full w-1/4 cursor-w-resize focus:outline-none"
+                    aria-label="Previous tool"
+                    onClick={() => goTo((current - 1 + tools.length) % tools.length, -1)}
+                  />
+                  <button
+                    className="absolute right-0 top-0 h-full w-1/4 cursor-e-resize focus:outline-none"
+                    aria-label="Next tool"
+                    onClick={() => goTo((current + 1) % tools.length, 1)}
+                  />
+
+                  {/* Progress dots */}
+                  <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
+                    {tools.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => goTo(i, i > current ? 1 : -1)}
+                        aria-label={`Go to ${tools[i].name}`}
+                        className="rounded-full transition-all duration-300"
+                        style={{
+                          width:      i === current ? 20 : 5,
+                          height:     5,
+                          background: i === current ? tool.color : "rgba(228,228,228,0.15)",
+                          boxShadow:  i === current ? `0 0 10px ${tool.color}55` : "none",
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Counter */}
+                  <div
+                    className="absolute right-3 text-[9px] tracking-widest select-none"
+                    style={{ top: 22, color: "rgba(228,228,228,0.18)" }}
+                  >
+                    {String(current + 1).padStart(2, "0")}&thinsp;/&thinsp;
+                    {String(tools.length).padStart(2, "0")}
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* ── Camera housing (centered on top bezel) ── */}
               <div
                 style={{
                   position:  "absolute",
-                  top: 7, left: "50%",
+                  top:       4,
+                  left:      "50%",
                   transform: "translateX(-50%)",
-                  width: 6, height: 6,
-                  borderRadius: "50%",
-                  background: "#1e1e20",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  zIndex: 11,
+                  display:   "flex",
+                  alignItems: "center",
+                  gap:       4,
+                }}
+              >
+                {/* Camera lens ring */}
+                <div
+                  style={{
+                    width:        7,
+                    height:       7,
+                    borderRadius: "50%",
+                    background:
+                      "radial-gradient(circle at 35% 32%, #282a2e 0%, #121214 55%, #0a0a0c 100%)",
+                    border:    "0.5px solid rgba(255,255,255,0.07)",
+                    boxShadow:
+                      "0 0 0 1.5px rgba(0,0,0,0.75), " +
+                      "0 0 0 2.5px rgba(255,255,255,0.03), " +
+                      "inset 0 1px 0 rgba(255,255,255,0.07)",
+                  }}
+                />
+                {/* Active indicator LED */}
+                <div
+                  style={{
+                    width:        3,
+                    height:       3,
+                    borderRadius: "50%",
+                    background:   "rgba(0, 210, 85, 0.68)",
+                    boxShadow:    "0 0 5px rgba(0, 210, 85, 0.5)",
+                  }}
+                />
+              </div>
+
+              {/* Bottom rim highlight where lid meets hinge */}
+              <div
+                style={{
+                  position:   "absolute",
+                  bottom:      0,
+                  left:       "10%",
+                  right:      "10%",
+                  height:      1,
+                  background:
+                    "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.09) 25%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.09) 75%, transparent 100%)",
                 }}
               />
-
-              {/* Screen content — fades in as lid opens */}
-              <motion.div
-                style={{ opacity: screenOpacity }}
-                className="relative w-full h-full"
-                onMouseEnter={() => setPaused(true)}
-                onMouseLeave={() => setPaused(false)}
-              >
-                {/* Ambient colour glow */}
-                <div
-                  className="absolute inset-0 pointer-events-none transition-all duration-700"
-                  style={{
-                    background: `radial-gradient(ellipse at 50% 30%, ${tool.color}1e 0%, transparent 65%)`,
-                  }}
-                />
-
-                {/* Subtle dot grid */}
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    backgroundImage:
-                      "radial-gradient(circle, rgba(140,145,247,0.18) 1px, transparent 1px)",
-                    backgroundSize: "28px 28px",
-                    opacity: 0.35,
-                  }}
-                />
-
-                {/* ── Tool slide ── */}
-                <AnimatePresence mode="wait" custom={direction}>
-                  <motion.div
-                    key={current}
-                    custom={direction}
-                    variants={slideVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    className="absolute inset-0 flex flex-col items-center justify-center gap-5 px-8"
-                  >
-                    {/* Icon badge */}
-                    <div
-                      className="flex items-center justify-center rounded-[18px] font-black text-3xl select-none"
-                      style={{
-                        width: 92, height: 92,
-                        background: tool.bg,
-                        border:     `1.5px solid ${tool.color}55`,
-                        color:      tool.color,
-                        boxShadow:  `0 0 36px ${tool.color}22, 0 0 8px ${tool.color}18`,
-                        letterSpacing: "-0.01em",
-                      }}
-                    >
-                      {tool.abbr}
-                    </div>
-
-                    {/* Name + description */}
-                    <div className="text-center">
-                      <h3 className="text-xl font-bold mb-1.5" style={{ color: "#E4E4E4" }}>
-                        {tool.name}
-                      </h3>
-                      <p
-                        className="text-sm leading-relaxed max-w-[260px] mx-auto"
-                        style={{ color: "rgba(228,228,228,0.48)" }}
-                      >
-                        {tool.desc}
-                      </p>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Invisible prev / next click zones */}
-                <button
-                  className="absolute left-0 top-0 h-full w-1/4 cursor-w-resize focus:outline-none"
-                  aria-label="Previous tool"
-                  onClick={() => goTo((current - 1 + tools.length) % tools.length, -1)}
-                />
-                <button
-                  className="absolute right-0 top-0 h-full w-1/4 cursor-e-resize focus:outline-none"
-                  aria-label="Next tool"
-                  onClick={() => goTo((current + 1) % tools.length, 1)}
-                />
-
-                {/* Progress dots */}
-                <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
-                  {tools.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => goTo(i, i > current ? 1 : -1)}
-                      aria-label={`Go to ${tools[i].name}`}
-                      className="rounded-full transition-all duration-300"
-                      style={{
-                        width:      i === current ? 20 : 5,
-                        height:     5,
-                        background: i === current ? tool.color : "rgba(228,228,228,0.15)",
-                        boxShadow:  i === current ? `0 0 10px ${tool.color}55` : "none",
-                      }}
-                    />
-                  ))}
-                </div>
-
-                {/* Counter */}
-                <div
-                  className="absolute top-3 right-3 text-[9px] tracking-widest select-none"
-                  style={{ color: "rgba(228,228,228,0.18)" }}
-                >
-                  {String(current + 1).padStart(2, "0")}&thinsp;/&thinsp;
-                  {String(tools.length).padStart(2, "0")}
-                </div>
-              </motion.div>
             </motion.div>
 
-            {/* ── [2] Hinge strip ── */}
-            <div
-              style={{
-                height:     6,
-                background: "linear-gradient(180deg, #404042 0%, #2a2a2c 100%)",
-                boxShadow:  "0 2px 8px rgba(0,0,0,0.6)",
-              }}
-            />
+            {/* ── [2] Hinge assembly — twin barrel caps + bridge ── */}
+            <div style={{ position: "relative", height: 11 }}>
+              {/* Hinge bridge (full-width backing) */}
+              <div
+                style={{
+                  position:   "absolute",
+                  inset:      "2px 0 0 0",
+                  background:
+                    "linear-gradient(180deg, #494949 0%, #3b3b3d 40%, #2e2e30 100%)",
+                  boxShadow:
+                    "0 1px 0 rgba(255,255,255,0.1) inset, " +
+                    "0 4px 12px rgba(0,0,0,0.75)",
+                }}
+              />
+              {/* Left hinge barrel */}
+              <div
+                style={{
+                  position:     "absolute",
+                  left:         "5.5%",
+                  top:           0,
+                  width:        "13%",
+                  height:       11,
+                  borderRadius: "0 0 8px 8px",
+                  background:
+                    "linear-gradient(180deg, #545456 0%, #424244 45%, #343436 100%)",
+                  boxShadow:
+                    "0 1px 0 rgba(255,255,255,0.15) inset, " +
+                    "1px 0 0 rgba(255,255,255,0.06) inset, " +
+                    "-1px 0 0 rgba(255,255,255,0.06) inset, " +
+                    "0 3px 7px rgba(0,0,0,0.65)",
+                }}
+              />
+              {/* Right hinge barrel */}
+              <div
+                style={{
+                  position:     "absolute",
+                  right:        "5.5%",
+                  top:           0,
+                  width:        "13%",
+                  height:       11,
+                  borderRadius: "0 0 8px 8px",
+                  background:
+                    "linear-gradient(180deg, #545456 0%, #424244 45%, #343436 100%)",
+                  boxShadow:
+                    "0 1px 0 rgba(255,255,255,0.15) inset, " +
+                    "1px 0 0 rgba(255,255,255,0.06) inset, " +
+                    "-1px 0 0 rgba(255,255,255,0.06) inset, " +
+                    "0 3px 7px rgba(0,0,0,0.65)",
+                }}
+              />
+            </div>
 
             {/* ── [3] Keyboard base — tilted back to simulate lying flat ── */}
-            {/*
-             *  rotateX(62deg) with transformOrigin "center top":
-             *    • The top edge (hinge) stays fixed
-             *    • The bottom edge swings toward the viewer
-             *    • Combined with perspective from above, this gives the
-             *      classic "laptop on a desk" foreshortened keyboard look.
-             */}
             <div
               style={{
                 width:           "103%",
@@ -388,36 +699,95 @@ export function ToolsSection() {
                 height: "clamp(120px, 18vw, 220px)",
                 transform:       "rotateX(62deg)",
                 transformOrigin: "center top",
-                background:      "linear-gradient(180deg, #3a3a3c 0%, #2e2e30 50%, #282828 100%)",
-                borderRadius:    "0 0 14px 14px",
+                background:
+                  "linear-gradient(175deg, #414143 0%, #383839 20%, #303032 55%, #2a2a2c 100%)",
+                borderRadius:    "0 0 16px 16px",
                 overflow:        "hidden",
                 boxShadow:
-                  "0 24px 70px rgba(0,0,0,0.75), " +
-                  "0 1px 0 rgba(255,255,255,0.06) inset, " +
-                  "0 -1px 0 rgba(0,0,0,0.5) inset",
+                  "0 26px 75px rgba(0,0,0,0.82), " +
+                  "0 1px 0 rgba(255,255,255,0.07) inset, " +
+                  "0 -1px 0 rgba(0,0,0,0.5) inset, " +
+                  "2px 0 0 rgba(255,255,255,0.04) inset, " +
+                  "-2px 0 0 rgba(255,255,255,0.04) inset",
+                position: "relative",
               }}
             >
+              {/* Left speaker grille */}
+              <div
+                style={{
+                  position:       "absolute",
+                  left:            10,
+                  top:            "10%",
+                  width:           30,
+                  height:         "58%",
+                  display:        "flex",
+                  flexDirection:  "column",
+                  justifyContent: "space-around",
+                }}
+              >
+                {Array.from({ length: 9 }, (_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      height:     1,
+                      borderRadius: 1,
+                      background: "rgba(0,0,0,0.55)",
+                      boxShadow:  "0 0.5px 0 rgba(255,255,255,0.055)",
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Right speaker grille */}
+              <div
+                style={{
+                  position:       "absolute",
+                  right:           10,
+                  top:            "10%",
+                  width:           30,
+                  height:         "58%",
+                  display:        "flex",
+                  flexDirection:  "column",
+                  justifyContent: "space-around",
+                }}
+              >
+                {Array.from({ length: 9 }, (_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      height:     1,
+                      borderRadius: 1,
+                      background: "rgba(0,0,0,0.55)",
+                      boxShadow:  "0 0.5px 0 rgba(255,255,255,0.055)",
+                    }}
+                  />
+                ))}
+              </div>
+
               <Keyboard />
             </div>
 
             {/* ── [4] Foot shelf ── */}
             <div
               style={{
-                height:      5,
-                margin:      "0 20px",
-                background:  "linear-gradient(180deg, #242426 0%, #1a1a1c 100%)",
-                borderRadius: "0 0 8px 8px",
-                boxShadow:   "0 3px 10px rgba(0,0,0,0.5)",
+                height:       6,
+                margin:       "0 26px",
+                background:
+                  "linear-gradient(180deg, #242426 0%, #1c1c1e 100%)",
+                borderRadius: "0 0 10px 10px",
+                boxShadow:
+                  "0 4px 14px rgba(0,0,0,0.62), " +
+                  "0 1px 0 rgba(255,255,255,0.04) inset",
               }}
             />
 
             {/* ── [5] Ground shadow ── */}
             <div
               style={{
-                height:     18,
-                background: "radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%)",
-                filter:     "blur(10px)",
-                marginTop:   2,
+                height:     22,
+                background: "radial-gradient(ellipse, rgba(0,0,0,0.55) 0%, transparent 70%)",
+                filter:     "blur(12px)",
+                marginTop:   3,
               }}
             />
           </div>
