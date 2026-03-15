@@ -459,17 +459,16 @@ export function SidebarNav() {
             {socialLinks.map((link) => (
               <div key={link.label} className="group/social relative flex flex-col items-center">
                 <span
-                  className="absolute -top-7 left-1/2 -translate-x-1/2 rounded-full px-2.5 py-0.5 whitespace-nowrap pointer-events-none opacity-0 translate-y-1 group-hover/social:opacity-100 group-hover/social:translate-y-0 transition-all duration-300 ease-out"
+                  className="absolute -top-9 left-1/2 -translate-x-1/2 rounded-md px-2.5 py-1 whitespace-nowrap pointer-events-none opacity-0 translate-y-1 group-hover/social:opacity-100 group-hover/social:translate-y-0 transition-all duration-300 ease-out"
                   style={{
-                    fontSize: "9px",
+                    fontSize: "11px",
                     fontWeight: 600,
-                    letterSpacing: "0.08em",
-                    color: "rgba(228, 228, 228, 0.95)",
-                    background: "rgba(140, 145, 247, 0.25)",
+                    letterSpacing: "0.04em",
+                    color: "#E4E4E4",
+                    background: "rgba(20, 16, 42, 0.95)",
                     border: "1px solid rgba(140, 145, 247, 0.2)",
-                    boxShadow: "0 0 10px rgba(140, 145, 247, 0.2), 0 2px 8px rgba(0,0,0,0.3)",
-                    backdropFilter: "blur(8px)",
-                    lineHeight: "1.4",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+                    backdropFilter: "blur(12px)",
                   }}
                 >
                   {link.label}
