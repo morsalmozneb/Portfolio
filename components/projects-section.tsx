@@ -308,7 +308,7 @@ export function ProjectsSection() {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             style={{
-              minHeight: "460px",
+              minHeight: "clamp(280px, 55vw, 480px)",
               border: `1px solid ${project.previewAccent}30`,
               boxShadow: `0 0 60px ${project.previewAccent}18, 0 30px 80px rgba(0,0,0,0.5)`,
               cursor: "grab",
