@@ -11,7 +11,7 @@ export function ExpertiseSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="what-i-do" ref={ref} className="relative py-16 lg:py-28">
+    <section id="what-i-do" ref={ref} className="relative py-10 lg:py-16">
       <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
 
         {/* ── Header (left-aligned) ── */}
@@ -21,10 +21,10 @@ export function ExpertiseSection() {
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <p className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-2">
+          <p className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-2 font-mono">
             Expertise
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#E4E4E4]">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#E4E4E4] font-mono">
             {"What I "}
             <span
               className="text-[#8C91F7]"

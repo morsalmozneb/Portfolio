@@ -368,6 +368,7 @@ a:hover .contact-icon-float {
   font-weight: 700;
   color: #e4e4e4;
   text-wrap: balance;
+  font-family: var(--font-mono);
 }
 
 @media (min-width: 768px) {

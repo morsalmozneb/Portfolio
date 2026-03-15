@@ -12,7 +12,7 @@ function ContactHeader() {
   return (
     <div ref={ref}>
       <motion.p
-        className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-2"
+        className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-2 font-mono"
         initial={{ opacity: 0, x: -60 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -49,7 +49,7 @@ function ContactHeader() {
 export default function ContactPage() {
   return (
     <PageShell>
-      <section className="relative overflow-hidden pt-20 pb-16 lg:pb-20">
+      <section className="relative overflow-hidden pt-10 pb-10 lg:py-16">
         <motion.div
           className="pointer-events-none absolute -top-24 left-[10%] h-72 w-72 rounded-full"
           style={{

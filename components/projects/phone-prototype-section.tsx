@@ -461,8 +461,8 @@ export function PhonePrototypeSection({
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <p className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-1">Interactive Demo</p>
-          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 800, lineHeight: 1.1, color: "#E4E4E4" }}>
+          <p className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-1 font-mono">Interactive Demo</p>
+          <h2 style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", fontWeight: 800, lineHeight: 1.1, color: "#E4E4E4", fontFamily: "var(--font-mono)" }}>
             {"Try it "}
             <span style={{ color: "#8C91F7", textShadow: "0 0 20px rgba(140,145,247,0.3)" }}>
               Yourself

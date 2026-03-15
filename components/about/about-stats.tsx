@@ -150,7 +150,7 @@ export function AboutStats() {
   const isInView = useInView(ref, { once: true, margin: "-80px" })
 
   return (
-    <section className="relative py-12" ref={ref}>
+    <section className="relative py-10" ref={ref}>
       <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
         <div style={{ display: "flex", gap: 12 }}>
           {stats.map((stat, i) => (

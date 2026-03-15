@@ -82,7 +82,7 @@ export function AboutMeSection() {
   }, [isInView])
 
   return (
-    <section className="relative py-28" ref={ref}>
+    <section className="relative py-10 lg:py-16" ref={ref}>
       <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
 
         {/* ── Header ── */}

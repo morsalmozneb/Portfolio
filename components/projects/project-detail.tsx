@@ -285,7 +285,7 @@ export function ProjectDetail({ selectedProjectId }: { selectedProjectId?: strin
           <p style={{ fontSize: "0.62rem", letterSpacing: "0.42em", textTransform: "uppercase", color: "rgba(140,145,247,0.5)", marginBottom: 10 }}>
             {project.label}
           </p>
-          <h2 style={{ fontSize: "clamp(1.7rem, 4.5vw, 3.2rem)", fontWeight: 800, color: "#E4E4E4", lineHeight: 1.1 }}>
+          <h2 style={{ fontSize: "clamp(1.7rem, 4.5vw, 3.2rem)", fontWeight: 800, color: "#E4E4E4", lineHeight: 1.1, fontFamily: "var(--font-mono)" }}>
             {project.title}
           </h2>
         </motion.div>
