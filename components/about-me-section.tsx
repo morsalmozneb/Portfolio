@@ -69,16 +69,13 @@ export function AboutMeSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [scanDone, setScanDone]       = useState(false)
-  const [showIdentity, setShowIdentity] = useState(false)
 
   const titleScramble   = useScrambleText("About", isInView, 100)
-  const badgeScramble   = useScrambleText("IDENTITY VERIFIED", showIdentity, 0)
 
   useEffect(() => {
     if (!isInView) return
-    const t1 = setTimeout(() => setScanDone(true),    1800)
-    const t2 = setTimeout(() => setShowIdentity(true), 2000)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
+    const t1 = setTimeout(() => setScanDone(true), 1800)
+    return () => clearTimeout(t1)
   }, [isInView])
 
   return (
@@ -105,7 +102,7 @@ export function AboutMeSection() {
 
         {/* ── Two-column layout ── */}
         <motion.div
-          className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start"
+          className="flex flex-col lg:flex-row gap-10 lg:gap-16 lg:items-stretch"
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2, duration: 0.7 }}
@@ -170,37 +167,12 @@ export function AboutMeSection() {
                   />
                 )}
 
-                {/* Identity badge */}
-                {showIdentity && (
-                  <motion.div
-                    className="absolute bottom-3 left-3 right-3 flex items-center gap-2 px-3 py-1.5 rounded font-mono z-10"
-                    style={{
-                      background: "rgba(10,9,24,0.82)",
-                      border: "1px solid rgba(140,145,247,0.35)",
-                      backdropFilter: "blur(4px)",
-                    }}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <span
-                      className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                      style={{ background: "#4ADE80", boxShadow: "0 0 6px #4ADE80" }}
-                    />
-                    <span className="text-[10px] tracking-[0.2em] text-[#8C91F7] uppercase">
-                      {badgeScramble}
-                    </span>
-                    <span className="ml-auto text-[9px] text-[#E4E4E4]/25 tracking-widest">
-                      SYS/0x4D
-                    </span>
-                  </motion.div>
-                )}
               </div>
             </div>
           </div>
 
           {/* ── Right: text + CTA ── */}
-          <div className="flex-1 min-w-0 lg:pt-4 flex flex-col gap-6">
+          <div className="flex-1 min-w-0 flex flex-col justify-between gap-4 lg:gap-0">
             <motion.h3
               className="text-2xl md:text-3xl font-bold text-[#E4E4E4]"
               initial={{ opacity: 0, x: 20 }}
