@@ -378,6 +378,11 @@ a:hover .contact-icon-float {
   white-space: nowrap !important;
 }
 
+/* Tighten word-spacing on hero h1 (mono font makes spaces wider) */
+h1.page-heading {
+  word-spacing: -0.12em;
+}
+
 @media (min-width: 768px) {
   .page-heading {
     font-size: 3rem;

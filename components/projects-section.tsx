@@ -355,9 +355,6 @@ export function ProjectsSection() {
             <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <div className="flex flex-col gap-2 max-w-lg">
                 <h3 className="text-2xl md:text-3xl font-bold text-[#E4E4E4]">{project.title}</h3>
-                <p className="text-sm text-[#E4E4E4]/70 leading-relaxed">
-                  {project.overview}
-                </p>
               </div>
 
               {/* CTA button */}

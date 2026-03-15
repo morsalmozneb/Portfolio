@@ -48,16 +48,6 @@ function RadarRing({ delay }: { delay: number }) {
 export function ContactSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [showStatus, setShowStatus] = useState(false)
-
-  const statusText = useTypewriter("TRANSMISSION READY — AWAITING INPUT", isInView, 50, 800)
-
-  useEffect(() => {
-    if (!isInView) return
-    const t = setTimeout(() => setShowStatus(true), 400)
-    return () => clearTimeout(t)
-  }, [isInView])
-
   return (
     <section id="contact" className="relative py-10 lg:py-16 overflow-hidden" ref={ref}>
 
@@ -71,26 +61,6 @@ export function ContactSection() {
       )}
 
       <div className="max-w-[1080px] mx-auto px-6 lg:px-12 relative z-10">
-
-        {/* Typewriter status line */}
-        {showStatus && (
-          <motion.div
-            className="mb-6 font-mono"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            <span className="text-[10px] tracking-[0.2em] text-[#8C91F7]/50 uppercase">
-              {statusText}
-            </span>
-            <motion.span
-              className="inline-block w-[5px] h-[10px] ml-0.5 align-middle"
-              style={{ background: "#8C91F7" }}
-              animate={{ opacity: [1, 0] }}
-              transition={{ duration: 0.6, repeat: Infinity }}
-            />
-          </motion.div>
-        )}
 
         {/* Header */}
         <motion.div
@@ -127,30 +97,6 @@ export function ContactSection() {
               </motion.p>
             ))}
           </div>
-
-          {/* Signal strength bars */}
-          <motion.div
-            className="flex items-center gap-2 mb-8"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.7, duration: 0.5 }}
-          >
-            <div className="flex items-end gap-[3px] h-4">
-              {[3, 5, 7, 9, 11].map((h, i) => (
-                <motion.div
-                  key={i}
-                  className="w-[3px] rounded-sm"
-                  style={{ height: h, background: i < 4 ? "#8C91F7" : "rgba(140,145,247,0.2)" }}
-                  initial={{ scaleY: 0 }}
-                  animate={isInView ? { scaleY: 1 } : {}}
-                  transition={{ delay: 0.9 + i * 0.08, duration: 0.3 }}
-                />
-              ))}
-            </div>
-            <span className="text-[10px] font-mono tracking-widest text-[#8C91F7]/50 uppercase">
-              Signal Strong
-            </span>
-          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
