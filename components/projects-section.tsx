@@ -44,10 +44,11 @@ function GlitchText({ text, trigger }: { text: string; trigger: boolean }) {
     <span
       className="relative inline-block"
       style={{
+        color: "#8C91F7",
         textShadow: glitching
           ? "2px 0 rgba(255,0,80,0.6), -2px 0 rgba(0,200,255,0.6)"
           : "0 0 20px rgba(140,145,247,0.3)",
-        transition: "text-shadow 0.1s",
+        transition: "text-shadow 0.1s, color 0.1s",
       }}
     >
       {display}

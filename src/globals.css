@@ -371,6 +371,13 @@ a:hover .contact-icon-float {
   font-family: var(--font-mono);
 }
 
+/* whitespace-nowrap must always win over text-wrap: balance
+   (used on hero h1 to keep "Hi, I'm Morsal" on one line) */
+.whitespace-nowrap {
+  text-wrap: nowrap !important;
+  white-space: nowrap !important;
+}
+
 @media (min-width: 768px) {
   .page-heading {
     font-size: 3rem;
