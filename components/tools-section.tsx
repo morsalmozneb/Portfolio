@@ -96,6 +96,8 @@ export function ToolsSection() {
                 width: 600, height: 600,
                 pointerEvents: "none",
                 zIndex: 0,
+                borderRadius: "50%",
+                overflow: "hidden",
               }}>
                 <MagicRings
                   color="#fc42ff"
