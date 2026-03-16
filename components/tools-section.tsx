@@ -488,19 +488,26 @@ export function ToolsSection() {
                       animate="center"
                       exit="exit"
                       className="absolute inset-0 overflow-hidden"
-                      style={{ top: 18 }}
+                      style={{
+                        top:        18,
+                        background: "#07070e",
+                        display:    "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
                     >
                       {/* Full-screen tool image */}
                       <img
                         src={tool.img}
                         alt={tool.name}
                         style={{
-                          width:           "100%",
-                          height:          "100%",
-                          objectFit:       "contain",
-                          objectPosition:  "center center",
-                          display:         "block",
-                          background:      "#07070e",
+                          maxWidth:   "100%",
+                          maxHeight:  "100%",
+                          width:      "100%",
+                          height:     "100%",
+                          objectFit:  "contain",
+                          display:    "block",
+                          flexShrink: 0,
                         }}
                       />
 
