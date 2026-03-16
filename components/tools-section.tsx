@@ -21,7 +21,7 @@ const tools = [
   { abbr: "VS",   name: "VS Code",           img: "/images/VSC_Pic.png"             },
 ]
 
-const INTERVAL_MS = 2800
+const INTERVAL_MS = 3000
 
 export function ToolsSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -43,21 +43,16 @@ export function ToolsSection() {
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
   }, [isInView, startTimer])
 
-  const goTo = (idx: number) => {
-    setDirection(idx > current ? 1 : -1)
-    setCurrent(idx)
-    startTimer()
-  }
-
+  const goTo = (idx: number) => { setDirection(idx > current ? 1 : -1); setCurrent(idx); startTimer() }
   const goNext = () => { setDirection(1);  setCurrent(p => (p + 1) % tools.length); startTimer() }
   const goPrev = () => { setDirection(-1); setCurrent(p => (p - 1 + tools.length) % tools.length); startTimer() }
 
   const tool = tools[current]
 
-  const variants = {
-    enter:  (d: number) => ({ x: d * 80, opacity: 0, scale: 0.92 }),
-    center: { x: 0, opacity: 1, scale: 1 },
-    exit:   (d: number) => ({ x: d * -80, opacity: 0, scale: 0.92 }),
+  const imgVariants = {
+    enter:  (d: number) => ({ x: d * 60, opacity: 0, scale: 0.88, rotateY: d * 15 }),
+    center: { x: 0, opacity: 1, scale: 1, rotateY: 0 },
+    exit:   (d: number) => ({ x: d * -60, opacity: 0, scale: 0.88, rotateY: d * -15 }),
   }
 
   return (
@@ -85,44 +80,53 @@ export function ToolsSection() {
           transition={{ delay: 0.25, duration: 0.7 }}
           className="flex flex-col items-center gap-8"
         >
-          {/* Image + arrows */}
-          <div className="flex items-center gap-8 w-full justify-center">
+          {/* Image row */}
+          <div className="flex items-center gap-10 w-full justify-center">
 
             {/* Prev */}
             <button onClick={goPrev} aria-label="Previous"
-              style={{ flexShrink: 0, width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(140,145,247,0.08)", border: "1px solid rgba(140,145,247,0.2)", color: "#8C91F7", cursor: "pointer" }}
+              style={{ flexShrink: 0, width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(140,145,247,0.08)", border: "1px solid rgba(140,145,247,0.2)", color: "#8C91F7", cursor: "pointer", zIndex: 2, position: "relative" }}
               onMouseEnter={e => (e.currentTarget.style.background = "rgba(140,145,247,0.18)")}
               onMouseLeave={e => (e.currentTarget.style.background = "rgba(140,145,247,0.08)")}
             >
               <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </button>
 
-            {/* Image with rings */}
-            <div style={{ position: "relative", width: 320, height: 320, flexShrink: 0 }}>
-              {/* MagicRings — fills the whole area */}
-              <div style={{ position: "absolute", inset: 0 }}>
+            {/* ── The actual visual area ── */}
+            {/* overflow: visible so rings spill freely */}
+            <div style={{ position: "relative", width: 260, height: 260, flexShrink: 0 }}>
+
+              {/* MagicRings — 2× bigger, centred, free to bleed out */}
+              <div style={{
+                position: "absolute",
+                top: "50%", left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 560, height: 560,
+                pointerEvents: "none",
+                zIndex: 0,
+              }}>
                 <MagicRings
                   color="#fc42ff"
-                  colorTwo="#42fcff"
-                  ringCount={6}
-                  speed={1}
-                  attenuation={10}
-                  lineThickness={2}
-                  baseRadius={0.35}
-                  radiusStep={0.1}
-                  scaleRate={0.1}
+                  colorTwo="#8C91F7"
+                  ringCount={7}
+                  speed={0.9}
+                  attenuation={8}
+                  lineThickness={2.5}
+                  baseRadius={0.32}
+                  radiusStep={0.09}
+                  scaleRate={0.12}
                   opacity={1}
-                  noiseAmount={0.1}
+                  noiseAmount={0.08}
                   rotation={0}
                   ringGap={1.5}
-                  fadeIn={0.7}
+                  fadeIn={0.6}
                   fadeOut={0.5}
                   followMouse={false}
-                  parallax={0.05}
+                  parallax={0.04}
                 />
               </div>
 
-              {/* Image — crossfades on top */}
+              {/* Image — screen blend mode dissolves dark bg into rings */}
               <AnimatePresence initial={false} custom={direction} mode="popLayout">
                 <motion.img
                   key={tool.abbr}
@@ -130,11 +134,11 @@ export function ToolsSection() {
                   alt={tool.name}
                   draggable={false}
                   custom={direction}
-                  variants={variants}
+                  variants={imgVariants}
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                   style={{
                     position:       "absolute",
                     inset:          0,
@@ -142,7 +146,9 @@ export function ToolsSection() {
                     height:         "100%",
                     objectFit:      "contain",
                     objectPosition: "center",
-                    padding:        "20px",
+                    mixBlendMode:   "screen",   // dark bg disappears, rings bleed through
+                    zIndex:         1,
+                    filter:         "drop-shadow(0 0 28px rgba(252,66,255,0.55)) drop-shadow(0 0 60px rgba(140,145,247,0.3))",
                     userSelect:     "none",
                   }}
                 />
@@ -151,7 +157,7 @@ export function ToolsSection() {
 
             {/* Next */}
             <button onClick={goNext} aria-label="Next"
-              style={{ flexShrink: 0, width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(140,145,247,0.08)", border: "1px solid rgba(140,145,247,0.2)", color: "#8C91F7", cursor: "pointer" }}
+              style={{ flexShrink: 0, width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(140,145,247,0.08)", border: "1px solid rgba(140,145,247,0.2)", color: "#8C91F7", cursor: "pointer", zIndex: 2, position: "relative" }}
               onMouseEnter={e => (e.currentTarget.style.background = "rgba(140,145,247,0.18)")}
               onMouseLeave={e => (e.currentTarget.style.background = "rgba(140,145,247,0.08)")}
             >
@@ -163,11 +169,11 @@ export function ToolsSection() {
           <AnimatePresence mode="wait">
             <motion.p
               key={tool.abbr + "-name"}
-              initial={{ opacity: 0, y: 6 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.3 }}
-              style={{ color: "#E4E4E4", fontWeight: 600, fontSize: 15, letterSpacing: "0.05em", fontFamily: "monospace" }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.28 }}
+              style={{ color: "#E4E4E4", fontWeight: 600, fontSize: 15, letterSpacing: "0.08em", fontFamily: "monospace", textShadow: "0 0 18px rgba(140,145,247,0.4)" }}
             >
               {tool.name}
             </motion.p>
