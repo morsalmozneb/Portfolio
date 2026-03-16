@@ -1,12 +1,14 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useEffect, useRef } from "react"
+import * as THREE from "three"
+import "./magic-rings.css"
 
 interface MagicRingsProps {
   color?: string
   colorTwo?: string
-  ringCount?: number
   speed?: number
+  ringCount?: number
   attenuation?: number
   lineThickness?: number
   baseRadius?: number
@@ -28,29 +30,66 @@ interface MagicRingsProps {
   className?: string
 }
 
-function hexToRgb(hex: string): [number, number, number] {
-  const clean = hex.replace("#", "")
-  const full  = clean.length === 3
-    ? clean.split("").map(c => c + c).join("")
-    : clean
-  return [
-    parseInt(full.slice(0, 2), 16),
-    parseInt(full.slice(2, 4), 16),
-    parseInt(full.slice(4, 6), 16),
-  ]
+const vertexShader = `
+void main() {
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
+`
 
-function lerpColor(a: string, b: string, t: number): string {
-  const [r1, g1, b1] = hexToRgb(a)
-  const [r2, g2, b2] = hexToRgb(b)
-  return `rgb(${Math.round(r1 + (r2 - r1) * t)},${Math.round(g1 + (g2 - g1) * t)},${Math.round(b1 + (b2 - b1) * t)})`
+const fragmentShader = `
+precision highp float;
+uniform float uTime, uAttenuation, uLineThickness;
+uniform float uBaseRadius, uRadiusStep, uScaleRate;
+uniform float uOpacity, uNoiseAmount, uRotation, uRingGap;
+uniform float uFadeIn, uFadeOut;
+uniform float uMouseInfluence, uHoverAmount, uHoverScale, uParallax, uBurst;
+uniform vec2 uResolution, uMouse;
+uniform vec3 uColor, uColorTwo;
+uniform int uRingCount;
+const float HP = 1.5707963;
+const float CYCLE = 3.45;
+float fade(float t) {
+  return t < uFadeIn ? smoothstep(0.0, uFadeIn, t) : 1.0 - smoothstep(uFadeOut, CYCLE - 0.2, t);
 }
+float ring(vec2 p, float ri, float cut, float t0, float px) {
+  float t = mod(uTime + t0, CYCLE);
+  float r = ri + t / CYCLE * uScaleRate;
+  float d = abs(length(p) - r);
+  float a = atan(abs(p.y), abs(p.x)) / HP;
+  float th = max(1.0 - a, 0.5) * px * uLineThickness;
+  float h = (1.0 - smoothstep(th, th * 1.5, d)) + 1.0;
+  d += pow(cut * a, 3.0) * r;
+  return h * exp(-uAttenuation * d) * fade(t);
+}
+void main() {
+  float px = 1.0 / min(uResolution.x, uResolution.y);
+  vec2 p = (gl_FragCoord.xy - 0.5 * uResolution.xy) * px;
+  float cr = cos(uRotation), sr = sin(uRotation);
+  p = mat2(cr, -sr, sr, cr) * p;
+  p -= uMouse * uMouseInfluence;
+  float sc = mix(1.0, uHoverScale, uHoverAmount) + uBurst * 0.3;
+  p /= sc;
+  vec3 c = vec3(0.0);
+  float rcf = max(float(uRingCount) - 1.0, 1.0);
+  for (int i = 0; i < 10; i++) {
+    if (i >= uRingCount) break;
+    float fi = float(i);
+    vec2 pr = p - fi * uParallax * uMouse;
+    vec3 rc = mix(uColor, uColorTwo, fi / rcf);
+    c = mix(c, rc, vec3(ring(pr, uBaseRadius + fi * uRadiusStep, pow(uRingGap, fi), i == 0 ? 0.0 : 2.95 * fi, px)));
+  }
+  c *= 1.0 + uBurst * 2.0;
+  float n = fract(sin(dot(gl_FragCoord.xy + uTime * 100.0, vec2(12.9898, 78.233))) * 43758.5453);
+  c += (n - 0.5) * uNoiseAmount;
+  gl_FragColor = vec4(c, max(c.r, max(c.g, c.b)) * uOpacity);
+}
+`
 
 export default function MagicRings({
   color        = "#fc42ff",
   colorTwo     = "#42fcff",
-  ringCount    = 6,
   speed        = 1,
+  ringCount    = 6,
   attenuation  = 10,
   lineThickness = 2,
   baseRadius   = 0.35,
@@ -61,98 +100,174 @@ export default function MagicRings({
   noiseAmount  = 0.1,
   rotation     = 0,
   ringGap      = 1.5,
+  fadeIn       = 0.7,
+  fadeOut      = 0.5,
+  followMouse  = false,
+  mouseInfluence = 0.2,
+  hoverScale   = 1.2,
+  parallax     = 0.05,
+  clickBurst   = false,
   style,
   className,
 }: MagicRingsProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const frameRef  = useRef(0)
-  const animRef   = useRef<number>(0)
+  const mountRef        = useRef<HTMLDivElement>(null)
+  const propsRef        = useRef<MagicRingsProps>({})
+  const mouseRef        = useRef<[number, number]>([0, 0])
+  const smoothMouseRef  = useRef<[number, number]>([0, 0])
+  const hoverAmountRef  = useRef(0)
+  const isHoveredRef    = useRef(false)
+  const burstRef        = useRef(0)
+
+  propsRef.current = {
+    color, colorTwo, speed, ringCount, attenuation, lineThickness,
+    baseRadius, radiusStep, scaleRate, opacity, noiseAmount,
+    rotation, ringGap, fadeIn, fadeOut, followMouse, mouseInfluence,
+    hoverScale, parallax, clickBurst,
+  }
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
+    const mount = mountRef.current
+    if (!mount) return
+
+    let renderer: THREE.WebGLRenderer
+    try {
+      renderer = new THREE.WebGLRenderer({ alpha: true })
+    } catch {
+      return
+    }
+    if (!renderer.capabilities.isWebGL2) {
+      renderer.dispose()
+      return
+    }
+    renderer.setClearColor(0x000000, 0)
+    mount.appendChild(renderer.domElement)
+
+    const scene  = new THREE.Scene()
+    const camera = new THREE.OrthographicCamera(-0.5, 0.5, 0.5, -0.5, 0.1, 10)
+    camera.position.z = 1
+
+    const uniforms = {
+      uTime:           { value: 0 },
+      uAttenuation:    { value: 0 },
+      uResolution:     { value: new THREE.Vector2() },
+      uColor:          { value: new THREE.Color() },
+      uColorTwo:       { value: new THREE.Color() },
+      uLineThickness:  { value: 0 },
+      uBaseRadius:     { value: 0 },
+      uRadiusStep:     { value: 0 },
+      uScaleRate:      { value: 0 },
+      uRingCount:      { value: 0 },
+      uOpacity:        { value: 1 },
+      uNoiseAmount:    { value: 0 },
+      uRotation:       { value: 0 },
+      uRingGap:        { value: 1.6 },
+      uFadeIn:         { value: 0.5 },
+      uFadeOut:        { value: 0.75 },
+      uMouse:          { value: new THREE.Vector2() },
+      uMouseInfluence: { value: 0 },
+      uHoverAmount:    { value: 0 },
+      uHoverScale:     { value: 1 },
+      uParallax:       { value: 0 },
+      uBurst:          { value: 0 },
+    }
+
+    const material = new THREE.ShaderMaterial({
+      vertexShader,
+      fragmentShader,
+      uniforms,
+      transparent: true,
+    })
+    const quad = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material)
+    scene.add(quad)
 
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1
-      canvas.width  = canvas.offsetWidth  * dpr
-      canvas.height = canvas.offsetHeight * dpr
+      const w   = mount.clientWidth
+      const h   = mount.clientHeight
+      const dpr = Math.min(window.devicePixelRatio, 2)
+      renderer.setSize(w, h)
+      renderer.setPixelRatio(dpr)
+      uniforms.uResolution.value.set(w * dpr, h * dpr)
     }
     resize()
+    window.addEventListener("resize", resize)
     const ro = new ResizeObserver(resize)
-    ro.observe(canvas)
+    ro.observe(mount)
 
-    const draw = () => {
-      const W = canvas.width
-      const H = canvas.height
-      const dpr = window.devicePixelRatio || 1
-      ctx.clearRect(0, 0, W, H)
-
-      const cx   = W / 2
-      const cy   = H / 2
-      const maxR = Math.min(W, H) / 2
-      const t    = frameRef.current * speed * 0.006
-
-      for (let i = 0; i < ringCount; i++) {
-        const phase    = t + i * ringGap * 0.55
-        const rBase    = maxR * (baseRadius + i * radiusStep)
-        const r        = rBase * (1 + scaleRate * Math.sin(phase * 1.4))
-        const attFactor = Math.max(0, 1 - (attenuation / 100) * i)
-        const alpha    = opacity * attFactor
-
-        if (alpha <= 0.01 || r <= 1) continue
-
-        const ringColor = lerpColor(color, colorTwo, i / Math.max(1, ringCount - 1))
-
-        // Draw ring as a distorted polygon (80 points) for organic look
-        const POINTS = 80
-        ctx.beginPath()
-        for (let j = 0; j <= POINTS; j++) {
-          const angle = (j / POINTS) * Math.PI * 2 + rotation
-          // Multi-frequency noise for organic, non-repeating distortion
-          const noise = noiseAmount * rBase * (
-            Math.sin(angle * 3  + phase * 1.3  + i * 0.7) * 0.45 +
-            Math.sin(angle * 7  - phase * 0.9  + i * 1.2) * 0.30 +
-            Math.sin(angle * 2  + phase * 2.0  - i * 0.5) * 0.25
-          )
-          const rx = cx + (r + noise) * Math.cos(angle)
-          const ry = cy + (r + noise) * Math.sin(angle)
-          if (j === 0) ctx.moveTo(rx, ry)
-          else ctx.lineTo(rx, ry)
-        }
-        ctx.closePath()
-
-        ctx.save()
-        if (blur > 0) ctx.filter = `blur(${blur}px)`
-        ctx.strokeStyle   = ringColor
-        ctx.lineWidth     = lineThickness * dpr
-        ctx.globalAlpha   = alpha
-        ctx.shadowBlur    = 14 * dpr
-        ctx.shadowColor   = ringColor
-        ctx.stroke()
-        ctx.restore()
-      }
-
-      frameRef.current++
-      animRef.current = requestAnimationFrame(draw)
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = mount.getBoundingClientRect()
+      mouseRef.current[0] =  (e.clientX - rect.left) / rect.width  - 0.5
+      mouseRef.current[1] = -((e.clientY - rect.top)  / rect.height - 0.5)
     }
+    const onMouseEnter = () => { isHoveredRef.current = true }
+    const onMouseLeave = () => {
+      isHoveredRef.current = false
+      mouseRef.current[0]  = 0
+      mouseRef.current[1]  = 0
+    }
+    const onClick = () => { burstRef.current = 1 }
 
-    draw()
+    mount.addEventListener("mousemove",  onMouseMove)
+    mount.addEventListener("mouseenter", onMouseEnter)
+    mount.addEventListener("mouseleave", onMouseLeave)
+    mount.addEventListener("click",      onClick)
+
+    let frameId: number
+    const animate = (t: number) => {
+      frameId = requestAnimationFrame(animate)
+      const p = propsRef.current
+
+      smoothMouseRef.current[0] += (mouseRef.current[0] - smoothMouseRef.current[0]) * 0.08
+      smoothMouseRef.current[1] += (mouseRef.current[1] - smoothMouseRef.current[1]) * 0.08
+      hoverAmountRef.current    += ((isHoveredRef.current ? 1 : 0) - hoverAmountRef.current) * 0.08
+      burstRef.current          *= 0.95
+      if (burstRef.current < 0.001) burstRef.current = 0
+
+      uniforms.uTime.value          = t * 0.001 * (p.speed ?? 1)
+      uniforms.uAttenuation.value   = p.attenuation ?? 10
+      uniforms.uColor.value.set(p.color ?? "#fc42ff")
+      uniforms.uColorTwo.value.set(p.colorTwo ?? "#42fcff")
+      uniforms.uLineThickness.value = p.lineThickness ?? 2
+      uniforms.uBaseRadius.value    = p.baseRadius ?? 0.35
+      uniforms.uRadiusStep.value    = p.radiusStep ?? 0.1
+      uniforms.uScaleRate.value     = p.scaleRate ?? 0.1
+      uniforms.uRingCount.value     = p.ringCount ?? 6
+      uniforms.uOpacity.value       = p.opacity ?? 1
+      uniforms.uNoiseAmount.value   = p.noiseAmount ?? 0.1
+      uniforms.uRotation.value      = ((p.rotation ?? 0) * Math.PI) / 180
+      uniforms.uRingGap.value       = p.ringGap ?? 1.5
+      uniforms.uFadeIn.value        = p.fadeIn ?? 0.7
+      uniforms.uFadeOut.value       = p.fadeOut ?? 0.5
+      uniforms.uMouse.value.set(smoothMouseRef.current[0], smoothMouseRef.current[1])
+      uniforms.uMouseInfluence.value = p.followMouse ? (p.mouseInfluence ?? 0.2) : 0
+      uniforms.uHoverAmount.value   = hoverAmountRef.current
+      uniforms.uHoverScale.value    = p.hoverScale ?? 1.2
+      uniforms.uParallax.value      = p.parallax ?? 0.05
+      uniforms.uBurst.value         = p.clickBurst ? burstRef.current : 0
+
+      renderer.render(scene, camera)
+    }
+    frameId = requestAnimationFrame(animate)
+
     return () => {
-      cancelAnimationFrame(animRef.current)
+      cancelAnimationFrame(frameId)
+      window.removeEventListener("resize", resize)
       ro.disconnect()
+      mount.removeEventListener("mousemove",  onMouseMove)
+      mount.removeEventListener("mouseenter", onMouseEnter)
+      mount.removeEventListener("mouseleave", onMouseLeave)
+      mount.removeEventListener("click",      onClick)
+      if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement)
+      renderer.dispose()
+      material.dispose()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [color, colorTwo, ringCount, speed, attenuation, lineThickness,
-      baseRadius, radiusStep, scaleRate, opacity, blur, noiseAmount,
-      rotation, ringGap])
+  }, [])
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{ width: "100%", height: "100%", display: "block", ...style }}
-      className={className}
+    <div
+      ref={mountRef}
+      className={`magic-rings-container${className ? ` ${className}` : ""}`}
+      style={blur > 0 ? { filter: `blur(${blur}px)`, ...style } : style}
     />
   )
 }
