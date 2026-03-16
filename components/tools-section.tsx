@@ -495,10 +495,12 @@ export function ToolsSection() {
                         src={tool.img}
                         alt={tool.name}
                         style={{
-                          width:      "100%",
-                          height:     "100%",
-                          objectFit:  "cover",
-                          display:    "block",
+                          width:           "100%",
+                          height:          "100%",
+                          objectFit:       "contain",
+                          objectPosition:  "center center",
+                          display:         "block",
+                          background:      "#07070e",
                         }}
                       />
 
