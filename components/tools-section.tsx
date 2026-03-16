@@ -100,8 +100,8 @@ export function ToolsSection() {
                 overflow: "hidden",
               }}>
                 <MagicRings
-                  color="#fc42ff"
-                  colorTwo="#8C91F7"
+                  color="#8C91F7"
+                  colorTwo="#6366f1"
                   ringCount={7}
                   speed={0.9}
                   attenuation={8}
@@ -141,7 +141,7 @@ export function ToolsSection() {
                       height:     220,
                       objectFit:  "contain",
                       display:    "block",
-                      filter:     "drop-shadow(0 0 22px rgba(252,66,255,0.75)) drop-shadow(0 8px 32px rgba(140,145,247,0.55))",
+                      filter:     "drop-shadow(0 0 22px rgba(140,145,247,0.8)) drop-shadow(0 8px 32px rgba(99,102,241,0.6))",
                       userSelect: "none",
                     }}
                   />
