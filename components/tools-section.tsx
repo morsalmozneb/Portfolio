@@ -361,7 +361,7 @@ export function ToolsSection() {
               perspective:       "1400px",
               perspectiveOrigin: "50% 36%",
               width:    "100%",
-              maxWidth: 700,
+              maxWidth: 560,
             }}
           >
 
@@ -371,7 +371,7 @@ export function ToolsSection() {
                 rotateX:         lidAngle,
                 transformOrigin: "center bottom",
                 width:    "100%",
-                height: "clamp(200px, 30vw, 360px)",
+                height: "clamp(160px, 22vw, 280px)",
                 borderRadius: "16px 16px 3px 3px",
                 position: "relative",
                 // Space-gray aluminum exterior shell
@@ -696,7 +696,7 @@ export function ToolsSection() {
               style={{
                 width:           "103%",
                 marginLeft:      "-1.5%",
-                height: "clamp(120px, 18vw, 220px)",
+                height: "clamp(95px, 14vw, 170px)",
                 transform:       "rotateX(62deg)",
                 transformOrigin: "center top",
                 background:
