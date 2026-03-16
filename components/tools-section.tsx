@@ -1,334 +1,40 @@
 "use client"
 
-import { useRef, useState, useEffect, useCallback } from "react"
-import {
-  motion,
-  AnimatePresence,
-  useInView,
-  useScroll,
-  useTransform,
-  useSpring,
-} from "framer-motion"
+import { useRef } from "react"
+import { motion, useInView } from "framer-motion"
+import MagicRings from "./magic-rings"
 
 /* ── Tool data ────────────────────────────────────────────────────── */
 const tools = [
-  { abbr: "Ai",  name: "Adobe Illustrator", desc: "Vector graphics, logos & brand illustration",    color: "#FF9A00", bg: "rgba(255,154,0,0.14)",    img: "/images/AI_Pic.png"               },
-  { abbr: "Ps",  name: "Adobe Photoshop",   desc: "Photo editing, retouching & compositing",        color: "#31A8FF", bg: "rgba(49,168,255,0.14)",   img: "/images/PS_Pic.png"               },
-  { abbr: "Fi",  name: "Figma",             desc: "UI/UX design, prototyping & design systems",     color: "#F24E1E", bg: "rgba(242,78,30,0.14)",    img: "/images/Figma_Pic.png"            },
-  { abbr: "Id",  name: "Adobe InDesign",    desc: "Print layouts, editorial & publication design",  color: "#FF3366", bg: "rgba(255,51,102,0.14)",   img: "/images/Id_Pic.png"               },
-  { abbr: "Ae",  name: "After Effects",     desc: "Motion graphics, animation & visual effects",    color: "#9999FF", bg: "rgba(153,153,255,0.14)",  img: "/images/Ae_Pic.png"               },
-  { abbr: "Pr",  name: "Premiere Pro",      desc: "Video editing, colour grading & production",     color: "#EA77FF", bg: "rgba(234,119,255,0.14)",  img: "/images/Pr_Pic.png"               },
-  { abbr: "Fr",  name: "Framer",            desc: "Interactive web design & no-code publishing",    color: "#0055FF", bg: "rgba(0,85,255,0.14)",     img: "/images/Framer_Pic.png"           },
-  { abbr: "{ }", name: "CSS3",              desc: "Styling, animations & responsive layouts",       color: "#1572B6", bg: "rgba(21,114,182,0.14)",   img: "/images/CSS_Pic.png"              },
-  { abbr: "</>", name: "HTML5",             desc: "Semantic markup & accessible web structure",     color: "#E34F26", bg: "rgba(227,79,38,0.14)",    img: "/images/HTML5_Pic.png"            },
-  { abbr: "JS",  name: "JavaScript",        desc: "Interactive UI logic & front-end scripting",     color: "#F7DF1E", bg: "rgba(247,223,30,0.14)",   img: "/images/JavaScript_Pic.png"       },
-  { abbr: "GH",  name: "GitHub",            desc: "Version control, collaboration & code review",   color: "#E4E4E4", bg: "rgba(228,228,228,0.08)",  img: "/images/GitHub_Pic.png"           },
-  { abbr: "Re",  name: "React",             desc: "Component-based UI for dynamic web apps",        color: "#61DAFB", bg: "rgba(97,218,251,0.14)",   img: "/images/React_Pic.png"            },
-  { abbr: "W",   name: "Microsoft Office",  desc: "Documentation, data analysis & productivity",   color: "#2B8FE5", bg: "rgba(43,143,229,0.14)",   img: "/images/MicrosoftOffice_Pic.png"  },
-  { abbr: "VS",  name: "VS Code",           desc: "Code editing, debugging & extensions",           color: "#007ACC", bg: "rgba(0,122,204,0.14)",    img: "/images/VSC_Pic.png"              },
+  { abbr: "Ai",  name: "Adobe Illustrator", desc: "Vector graphics & brand illustration",   color: "#FF9A00", img: "/images/AI_Pic.png"              },
+  { abbr: "Ps",  name: "Adobe Photoshop",   desc: "Photo editing & compositing",             color: "#31A8FF", img: "/images/PS_Pic.png"              },
+  { abbr: "Fi",  name: "Figma",             desc: "UI/UX design & prototyping",              color: "#F24E1E", img: "/images/Figma_Pic.png"           },
+  { abbr: "Id",  name: "Adobe InDesign",    desc: "Editorial & publication design",          color: "#FF3366", img: "/images/Id_Pic.png"              },
+  { abbr: "Ae",  name: "After Effects",     desc: "Motion graphics & visual effects",        color: "#9999FF", img: "/images/Ae_Pic.png"              },
+  { abbr: "Pr",  name: "Premiere Pro",      desc: "Video editing & colour grading",          color: "#EA77FF", img: "/images/Pr_Pic.png"              },
+  { abbr: "Fr",  name: "Framer",            desc: "Interactive web & no-code publishing",    color: "#0055FF", img: "/images/Framer_Pic.png"          },
+  { abbr: "CSS", name: "CSS3",              desc: "Styling, animations & layouts",           color: "#1572B6", img: "/images/CSS_Pic.png"             },
+  { abbr: "HTML",name: "HTML5",             desc: "Semantic markup & web structure",         color: "#E34F26", img: "/images/HTML5_Pic.png"           },
+  { abbr: "JS",  name: "JavaScript",        desc: "Interactive UI & front-end scripting",    color: "#F7DF1E", img: "/images/JavaScript_Pic.png"      },
+  { abbr: "GH",  name: "GitHub",            desc: "Version control & collaboration",         color: "#E4E4E4", img: "/images/GitHub_Pic.png"          },
+  { abbr: "Re",  name: "React",             desc: "Component-based dynamic web apps",        color: "#61DAFB", img: "/images/React_Pic.png"           },
+  { abbr: "MS",  name: "Microsoft Office",  desc: "Docs, data analysis & productivity",      color: "#2B8FE5", img: "/images/MicrosoftOffice_Pic.png" },
+  { abbr: "VS",  name: "VS Code",           desc: "Code editing, debugging & extensions",    color: "#007ACC", img: "/images/VSC_Pic.png"             },
 ]
-
-/* ── Slide animation variants ─────────────────────────────────────── */
-const eIn  = [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
-const eOut = [0.55, 0.06, 0.68, 0.19] as [number, number, number, number]
-const slideVariants = {
-  enter: (d: number) => ({ x: d > 0 ? 260 : -260, opacity: 0 }),
-  center: { x: 0, opacity: 1, transition: { duration: 0.44, ease: eIn } },
-  exit:   (d: number) => ({ x: d > 0 ? -260 : 260, opacity: 0, transition: { duration: 0.3, ease: eOut } }),
-}
-
-/* ── Individual key component ─────────────────────────────────────── */
-function Key({ flex = 1, label = "", fnKey = false }: { flex?: number; label?: string; fnKey?: boolean }) {
-  if (fnKey) {
-    return (
-      <div
-        style={{
-          flex,
-          height: 13,
-          background: "linear-gradient(168deg, #272729 0%, #1e1e20 100%)",
-          borderRadius: "2px 2px 1.5px 1.5px",
-          border: "0.5px solid rgba(255,255,255,0.03)",
-          boxShadow:
-            "0 1px 0 rgba(255,255,255,0.05) inset, " +
-            "0 -1px 0 rgba(0,0,0,0.5) inset, " +
-            "0 1.5px 3px rgba(0,0,0,0.7)",
-        }}
-      />
-    )
-  }
-  return (
-    <div
-      style={{
-        flex,
-        height: 20,
-        background: "linear-gradient(168deg, #2e2e30 0%, #272729 50%, #222224 100%)",
-        borderRadius: "3.5px 3.5px 2px 2px",
-        border: "0.5px solid rgba(255,255,255,0.04)",
-        boxShadow:
-          "0 1.5px 0 rgba(255,255,255,0.07) inset, " +
-          "0 -2px 0 rgba(0,0,0,0.55) inset, " +
-          "1px 0 0 rgba(255,255,255,0.02) inset, " +
-          "-1px 0 0 rgba(255,255,255,0.02) inset, " +
-          "0 3px 5px rgba(0,0,0,0.75)",
-        display: "flex",
-        alignItems: "flex-end",
-        justifyContent: "center",
-        paddingBottom: 2,
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* Keyboard backlight bleed through key gap */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "60%",
-          height: 1,
-          background: "rgba(140,145,247,0.1)",
-          filter: "blur(0.8px)",
-        }}
-      />
-      {label && (
-        <span
-          style={{
-            fontSize: 4.5,
-            color: "rgba(255,255,255,0.2)",
-            fontFamily: "system-ui, -apple-system, sans-serif",
-            zIndex: 1,
-            position: "relative",
-            lineHeight: 1,
-          }}
-        >
-          {label}
-        </span>
-      )}
-    </div>
-  )
-}
-
-/* ── Keyboard component ───────────────────────────────────────────── */
-function Keyboard() {
-  // Each row: array of [label, flex?]
-  const rows: Array<Array<[string, number?]>> = [
-    [["1"],["2"],["3"],["4"],["5"],["6"],["7"],["8"],["9"],["0"],["-"],["="],["⌫",2.1]],
-    [["⇥",1.6],["Q"],["W"],["E"],["R"],["T"],["Y"],["U"],["I"],["O"],["P"],["["],["\\",1.8]],
-    [["⇪",1.9],["A"],["S"],["D"],["F"],["G"],["H"],["J"],["K"],["L"],[";"],["'"],["↵",2.3]],
-    [["⇧",2.4],["Z"],["X"],["C"],["V"],["B"],["N"],["M"],[","],["."],["/"],[" ⇧",2.4]],
-  ]
-
-  const spaceRow: Array<[string, number]> = [
-    ["fn",1.2],["⌃",1.1],["⌥",1.2],["⌘",1.3],["",5.8],["⌘",1.3],["⌥",1.2],["◁",1.0],["△▽",1.0],["▷",1.0],
-  ]
-
-  return (
-    <div
-      style={{
-        padding: "8px 12px 0",
-        display: "flex",
-        flexDirection: "column",
-        gap: 3,
-        position: "relative",
-      }}
-    >
-      {/* Keyboard backlight ambient — very subtle purple glow */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "radial-gradient(ellipse at 50% 65%, rgba(140,145,247,0.042) 0%, transparent 62%)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      />
-
-      {/* Fn / media key row */}
-      <div style={{ display: "flex", gap: 2, position: "relative", zIndex: 1 }}>
-        {Array.from({ length: 14 }, (_, i) => (
-          <Key key={i} flex={i === 0 ? 1.3 : i === 13 ? 1.9 : 1} fnKey />
-        ))}
-      </div>
-
-      {/* Main key rows */}
-      {rows.map((row, ri) => (
-        <div key={ri} style={{ display: "flex", gap: 2, position: "relative", zIndex: 1 }}>
-          {row.map(([label, flex], ki) => (
-            <Key key={ki} flex={flex ?? 1} label={label.trim()} />
-          ))}
-        </div>
-      ))}
-
-      {/* Bottom modifier + spacebar row */}
-      <div style={{ display: "flex", gap: 2, position: "relative", zIndex: 1 }}>
-        {spaceRow.map(([label, flex], i) => (
-          <div
-            key={i}
-            style={{
-              flex,
-              height: 20,
-              background:
-                i === 4
-                  ? "linear-gradient(168deg, #313133 0%, #2a2a2c 50%, #252527 100%)"
-                  : "linear-gradient(168deg, #2e2e30 0%, #272729 50%, #222224 100%)",
-              borderRadius: "3.5px 3.5px 2px 2px",
-              border: "0.5px solid rgba(255,255,255,0.04)",
-              boxShadow:
-                "0 1.5px 0 rgba(255,255,255,0.07) inset, " +
-                "0 -2px 0 rgba(0,0,0,0.55) inset, " +
-                "0 3px 5px rgba(0,0,0,0.75)",
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "center",
-              paddingBottom: 2,
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            {i === 4 ? (
-              /* Spacebar — wider backlight bleed */
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: "22%",
-                  height: 1,
-                  background: "rgba(140,145,247,0.16)",
-                  filter: "blur(1.5px)",
-                }}
-              />
-            ) : label ? (
-              <>
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "60%",
-                    height: 1,
-                    background: "rgba(140,145,247,0.1)",
-                    filter: "blur(0.8px)",
-                  }}
-                />
-                <span
-                  style={{
-                    fontSize: 3.8,
-                    color: "rgba(255,255,255,0.2)",
-                    fontFamily: "system-ui, -apple-system, sans-serif",
-                    zIndex: 1,
-                    position: "relative",
-                  }}
-                >
-                  {label}
-                </span>
-              </>
-            ) : null}
-          </div>
-        ))}
-      </div>
-
-      {/* Trackpad */}
-      <div style={{ display: "flex", justifyContent: "center", paddingTop: 8 }}>
-        <div
-          style={{
-            width: "40%",
-            height: 62,
-            background:
-              "linear-gradient(170deg, #343436 0%, #2d2d2f 30%, #282828 100%)",
-            borderRadius: 10,
-            border: "0.5px solid rgba(255,255,255,0.055)",
-            boxShadow:
-              "0 0 0 1px rgba(0,0,0,0.65) inset, " +
-              "0 1.5px 0 rgba(255,255,255,0.055) inset, " +
-              "0 2px 8px rgba(0,0,0,0.5)",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          {/* Glass sheen highlight at top */}
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              height: "40%",
-              background:
-                "linear-gradient(180deg, rgba(255,255,255,0.036) 0%, transparent 100%)",
-              borderRadius: "10px 10px 0 0",
-            }}
-          />
-          {/* Subtle finger-rest indicator */}
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: 20,
-              height: 20,
-              borderRadius: "50%",
-              border: "0.5px solid rgba(255,255,255,0.035)",
-            }}
-          />
-        </div>
-      </div>
-    </div>
-  )
-}
 
 /* ── Main section ─────────────────────────────────────────────────── */
 export function ToolsSection() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const isInView   = useInView(sectionRef, { once: true, margin: "-100px" })
-
-  /* ── Scroll-driven lid ───────────────────────────────────────── */
-  const { scrollYProgress } = useScroll({
-    target:  sectionRef,
-    offset: ["start 0.9", "start 0.1"],
-  })
-
-  // -110° = closed flat, 8° = open / leaning back
-  const rawLid    = useTransform(scrollYProgress, [0, 1], [-110, 8])
-  const lidAngle  = useSpring(rawLid, { stiffness: 46, damping: 21, restDelta: 0.001 })
-
-  // Screen content fades in once lid passes ~-55° (halfway open)
-  const rawScreen     = useTransform(lidAngle, [-110, -55, 8], [0, 0, 1])
-  const screenOpacity = useSpring(rawScreen, { stiffness: 80, damping: 22 })
-
-  // Scroll hint fades out as soon as the user starts scrolling
-  const hintOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0])
-
-  /* ── Tool carousel ───────────────────────────────────────────── */
-  const [current,   setCurrent]   = useState(0)
-  const [direction, setDirection] = useState(1)
-  const [paused,    setPaused]    = useState(false)
-
-  const goTo = useCallback((next: number, dir: number) => {
-    setDirection(dir); setCurrent(next)
-  }, [])
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      if (!paused) goTo((current + 1) % tools.length, 1)
-    }, 2800)
-    return () => clearInterval(id)
-  }, [paused, current, goTo])
-
-  const tool = tools[current]
+  const sectionRef     = useRef<HTMLElement>(null)
+  const constraintsRef = useRef<HTMLDivElement>(null)
+  const isInView       = useInView(sectionRef, { once: true, margin: "-100px" })
 
   return (
-    <section ref={sectionRef} className="relative py-10 lg:py-16">
+    <section ref={sectionRef} className="relative py-10 lg:py-16 overflow-hidden">
       <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
 
         {/* ── Section header ── */}
         <motion.div
-          className="mb-12 lg:mb-16"
+          className="mb-10 lg:mb-14"
           initial={{ opacity: 0, x: -60 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -340,509 +46,169 @@ export function ToolsSection() {
           </h2>
         </motion.div>
 
-        {/* ── Laptop wrapper ── */}
-        <motion.div
-          className="flex flex-col items-center"
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2, duration: 0.8 }}
+      </div>
+
+      {/* ── Horizontal scroll track (edge-to-edge) ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : {}}
+        transition={{ delay: 0.25, duration: 0.7 }}
+      >
+        {/* Overflow wrapper — fades left/right edges */}
+        <div
+          ref={constraintsRef}
+          className="relative"
+          style={{ overflowX: "hidden" }}
         >
-          {/*
-           *  3D perspective container.
-           *  Layout (top to bottom):
-           *    1. Screen lid      — motion.div, rotateX driven by scroll, origin: center bottom
-           *    2. Hinge assembly  — twin barrel caps + bridge strip
-           *    3. Keyboard base   — rotateX(62deg), speaker grilles + keyboard + trackpad
-           *    4. Foot shelf
-           *    5. Ground shadow
-           */}
+          {/* Left fade */}
           <div
+            className="pointer-events-none absolute left-0 top-0 bottom-0 z-10"
             style={{
-              perspective:       "1400px",
-              perspectiveOrigin: "50% 36%",
-              width:    "100%",
-              maxWidth: 560,
+              width: "80px",
+              background: "linear-gradient(90deg, var(--bg, #0a0913) 0%, transparent 100%)",
             }}
+          />
+          {/* Right fade */}
+          <div
+            className="pointer-events-none absolute right-0 top-0 bottom-0 z-10"
+            style={{
+              width: "80px",
+              background: "linear-gradient(270deg, var(--bg, #0a0913) 0%, transparent 100%)",
+            }}
+          />
+
+          {/* Draggable row */}
+          <motion.div
+            drag="x"
+            dragConstraints={constraintsRef}
+            dragElastic={0.12}
+            dragTransition={{ bounceStiffness: 280, bounceDamping: 28 }}
+            className="flex gap-5 cursor-grab active:cursor-grabbing select-none"
+            style={{ padding: "16px 80px 24px" }}
           >
-
-            {/* ── [1] Screen lid — scroll-animated ── */}
-            <motion.div
-              style={{
-                rotateX:         lidAngle,
-                transformOrigin: "center bottom",
-                width:    "100%",
-                height: "clamp(160px, 22vw, 280px)",
-                borderRadius: "16px 16px 3px 3px",
-                position: "relative",
-                // Space-gray aluminum exterior shell
-                background:
-                  "linear-gradient(175deg, #474748 0%, #3d3d3f 22%, #343436 58%, #2c2c2e 100%)",
-                boxShadow:
-                  "0 2px 0 rgba(255,255,255,0.21) inset, " +
-                  "2px 0 0 rgba(255,255,255,0.07) inset, " +
-                  "-2px 0 0 rgba(255,255,255,0.07) inset, " +
-                  "0 -1px 0 rgba(0,0,0,0.38) inset, " +
-                  "0 -18px 55px rgba(140,145,247,0.08), " +
-                  "0 8px 36px rgba(0,0,0,0.6)",
-              }}
-            >
-
-              {/* ── Inner screen glass recess ── */}
-              <div
+            {tools.map((tool, i) => (
+              <motion.div
+                key={tool.abbr}
+                initial={{ opacity: 0, y: 24 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.1 + i * 0.04, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 style={{
-                  position:     "absolute",
-                  // top/sides = bezel width; bottom = thin chin
-                  inset:        "11px 13px 5px 13px",
-                  borderRadius: "6px 6px 3px 3px",
-                  background:   "#07070e",
-                  boxShadow:
-                    "0 0 0 1px rgba(0,0,0,0.95) inset, " +
-                    "0 2px 14px rgba(0,0,0,0.9) inset, " +
-                    "0 0 0 0.5px rgba(255,255,255,0.035)",
-                  overflow: "hidden",
+                  flexShrink:    0,
+                  width:         180,
+                  borderRadius:  16,
+                  border:        "1px solid rgba(140,145,247,0.15)",
+                  background:    "rgba(10,9,20,0.85)",
+                  overflow:      "hidden",
+                  backdropFilter: "blur(8px)",
+                  boxShadow:     "0 4px 24px rgba(0,0,0,0.35)",
+                  position:      "relative",
                 }}
               >
-                {/* Screen glass glare — subtle top-left diagonal streak */}
+                {/* ── Image area with MagicRings behind ── */}
                 <div
                   style={{
-                    position:      "absolute",
-                    inset:          0,
-                    background:
-                      "linear-gradient(148deg, rgba(255,255,255,0.024) 0%, transparent 36%)",
-                    pointerEvents: "none",
-                    zIndex:        30,
+                    position:   "relative",
+                    height:      168,
+                    background: "#07070e",
+                    overflow:   "hidden",
                   }}
-                />
-
-                {/* ── Screen content fades in as lid opens ── */}
-                <motion.div
-                  style={{ opacity: screenOpacity }}
-                  className="relative w-full h-full"
-                  onMouseEnter={() => setPaused(true)}
-                  onMouseLeave={() => setPaused(false)}
                 >
-                  {/* macOS-style menu bar */}
-                  <div
-                    style={{
-                      position:     "absolute",
-                      top: 0, left: 0, right: 0,
-                      height:       18,
-                      background:
-                        "linear-gradient(180deg, rgba(18,16,28,0.97) 0%, rgba(13,12,22,0.94) 100%)",
-                      borderBottom: "0.5px solid rgba(255,255,255,0.06)",
-                      display:      "flex",
-                      alignItems:   "center",
-                      justifyContent: "space-between",
-                      padding:      "0 8px",
-                      zIndex:       25,
-                    }}
-                  >
-                    {/* Traffic-light dots */}
-                    <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
-                      {["#FF5F57", "#FEBC2E", "#28C840"].map((c, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            width:        5,
-                            height:       5,
-                            borderRadius: "50%",
-                            background:   c,
-                            opacity:      0.7,
-                            boxShadow:    `0 0 4px ${c}88`,
-                          }}
-                        />
-                      ))}
-                    </div>
-                    {/* Window title placeholder */}
-                    <div
-                      style={{
-                        width:        56,
-                        height:       4,
-                        borderRadius: 2,
-                        background:   "rgba(255,255,255,0.09)",
-                      }}
+                  {/* MagicRings canvas — fills the image area */}
+                  <div className="absolute inset-0">
+                    <MagicRings
+                      color="#fc42ff"
+                      colorTwo="#42fcff"
+                      ringCount={6}
+                      speed={1}
+                      attenuation={10}
+                      lineThickness={2}
+                      baseRadius={0.35}
+                      radiusStep={0.1}
+                      scaleRate={0.1}
+                      opacity={1}
+                      blur={0}
+                      noiseAmount={0.1}
+                      rotation={0}
+                      ringGap={1.5}
+                      fadeIn={0.7}
+                      fadeOut={0.5}
+                      followMouse={false}
+                      mouseInfluence={0.2}
+                      hoverScale={1.2}
+                      parallax={0.05}
+                      clickBurst={false}
                     />
-                    {/* Right-side icons */}
-                    <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
-                      {[18, 13, 10].map((w, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            width:        w,
-                            height:       3,
-                            borderRadius: 1.5,
-                            background:   "rgba(255,255,255,0.11)",
-                          }}
-                        />
-                      ))}
-                    </div>
                   </div>
 
-                  {/* ── Tool slide — full-screen image ── */}
-                  <AnimatePresence mode="wait" custom={direction}>
-                    <motion.div
-                      key={current}
-                      custom={direction}
-                      variants={slideVariants}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      className="absolute inset-0 overflow-hidden"
-                      style={{
-                        top:        18,
-                        background: "#07070e",
-                        display:    "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {/* Full-screen tool image */}
-                      <img
-                        src={tool.img}
-                        alt={tool.name}
-                        style={{
-                          maxWidth:   "100%",
-                          maxHeight:  "100%",
-                          width:      "100%",
-                          height:     "100%",
-                          objectFit:  "contain",
-                          display:    "block",
-                          flexShrink: 0,
-                        }}
-                      />
-
-                      {/* Bottom gradient overlay — tool name + desc */}
-                      <div
-                        style={{
-                          position:   "absolute",
-                          bottom:      0,
-                          left:        0,
-                          right:       0,
-                          padding:    "32px 14px 28px",
-                          background:
-                            "linear-gradient(0deg, rgba(7,7,14,0.96) 0%, rgba(7,7,14,0.72) 50%, transparent 100%)",
-                        }}
-                      >
-                        <div
-                          style={{
-                            fontWeight:    700,
-                            fontSize:      13,
-                            color:         "#E4E4E4",
-                            marginBottom:  3,
-                            lineHeight:    1.2,
-                          }}
-                        >
-                          {tool.name}
-                        </div>
-                        <div
-                          style={{
-                            fontSize:  10,
-                            color:     "rgba(228,228,228,0.48)",
-                            lineHeight: 1.4,
-                          }}
-                        >
-                          {tool.desc}
-                        </div>
-                      </div>
-
-                      {/* Tool colour accent — top-left corner pip */}
-                      <div
-                        style={{
-                          position:     "absolute",
-                          top:           8,
-                          left:          8,
-                          width:         6,
-                          height:        6,
-                          borderRadius: "50%",
-                          background:   tool.color,
-                          boxShadow:    `0 0 8px ${tool.color}`,
-                          opacity:       0.85,
-                        }}
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {/* Invisible prev / next click zones */}
-                  <button
-                    className="absolute left-0 top-0 h-full w-1/4 cursor-w-resize focus:outline-none"
-                    aria-label="Previous tool"
-                    onClick={() => goTo((current - 1 + tools.length) % tools.length, -1)}
+                  {/* Tool image — centred on top of the rings */}
+                  <img
+                    src={tool.img}
+                    alt={tool.name}
+                    draggable={false}
+                    style={{
+                      position:       "absolute",
+                      inset:           0,
+                      width:          "100%",
+                      height:         "100%",
+                      objectFit:      "contain",
+                      objectPosition: "center",
+                      padding:        "12px",
+                    }}
                   />
-                  <button
-                    className="absolute right-0 top-0 h-full w-1/4 cursor-e-resize focus:outline-none"
-                    aria-label="Next tool"
-                    onClick={() => goTo((current + 1) % tools.length, 1)}
-                  />
+                </div>
 
-                  {/* Progress dots */}
-                  <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
-                    {tools.map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={() => goTo(i, i > current ? 1 : -1)}
-                        aria-label={`Go to ${tools[i].name}`}
-                        className="rounded-full transition-all duration-300"
-                        style={{
-                          width:      i === current ? 20 : 5,
-                          height:     5,
-                          background: i === current ? tool.color : "rgba(228,228,228,0.15)",
-                          boxShadow:  i === current ? `0 0 10px ${tool.color}55` : "none",
-                        }}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Counter */}
+                {/* ── Tool name + desc ── */}
+                <div
+                  style={{
+                    padding:         "12px 14px 14px",
+                    borderTop:       "1px solid rgba(140,145,247,0.1)",
+                    background:      "rgba(10,9,20,0.95)",
+                  }}
+                >
                   <div
-                    className="absolute right-3 text-[9px] tracking-widest select-none"
-                    style={{ top: 22, color: "rgba(228,228,228,0.18)" }}
+                    style={{
+                      fontWeight:   700,
+                      fontSize:     13,
+                      color:        "#E4E4E4",
+                      marginBottom: 4,
+                      lineHeight:   1.2,
+                      whiteSpace:   "nowrap",
+                      overflow:     "hidden",
+                      textOverflow: "ellipsis",
+                    }}
                   >
-                    {String(current + 1).padStart(2, "0")}&thinsp;/&thinsp;
-                    {String(tools.length).padStart(2, "0")}
+                    {tool.name}
                   </div>
-                </motion.div>
-              </div>
-
-              {/* ── Camera housing (centered on top bezel) ── */}
-              <div
-                style={{
-                  position:  "absolute",
-                  top:       4,
-                  left:      "50%",
-                  transform: "translateX(-50%)",
-                  display:   "flex",
-                  alignItems: "center",
-                  gap:       4,
-                }}
-              >
-                {/* Camera lens ring */}
-                <div
-                  style={{
-                    width:        7,
-                    height:       7,
-                    borderRadius: "50%",
-                    background:
-                      "radial-gradient(circle at 35% 32%, #282a2e 0%, #121214 55%, #0a0a0c 100%)",
-                    border:    "0.5px solid rgba(255,255,255,0.07)",
-                    boxShadow:
-                      "0 0 0 1.5px rgba(0,0,0,0.75), " +
-                      "0 0 0 2.5px rgba(255,255,255,0.03), " +
-                      "inset 0 1px 0 rgba(255,255,255,0.07)",
-                  }}
-                />
-                {/* Active indicator LED */}
-                <div
-                  style={{
-                    width:        3,
-                    height:       3,
-                    borderRadius: "50%",
-                    background:   "rgba(0, 210, 85, 0.68)",
-                    boxShadow:    "0 0 5px rgba(0, 210, 85, 0.5)",
-                  }}
-                />
-              </div>
-
-              {/* Bottom rim highlight where lid meets hinge */}
-              <div
-                style={{
-                  position:   "absolute",
-                  bottom:      0,
-                  left:       "10%",
-                  right:      "10%",
-                  height:      1,
-                  background:
-                    "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.09) 25%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.09) 75%, transparent 100%)",
-                }}
-              />
-            </motion.div>
-
-            {/* ── [2] Hinge assembly — twin barrel caps + bridge ── */}
-            <div style={{ position: "relative", height: 11 }}>
-              {/* Hinge bridge (full-width backing) */}
-              <div
-                style={{
-                  position:   "absolute",
-                  inset:      "2px 0 0 0",
-                  background:
-                    "linear-gradient(180deg, #494949 0%, #3b3b3d 40%, #2e2e30 100%)",
-                  boxShadow:
-                    "0 1px 0 rgba(255,255,255,0.1) inset, " +
-                    "0 4px 12px rgba(0,0,0,0.75)",
-                }}
-              />
-              {/* Left hinge barrel */}
-              <div
-                style={{
-                  position:     "absolute",
-                  left:         "5.5%",
-                  top:           0,
-                  width:        "13%",
-                  height:       11,
-                  borderRadius: "0 0 8px 8px",
-                  background:
-                    "linear-gradient(180deg, #545456 0%, #424244 45%, #343436 100%)",
-                  boxShadow:
-                    "0 1px 0 rgba(255,255,255,0.15) inset, " +
-                    "1px 0 0 rgba(255,255,255,0.06) inset, " +
-                    "-1px 0 0 rgba(255,255,255,0.06) inset, " +
-                    "0 3px 7px rgba(0,0,0,0.65)",
-                }}
-              />
-              {/* Right hinge barrel */}
-              <div
-                style={{
-                  position:     "absolute",
-                  right:        "5.5%",
-                  top:           0,
-                  width:        "13%",
-                  height:       11,
-                  borderRadius: "0 0 8px 8px",
-                  background:
-                    "linear-gradient(180deg, #545456 0%, #424244 45%, #343436 100%)",
-                  boxShadow:
-                    "0 1px 0 rgba(255,255,255,0.15) inset, " +
-                    "1px 0 0 rgba(255,255,255,0.06) inset, " +
-                    "-1px 0 0 rgba(255,255,255,0.06) inset, " +
-                    "0 3px 7px rgba(0,0,0,0.65)",
-                }}
-              />
-            </div>
-
-            {/* ── [3] Keyboard base — tilted back to simulate lying flat ── */}
-            <div
-              style={{
-                width:           "103%",
-                marginLeft:      "-1.5%",
-                height: "clamp(95px, 14vw, 170px)",
-                transform:       "rotateX(62deg)",
-                transformOrigin: "center top",
-                background:
-                  "linear-gradient(175deg, #414143 0%, #383839 20%, #303032 55%, #2a2a2c 100%)",
-                borderRadius:    "0 0 16px 16px",
-                overflow:        "hidden",
-                boxShadow:
-                  "0 26px 75px rgba(0,0,0,0.82), " +
-                  "0 1px 0 rgba(255,255,255,0.07) inset, " +
-                  "0 -1px 0 rgba(0,0,0,0.5) inset, " +
-                  "2px 0 0 rgba(255,255,255,0.04) inset, " +
-                  "-2px 0 0 rgba(255,255,255,0.04) inset",
-                position: "relative",
-              }}
-            >
-              {/* Left speaker grille */}
-              <div
-                style={{
-                  position:       "absolute",
-                  left:            10,
-                  top:            "10%",
-                  width:           30,
-                  height:         "58%",
-                  display:        "flex",
-                  flexDirection:  "column",
-                  justifyContent: "space-around",
-                }}
-              >
-                {Array.from({ length: 9 }, (_, i) => (
                   <div
-                    key={i}
                     style={{
-                      height:     1,
-                      borderRadius: 1,
-                      background: "rgba(0,0,0,0.55)",
-                      boxShadow:  "0 0.5px 0 rgba(255,255,255,0.055)",
+                      fontSize:   10,
+                      color:      "rgba(228,228,228,0.42)",
+                      lineHeight: 1.45,
+                      display:    "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow:   "hidden",
                     }}
-                  />
-                ))}
-              </div>
+                  >
+                    {tool.desc}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
 
-              {/* Right speaker grille */}
-              <div
-                style={{
-                  position:       "absolute",
-                  right:           10,
-                  top:            "10%",
-                  width:           30,
-                  height:         "58%",
-                  display:        "flex",
-                  flexDirection:  "column",
-                  justifyContent: "space-around",
-                }}
-              >
-                {Array.from({ length: 9 }, (_, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      height:     1,
-                      borderRadius: 1,
-                      background: "rgba(0,0,0,0.55)",
-                      boxShadow:  "0 0.5px 0 rgba(255,255,255,0.055)",
-                    }}
-                  />
-                ))}
-              </div>
-
-              <Keyboard />
-            </div>
-
-            {/* ── [4] Foot shelf ── */}
-            <div
-              style={{
-                height:       6,
-                margin:       "0 26px",
-                background:
-                  "linear-gradient(180deg, #242426 0%, #1c1c1e 100%)",
-                borderRadius: "0 0 10px 10px",
-                boxShadow:
-                  "0 4px 14px rgba(0,0,0,0.62), " +
-                  "0 1px 0 rgba(255,255,255,0.04) inset",
-              }}
-            />
-
-            {/* ── [5] Ground shadow ── */}
-            <div
-              style={{
-                height:     22,
-                background: "radial-gradient(ellipse, rgba(0,0,0,0.55) 0%, transparent 70%)",
-                filter:     "blur(12px)",
-                marginTop:   3,
-              }}
-            />
-          </div>
-
-          {/* ── Scroll hint ── */}
-          <motion.p
-            style={{ opacity: hintOpacity }}
-            className="text-[9px] tracking-[0.35em] uppercase text-white/20 mt-2 select-none"
-          >
-            Scroll to open
-          </motion.p>
-        </motion.div>
-
-        {/* ── Tool pill shortcuts ── */}
-        <motion.div
-          className="flex flex-wrap justify-center gap-2 mt-8"
+        {/* Drag hint */}
+        <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.5, duration: 0.6 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="text-center text-[9px] tracking-[0.35em] uppercase text-white/18 mt-1 select-none"
         >
-          {tools.map((t, i) => (
-            <button
-              key={t.name}
-              onClick={() => goTo(i, i > current ? 1 : -1)}
-              className="px-3 py-1 rounded-full text-[11px] font-medium transition-all duration-300"
-              style={{
-                background: i === current ? `${t.color}22` : "rgba(228,228,228,0.04)",
-                border:     `1px solid ${i === current ? t.color + "55" : "rgba(228,228,228,0.1)"}`,
-                color:      i === current ? t.color : "rgba(228,228,228,0.35)",
-                boxShadow:  i === current ? `0 0 12px ${t.color}22` : "none",
-              }}
-            >
-              {t.abbr}
-            </button>
-          ))}
-        </motion.div>
-
-      </div>
+          Drag to explore
+        </motion.p>
+      </motion.div>
     </section>
   )
 }
