@@ -49,12 +49,6 @@ export function ToolsSection() {
 
   const tool = tools[current]
 
-  const imgVariants = {
-    enter:  (d: number) => ({ x: d * 70, opacity: 0, scale: 0.85 }),
-    center: { x: 0, opacity: 1, scale: 1 },
-    exit:   (d: number) => ({ x: d * -70, opacity: 0, scale: 0.85 }),
-  }
-
   return (
     <section ref={sectionRef} className="relative py-10 lg:py-16">
       <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
@@ -84,22 +78,22 @@ export function ToolsSection() {
 
             {/* Prev */}
             <button onClick={goPrev} aria-label="Previous"
-              style={{ flexShrink: 0, width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(140,145,247,0.08)", border: "1px solid rgba(140,145,247,0.2)", color: "#8C91F7", cursor: "pointer", position: "relative", zIndex: 2 }}
+              style={{ flexShrink: 0, width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(140,145,247,0.08)", border: "1px solid rgba(140,145,247,0.2)", color: "#8C91F7", cursor: "pointer", zIndex: 2, position: "relative" }}
               onMouseEnter={e => (e.currentTarget.style.background = "rgba(140,145,247,0.18)")}
               onMouseLeave={e => (e.currentTarget.style.background = "rgba(140,145,247,0.08)")}
             >
               <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </button>
 
-            {/* Stage: rings bleed freely, image floats on top */}
-            <div style={{ position: "relative", width: 280, height: 280, flexShrink: 0 }}>
+            {/* ── Stage ── rings behind, image free-floating on top — NO sized box around image */}
+            <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 300, height: 300, flexShrink: 0 }}>
 
-              {/* MagicRings — oversized, centred, bleeds out freely */}
+              {/* Rings — much larger than the stage, bleeds freely in all directions */}
               <div style={{
                 position: "absolute",
                 top: "50%", left: "50%",
                 transform: "translate(-50%, -50%)",
-                width: 580, height: 580,
+                width: 600, height: 600,
                 pointerEvents: "none",
                 zIndex: 0,
               }}>
@@ -124,32 +118,29 @@ export function ToolsSection() {
                 />
               </div>
 
-              {/* Floating image — transparent bg, glows, bobs up and down */}
-              <AnimatePresence initial={false} custom={direction} mode="popLayout">
+              {/* Image — NO wrapper div, just the img itself centered via flex parent */}
+              <AnimatePresence initial={false} custom={direction} mode="wait">
                 <motion.div
                   key={tool.abbr}
-                  custom={direction}
-                  variants={imgVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  style={{ position: "absolute", inset: 0, zIndex: 1 }}
+                  style={{ position: "relative", zIndex: 1, lineHeight: 0 }}
+                  initial={{ x: direction * 70, opacity: 0, scale: 0.85 }}
+                  animate={{ x: 0, opacity: 1, scale: 1 }}
+                  exit={{ x: direction * -70, opacity: 0, scale: 0.85 }}
+                  transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  {/* Continuous float bob */}
                   <motion.img
                     src={tool.img}
                     alt={tool.name}
                     draggable={false}
-                    animate={{ y: [0, -12, 0] }}
-                    transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                    animate={{ y: [0, -14, 0] }}
+                    transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
                     style={{
-                      width:          "100%",
-                      height:         "100%",
-                      objectFit:      "contain",
-                      objectPosition: "center",
-                      filter:         "drop-shadow(0 0 18px rgba(252,66,255,0.7)) drop-shadow(0 6px 30px rgba(140,145,247,0.5))",
-                      userSelect:     "none",
+                      width:      220,
+                      height:     220,
+                      objectFit:  "contain",
+                      display:    "block",
+                      filter:     "drop-shadow(0 0 22px rgba(252,66,255,0.75)) drop-shadow(0 8px 32px rgba(140,145,247,0.55))",
+                      userSelect: "none",
                     }}
                   />
                 </motion.div>
@@ -158,7 +149,7 @@ export function ToolsSection() {
 
             {/* Next */}
             <button onClick={goNext} aria-label="Next"
-              style={{ flexShrink: 0, width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(140,145,247,0.08)", border: "1px solid rgba(140,145,247,0.2)", color: "#8C91F7", cursor: "pointer", position: "relative", zIndex: 2 }}
+              style={{ flexShrink: 0, width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(140,145,247,0.08)", border: "1px solid rgba(140,145,247,0.2)", color: "#8C91F7", cursor: "pointer", zIndex: 2, position: "relative" }}
               onMouseEnter={e => (e.currentTarget.style.background = "rgba(140,145,247,0.18)")}
               onMouseLeave={e => (e.currentTarget.style.background = "rgba(140,145,247,0.08)")}
             >
