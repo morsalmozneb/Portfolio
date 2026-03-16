@@ -12,29 +12,29 @@ import {
 
 /* ── Tool data ────────────────────────────────────────────────────── */
 const tools = [
-  { abbr: "Ai",  name: "Adobe Illustrator", desc: "Vector graphics, logos & brand illustration",    color: "#FF9A00", bg: "rgba(255,154,0,0.14)"     },
-  { abbr: "Ps",  name: "Adobe Photoshop",   desc: "Photo editing, retouching & compositing",        color: "#31A8FF", bg: "rgba(49,168,255,0.14)"    },
-  { abbr: "Fi",  name: "Figma",             desc: "UI/UX design, prototyping & design systems",     color: "#F24E1E", bg: "rgba(242,78,30,0.14)"     },
-  { abbr: "Id",  name: "Adobe InDesign",    desc: "Print layouts, editorial & publication design",  color: "#FF3366", bg: "rgba(255,51,102,0.14)"    },
-  { abbr: "Ae",  name: "After Effects",     desc: "Motion graphics, animation & visual effects",    color: "#9999FF", bg: "rgba(153,153,255,0.14)"   },
-  { abbr: "Pr",  name: "Premiere Pro",      desc: "Video editing, colour grading & production",     color: "#EA77FF", bg: "rgba(234,119,255,0.14)"   },
-  { abbr: "Fr",  name: "Framer",            desc: "Interactive web design & no-code publishing",    color: "#0055FF", bg: "rgba(0,85,255,0.14)"      },
-  { abbr: "{ }", name: "CSS3",              desc: "Styling, animations & responsive layouts",       color: "#1572B6", bg: "rgba(21,114,182,0.14)"    },
-  { abbr: "</>", name: "HTML5",             desc: "Semantic markup & accessible web structure",     color: "#E34F26", bg: "rgba(227,79,38,0.14)"     },
-  { abbr: "JS",  name: "JavaScript",        desc: "Interactive UI logic & front-end scripting",     color: "#F7DF1E", bg: "rgba(247,223,30,0.14)"    },
-  { abbr: "GH",  name: "GitHub",            desc: "Version control, collaboration & code review",   color: "#E4E4E4", bg: "rgba(228,228,228,0.08)"   },
-  { abbr: "Re",  name: "React",             desc: "Component-based UI for dynamic web apps",        color: "#61DAFB", bg: "rgba(97,218,251,0.14)"    },
-  { abbr: "W",   name: "Microsoft Word",    desc: "Documentation, proposals & content writing",     color: "#2B8FE5", bg: "rgba(43,143,229,0.14)"    },
-  { abbr: "Ex",  name: "Microsoft Excel",   desc: "Data analysis, reporting & project tracking",    color: "#21A366", bg: "rgba(33,163,102,0.14)"    },
+  { abbr: "Ai",  name: "Adobe Illustrator", desc: "Vector graphics, logos & brand illustration",    color: "#FF9A00", bg: "rgba(255,154,0,0.14)",    img: "/images/AI_Pic.png"               },
+  { abbr: "Ps",  name: "Adobe Photoshop",   desc: "Photo editing, retouching & compositing",        color: "#31A8FF", bg: "rgba(49,168,255,0.14)",   img: "/images/PS_Pic.png"               },
+  { abbr: "Fi",  name: "Figma",             desc: "UI/UX design, prototyping & design systems",     color: "#F24E1E", bg: "rgba(242,78,30,0.14)",    img: "/images/Figma_Pic.png"            },
+  { abbr: "Id",  name: "Adobe InDesign",    desc: "Print layouts, editorial & publication design",  color: "#FF3366", bg: "rgba(255,51,102,0.14)",   img: "/images/Id_Pic.png"               },
+  { abbr: "Ae",  name: "After Effects",     desc: "Motion graphics, animation & visual effects",    color: "#9999FF", bg: "rgba(153,153,255,0.14)",  img: "/images/Ae_Pic.png"               },
+  { abbr: "Pr",  name: "Premiere Pro",      desc: "Video editing, colour grading & production",     color: "#EA77FF", bg: "rgba(234,119,255,0.14)",  img: "/images/Pr_Pic.png"               },
+  { abbr: "Fr",  name: "Framer",            desc: "Interactive web design & no-code publishing",    color: "#0055FF", bg: "rgba(0,85,255,0.14)",     img: "/images/Framer_Pic.png"           },
+  { abbr: "{ }", name: "CSS3",              desc: "Styling, animations & responsive layouts",       color: "#1572B6", bg: "rgba(21,114,182,0.14)",   img: "/images/CSS_Pic.png"              },
+  { abbr: "</>", name: "HTML5",             desc: "Semantic markup & accessible web structure",     color: "#E34F26", bg: "rgba(227,79,38,0.14)",    img: "/images/HTML5_Pic.png"            },
+  { abbr: "JS",  name: "JavaScript",        desc: "Interactive UI logic & front-end scripting",     color: "#F7DF1E", bg: "rgba(247,223,30,0.14)",   img: "/images/JavaScript_Pic.png"       },
+  { abbr: "GH",  name: "GitHub",            desc: "Version control, collaboration & code review",   color: "#E4E4E4", bg: "rgba(228,228,228,0.08)",  img: "/images/GitHub_Pic.png"           },
+  { abbr: "Re",  name: "React",             desc: "Component-based UI for dynamic web apps",        color: "#61DAFB", bg: "rgba(97,218,251,0.14)",   img: "/images/React_Pic.png"            },
+  { abbr: "W",   name: "Microsoft Office",  desc: "Documentation, data analysis & productivity",   color: "#2B8FE5", bg: "rgba(43,143,229,0.14)",   img: "/images/MicrosoftOffice_Pic.png"  },
+  { abbr: "VS",  name: "VS Code",           desc: "Code editing, debugging & extensions",           color: "#007ACC", bg: "rgba(0,122,204,0.14)",    img: "/images/VSC_Pic.png"              },
 ]
 
 /* ── Slide animation variants ─────────────────────────────────────── */
 const eIn  = [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
 const eOut = [0.55, 0.06, 0.68, 0.19] as [number, number, number, number]
 const slideVariants = {
-  enter: (d: number) => ({ x: d > 0 ? 240 : -240, opacity: 0, scale: 0.9 }),
-  center: { x: 0, opacity: 1, scale: 1, transition: { duration: 0.48, ease: eIn } },
-  exit:   (d: number) => ({ x: d > 0 ? -240 : 240, opacity: 0, scale: 0.9, transition: { duration: 0.32, ease: eOut } }),
+  enter: (d: number) => ({ x: d > 0 ? 260 : -260, opacity: 0 }),
+  center: { x: 0, opacity: 1, transition: { duration: 0.44, ease: eIn } },
+  exit:   (d: number) => ({ x: d > 0 ? -260 : 260, opacity: 0, transition: { duration: 0.3, ease: eOut } }),
 }
 
 /* ── Individual key component ─────────────────────────────────────── */
@@ -478,28 +478,7 @@ export function ToolsSection() {
                     </div>
                   </div>
 
-                  {/* Ambient colour glow (below menu bar) */}
-                  <div
-                    className="absolute pointer-events-none transition-all duration-700"
-                    style={{
-                      top: 18, left: 0, right: 0, bottom: 0,
-                      background: `radial-gradient(ellipse at 50% 55%, ${tool.color}1c 0%, transparent 66%)`,
-                    }}
-                  />
-
-                  {/* Subtle dot grid (below menu bar) */}
-                  <div
-                    className="absolute pointer-events-none"
-                    style={{
-                      top: 18, left: 0, right: 0, bottom: 0,
-                      backgroundImage:
-                        "radial-gradient(circle, rgba(140,145,247,0.18) 1px, transparent 1px)",
-                      backgroundSize: "28px 28px",
-                      opacity: 0.28,
-                    }}
-                  />
-
-                  {/* ── Tool slide ── */}
+                  {/* ── Tool slide — full-screen image ── */}
                   <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                       key={current}
@@ -508,40 +487,69 @@ export function ToolsSection() {
                       initial="enter"
                       animate="center"
                       exit="exit"
-                      className="absolute inset-0 flex flex-col items-center justify-center gap-5 px-8"
+                      className="absolute inset-0 overflow-hidden"
                       style={{ top: 18 }}
                     >
-                      {/* Icon badge */}
-                      <div
-                        className="flex items-center justify-center rounded-[18px] font-black text-3xl select-none"
+                      {/* Full-screen tool image */}
+                      <img
+                        src={tool.img}
+                        alt={tool.name}
                         style={{
-                          width:      88,
-                          height:     88,
-                          background: tool.bg,
-                          border:     `1.5px solid ${tool.color}55`,
-                          color:      tool.color,
-                          boxShadow:
-                            `0 0 40px ${tool.color}20, ` +
-                            `0 0 8px ${tool.color}18, ` +
-                            `0 0 0 4px ${tool.color}08`,
-                          letterSpacing: "-0.01em",
+                          width:      "100%",
+                          height:     "100%",
+                          objectFit:  "cover",
+                          display:    "block",
+                        }}
+                      />
+
+                      {/* Bottom gradient overlay — tool name + desc */}
+                      <div
+                        style={{
+                          position:   "absolute",
+                          bottom:      0,
+                          left:        0,
+                          right:       0,
+                          padding:    "32px 14px 28px",
+                          background:
+                            "linear-gradient(0deg, rgba(7,7,14,0.96) 0%, rgba(7,7,14,0.72) 50%, transparent 100%)",
                         }}
                       >
-                        {tool.abbr}
-                      </div>
-
-                      {/* Name + description */}
-                      <div className="text-center">
-                        <h3 className="text-xl font-bold mb-1.5" style={{ color: "#E4E4E4" }}>
+                        <div
+                          style={{
+                            fontWeight:    700,
+                            fontSize:      13,
+                            color:         "#E4E4E4",
+                            marginBottom:  3,
+                            lineHeight:    1.2,
+                          }}
+                        >
                           {tool.name}
-                        </h3>
-                        <p
-                          className="text-sm leading-relaxed max-w-[260px] mx-auto"
-                          style={{ color: "rgba(228,228,228,0.45)" }}
+                        </div>
+                        <div
+                          style={{
+                            fontSize:  10,
+                            color:     "rgba(228,228,228,0.48)",
+                            lineHeight: 1.4,
+                          }}
                         >
                           {tool.desc}
-                        </p>
+                        </div>
                       </div>
+
+                      {/* Tool colour accent — top-left corner pip */}
+                      <div
+                        style={{
+                          position:     "absolute",
+                          top:           8,
+                          left:          8,
+                          width:         6,
+                          height:        6,
+                          borderRadius: "50%",
+                          background:   tool.color,
+                          boxShadow:    `0 0 8px ${tool.color}`,
+                          opacity:       0.85,
+                        }}
+                      />
                     </motion.div>
                   </AnimatePresence>
 
