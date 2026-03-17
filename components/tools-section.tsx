@@ -80,7 +80,7 @@ export function ToolsSection() {
               position: "absolute",
               top: "50%", left: "50%",
               transform: "translate(-50%, -50%)",
-              width: 600, height: 600,
+              width: 780, height: 780,
               pointerEvents: "none",
               zIndex: 0,
               borderRadius: "50%",
@@ -93,8 +93,8 @@ export function ToolsSection() {
                 speed={0.9}
                 attenuation={8}
                 lineThickness={2.5}
-                baseRadius={0.32}
-                radiusStep={0.09}
+                baseRadius={0.28}
+                radiusStep={0.11}
                 scaleRate={0.12}
                 opacity={0.22}
                 noiseAmount={0.08}
