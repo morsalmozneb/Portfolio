@@ -7,9 +7,9 @@ import { ResumeIcon } from "@/components/icons/resume-icon"
 import { ArrowUp } from "lucide-react"
 
 const socialLinks = [
-  { label: "LinkedIn", href: "https://linkedin.com", icon: <LinkedinIcon /> },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/morsal-mozneb", icon: <LinkedinIcon /> },
   { label: "Email", href: "mailto:morsalehmozneb@gmail.com", icon: <EmailIcon /> },
-  { label: "YouTube", href: "https://youtube.com", icon: <YoutubeIcon /> },
+  { label: "YouTube", href: "https://www.youtube.com/@MorsalMozneb95", icon: <YoutubeIcon /> },
   { label: "Resume", href: "#", icon: <ResumeIcon /> },
 ]
 
