@@ -28,11 +28,11 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  /* Unified radius token — 12px used everywhere for interactive elements */
+  /* Unified radius token â 12px used everywhere for interactive elements */
   --radius: 0.75rem;
-  /* Card/image radius — 16px for larger surface areas */
+  /* Card/image radius â 16px for larger surface areas */
   --radius-card: 1rem;
-  /* ─── 12-Column Grid System ─── */
+  /* âââ 12-Column Grid System âââ */
   --content-max: 1080px;
   --grid-gutter: 1.5rem;   /* 24px */
   --grid-gutter-lg: 3rem;  /* 48px */
@@ -137,6 +137,7 @@ a, button, [role="button"], input, select, textarea, label[for], summary {
 /* Smooth scroll */
 html {
   scroll-behavior: smooth;
+  background: #0a0918;
 }
 
 @keyframes float-1 {
@@ -339,7 +340,7 @@ a:hover .contact-icon-float {
   100% { transform: translateX(250%) skewX(-15deg); }
 }
 
-/* ─── 12-Column Grid System ──────────────────────────────────────── */
+/* âââ 12-Column Grid System ââââââââââââââââââââââââââââââââââââââââ */
 .bleed-section {
   width: 100%;
   position: relative;
@@ -422,11 +423,11 @@ h1.page-heading {
   .col-quarter { grid-column: span 12; }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   RESPONSIVE LAYOUT — Mobile-first overrides
-   ═══════════════════════════════════════════════════════════════════ */
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   RESPONSIVE LAYOUT â Mobile-first overrides
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
-/* ── Mobile bottom nav: hidden on desktop ── */
+/* ââ Mobile bottom nav: hidden on desktop ââ */
 .mobile-nav-wrapper {
   display: none;
 }
@@ -436,7 +437,7 @@ h1.page-heading {
     display: block;
   }
 
-  /* ── Hide desktop sidebar on mobile ──
+  /* ââ Hide desktop sidebar on mobile ââ
      The sidebar-nav typically renders as <nav> with fixed positioning.
      On mobile we hide it and show the bottom nav instead. */
   body[data-mobile="true"] nav:not(.sidebar-mobile-nav):not([class*="bottom"]) {
@@ -467,7 +468,7 @@ h1.page-heading {
   }
 }
 
-/* ── Sidebar: ensure it hides on small screens ──
+/* ââ Sidebar: ensure it hides on small screens ââ
    Using display:none on mobile for any fixed nav with a sidebar-like pattern */
 @media (max-width: 767px) {
   /* Hide the desktop sidebar navigation */
@@ -484,7 +485,7 @@ h1.page-heading {
   .hidden-mobile { display: none !important; }
 }
 
-/* ── Page layout fix for mobile ── */
+/* ââ Page layout fix for mobile ââ */
 @media (max-width: 767px) {
   /* Remove any fixed left-offset from the main content */
   /* This targets the page wrapper pattern: flex row with sidebar + content */
@@ -512,7 +513,7 @@ h1.page-heading {
   }
 }
 
-/* ── Hero section responsive ── */
+/* ââ Hero section responsive ââ */
 @media (max-width: 767px) {
   /* Scale down 3D/canvas elements in hero */
   .spline-wrap {
@@ -520,7 +521,7 @@ h1.page-heading {
     width: 100% !important;
   }
 
-  /* Hero text — ensure it fits on mobile */
+  /* Hero text â ensure it fits on mobile */
   h1.page-heading,
   .hero-heading {
     font-size: clamp(1.8rem, 7vw, 2.5rem) !important;
@@ -533,22 +534,22 @@ h1.page-heading {
   }
 }
 
-/* ── Tools section responsive ── */
+/* ââ Tools section responsive ââ */
 @media (max-width: 767px) {
-  /* The 3D laptop/keyboard mockup — scale it down */
+  /* The 3D laptop/keyboard mockup â scale it down */
   section[id="tools"] .perspective-container,
   section .tools-laptop-wrap {
     transform: scale(0.75) !important;
     transform-origin: center top !important;
   }
 
-  /* Tools grid — reduce columns */
+  /* Tools grid â reduce columns */
   .tools-grid {
     grid-template-columns: repeat(3, 1fr) !important;
   }
 }
 
-/* ── About page responsive ── */
+/* ââ About page responsive ââ */
 @media (max-width: 767px) {
   /* Stack any two-column layouts */
   .about-grid,
@@ -567,7 +568,7 @@ h1.page-heading {
   }
 }
 
-/* ── Contact page responsive ── */
+/* ââ Contact page responsive ââ */
 @media (max-width: 767px) {
   /* Contact layout: stack form + info */
   .contact-grid,
@@ -577,7 +578,7 @@ h1.page-heading {
   }
 }
 
-/* ── Projects section responsive ── */
+/* ââ Projects section responsive ââ */
 @media (max-width: 767px) {
   /* Project cards grid */
   .projects-grid {
@@ -597,7 +598,7 @@ h1.page-heading {
   }
 }
 
-/* ── Overflow prevention ── */
+/* ââ Overflow prevention ââ */
 @media (max-width: 767px) {
   /* Prevent horizontal scroll from overflowing elements */
   body {
@@ -616,7 +617,7 @@ h1.page-heading {
   }
 }
 
-/* ── Footer responsive ── */
+/* ââ Footer responsive ââ */
 @media (max-width: 767px) {
   footer .footer-grid,
   footer .footer-cols {
@@ -631,7 +632,7 @@ h1.page-heading {
   }
 }
 
-/* ── Touch interaction improvements ── */
+/* ââ Touch interaction improvements ââ */
 @media (max-width: 767px) {
   /* Increase touch targets */
   button, a, [role="button"] {
@@ -643,7 +644,7 @@ h1.page-heading {
   .hover-only { display: none !important; }
 }
 
-/* ── Tablet breakpoint (768px – 1023px) ── */
+/* ââ Tablet breakpoint (768px â 1023px) ââ */
 @media (min-width: 768px) and (max-width: 1023px) {
   /* Sidebar starts appearing, but content may need adjustment */
   .page-heading {
@@ -657,7 +658,7 @@ h1.page-heading {
   }
 }
 
-/* ── Utility: hide on mobile / show on mobile ── */
+/* ââ Utility: hide on mobile / show on mobile ââ */
 @media (max-width: 767px) {
   .hide-mobile { display: none !important; }
 }
@@ -669,23 +670,23 @@ h1.page-heading {
   .sidebar-mobile-nav { display: none !important; }
 }
 
-/* ── Safe-area support for iPhone notch/home-indicator ── */
+/* ââ Safe-area support for iPhone notch/home-indicator ââ */
 @supports (padding: env(safe-area-inset-bottom)) {
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
 }
 
-/* ── Scrollbar: hide on mobile to save space ── */
+/* ââ Scrollbar: hide on mobile to save space ââ */
 @media (max-width: 767px) {
   ::-webkit-scrollbar { display: none; }
   * { scrollbar-width: none; }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   INLINE STYLE OVERRIDES — for sidebar margin-left set by page-shell
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   INLINE STYLE OVERRIDES â for sidebar margin-left set by page-shell
    (page-shell.tsx was built without isMobile; uses inline style directly)
-   ═══════════════════════════════════════════════════════════════════ */
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
 @media (max-width: 767px) {
   /* Override inline marginLeft: 220px (sidebar expanded) */
@@ -696,7 +697,7 @@ h1.page-heading {
     margin-left: 0 !important;
   }
 
-  /* Override inline width: 220px / 72px (the sidebar itself — hide it on mobile) */
+  /* Override inline width: 220px / 72px (the sidebar itself â hide it on mobile) */
   /* Only target fixed/sticky positioned ones to avoid hiding content cards */
   [style*="position: fixed"][style*="width: 220px"],
   [style*="position: fixed"][style*="width: 72px"],
@@ -722,7 +723,7 @@ h1.page-heading {
   }
 }
 
-/* ── Sidebar transition: ensure smooth collapse/expand on desktop ── */
+/* ââ Sidebar transition: ensure smooth collapse/expand on desktop ââ */
 @media (min-width: 768px) {
   /* Smooth transition for content margin shift */
   [style*="margin-left"] {
@@ -730,9 +731,9 @@ h1.page-heading {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   HERO SECTION — scale down heavy 3D / full-screen layouts on mobile
-   ═══════════════════════════════════════════════════════════════════ */
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   HERO SECTION â scale down heavy 3D / full-screen layouts on mobile
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
 @media (max-width: 767px) {
   /* Any canvas or iframe in hero should be contained */
@@ -759,9 +760,9 @@ h1.page-heading {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   EXPERTISE SECTION — responsive grid
-   ═══════════════════════════════════════════════════════════════════ */
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   EXPERTISE SECTION â responsive grid
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
 @media (max-width: 767px) {
   /* Expertise cards: 1 column on mobile */
@@ -783,9 +784,9 @@ h1.page-heading {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   ABOUT PAGE — comprehensive responsive fixes for all about sections
-   ═══════════════════════════════════════════════════════════════════ */
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   ABOUT PAGE â comprehensive responsive fixes for all about sections
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
 @media (max-width: 767px) {
   /* About hero: stack portrait + text */
@@ -826,9 +827,9 @@ h1.page-heading {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   SECTION PADDING — universal tighter padding on mobile
-   ═══════════════════════════════════════════════════════════════════ */
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   SECTION PADDING â universal tighter padding on mobile
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
 @media (max-width: 767px) {
   /* All sections get tighter vertical padding */
@@ -855,9 +856,9 @@ h1.page-heading {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   TEXT SCALING — fluid typography across breakpoints
-   ═══════════════════════════════════════════════════════════════════ */
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   TEXT SCALING â fluid typography across breakpoints
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
 @media (max-width: 767px) {
   /* Section headings */
@@ -872,9 +873,9 @@ h1.page-heading {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   GRID & FLEX CONTAINERS — responsive column collapse
-   ═══════════════════════════════════════════════════════════════════ */
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   GRID & FLEX CONTAINERS â responsive column collapse
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
 @media (max-width: 640px) {
   /* Any 2+ column grid collapses to 1 column on small mobile */
@@ -897,9 +898,9 @@ h1.page-heading {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   FIXED / ABSOLUTE POSITIONED ELEMENTS — clamp sizes on mobile
-   ═══════════════════════════════════════════════════════════════════ */
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   FIXED / ABSOLUTE POSITIONED ELEMENTS â clamp sizes on mobile
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
 @media (max-width: 767px) {
   /* Prevent absolutely/fixed positioned decorative elements from overflowing */
