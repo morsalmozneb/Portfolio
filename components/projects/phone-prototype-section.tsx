@@ -275,7 +275,7 @@ function ScaledDeviceStage({
       transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       {/* Device frame */}
-      <div style={{ width: scaledW, height: scaledH, flexShrink: 0, transition: "width 0.3s ease, height 0.3s ease" }}>
+      <div style={{ width: scaledW, height: scaledH, flexShrink: 0, overflow: "hidden", transition: "width 0.3s ease, height 0.3s ease" }}>
         <div style={{
           width: natW,
           height: natH,
