@@ -11,6 +11,7 @@ import { ToolsSection } from "@/components/tools-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 import { ScrollParallax } from "@/components/scroll-parallax"
+import { Seo } from "@/components/seo"
 
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false)
@@ -48,6 +49,11 @@ function HomeInner() {
 
       {showContent && (
         <>
+          <Seo
+            title="Morsal Mozneb | Portfolio"
+            description="Explore Morsal Mozneb's portfolio, featuring interactive front-end work, creative development projects, and a polished digital design practice."
+            path="/"
+          />
           <SidebarNav />
           <main
             className="relative z-10 overflow-hidden"

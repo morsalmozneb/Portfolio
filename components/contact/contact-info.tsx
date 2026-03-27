@@ -6,6 +6,7 @@ import { EmailIcon } from "@/components/icons/email-icon"
 import { LinkedinIcon } from "@/components/icons/linkedin-icon"
 import { ResumeIcon } from "@/components/icons/resume-icon"
 import { Clock, MapPin } from "lucide-react"
+import { siteLinks } from "@/lib/site"
 
 const contactLinks = [
   {
@@ -19,7 +20,7 @@ const contactLinks = [
     icon: <LinkedinIcon className="w-5 h-5" />,
     label: "LINKEDIN",
     detail: "Connect with me",
-    href: "https://linkedin.com",
+    href: siteLinks.linkedin,
     external: true,
     floatAnimation: "contact-float-2",
   },
@@ -27,7 +28,8 @@ const contactLinks = [
     icon: <ResumeIcon className="w-5 h-5" />,
     label: "RESUME",
     detail: "Download CV",
-    href: "#",
+    href: siteLinks.resume,
+    external: true,
     floatAnimation: "contact-float-3",
   },
 ]

@@ -14,6 +14,7 @@ import { EmailIcon } from "@/components/icons/email-icon"
 import { YoutubeIcon } from "@/components/icons/youtube-icon"
 import { ResumeIcon } from "@/components/icons/resume-icon"
 import { useSidebar } from "@/components/sidebar-context"
+import { siteLinks } from "@/lib/site"
 
 const SIDEBAR_FULL = 260
 const SIDEBAR_RAIL = 64
@@ -26,10 +27,10 @@ const navLinks = [
 ]
 
 const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/morsal-mozneb", icon: <LinkedinIcon /> },
-  { label: "Email", href: "mailto:morsalehmozneb@gmail.com", icon: <EmailIcon /> },
-  { label: "YouTube", href: "https://www.youtube.com/@MorsalMozneb95", icon: <YoutubeIcon /> },
-  { label: "Resume", href: "#", icon: <ResumeIcon /> },
+  { label: "LinkedIn", href: siteLinks.linkedin, icon: <LinkedinIcon /> },
+  { label: "Email", href: siteLinks.email, icon: <EmailIcon /> },
+  { label: "YouTube", href: siteLinks.youtube, icon: <YoutubeIcon /> },
+  { label: "Resume", href: siteLinks.resume, icon: <ResumeIcon /> },
 ]
 
 export { SIDEBAR_FULL, SIDEBAR_RAIL }

@@ -5,12 +5,18 @@ import { PhonePrototypeSection } from "@/components/projects/phone-prototype-sec
 import { ProjectDetail } from "@/components/projects/project-detail"
 import { projects } from "@/components/projects/project-data"
 import { Footer } from "@/components/footer"
+import { Seo } from "@/components/seo"
 
 export default function ProjectsPage() {
   const [selectedProjectId, setSelectedProjectId] = useState<string>(projects[0]?.id ?? "")
 
   return (
     <PageShell>
+      <Seo
+        title="Projects | Morsal Mozneb"
+        description="Browse selected portfolio projects by Morsal Mozneb, including web experiences, interface explorations, and case-study driven design work."
+        path="/projects"
+      />
       <ProjectsHeroCarousel
         selectedProjectId={selectedProjectId}
         onProjectChange={setSelectedProjectId}
