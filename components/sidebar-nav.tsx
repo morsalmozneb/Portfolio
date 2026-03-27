@@ -84,7 +84,7 @@ export function SidebarNav() {
   return (
     <>
       {/* Mobile top logo */}
-      <Link href="/" className="fixed top-4 left-4 z-[100] lg:hidden">
+      <Link href="/" className="fixed top-4 left-4 z-[100] lg:hidden" style={{ opacity: logoOpacity, pointerEvents: logoOpacity < 0.1 ? "none" : "auto", transition: "opacity 380ms ease" }} onClick={(e) => { if (pathname === "/") { e.preventDefault(); const el = document.querySelector("#home"); if (el) el.scrollIntoView({ behavior: "smooth" }); } }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/logo.svg"
@@ -121,12 +121,12 @@ export function SidebarNav() {
       )}
 
       {/*
-       * ─── Persistent logo (desktop only) ───────────────────────────
+       * Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Persistent logo (desktop only) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
        * Sits at the exact same fixed coordinates as the logo inside the
-       * full sidebar (top: 32px  ≡ py-8 / left: 24px ≡ px-5 + px-1).
+       * full sidebar (top: 32px  Ã¢ÂÂ¡ py-8 / left: 24px Ã¢ÂÂ¡ px-5 + px-1).
        * Fades IN when the sidebar collapses so the logo never disappears.
        * The sidebar's own logo fades OUT with the panel, creating a
-       * seamless handoff — same size, same position, zero clipping.
+       * seamless handoff Ã¢ÂÂ same size, same position, zero clipping.
        */}
       <div
         className="hidden lg:block fixed pointer-events-none"
@@ -157,7 +157,7 @@ export function SidebarNav() {
         </div>
       </div>
 
-      {/* ─── Collapsed Icon Rail (desktop only) ─── */}
+      {/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Collapsed Icon Rail (desktop only) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */}
       <div
         className="hidden lg:flex fixed top-0 left-0 z-[91] h-screen flex-col items-center py-8"
         style={{
@@ -258,7 +258,7 @@ export function SidebarNav() {
         </nav>
       </div>
 
-      {/* ─── Full Sidebar Panel (desktop + mobile) ─── */}
+      {/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Full Sidebar Panel (desktop + mobile) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ */}
       <motion.aside
         className={`fixed top-0 left-0 z-[90] h-screen w-[86vw] max-w-[320px] lg:w-auto flex flex-col justify-between py-24 lg:py-8 px-5 ${
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
@@ -283,7 +283,7 @@ export function SidebarNav() {
         <div>
           {/* Logo */}
           <div className="mb-12 px-1 hidden lg:block">
-            <Link href="/">
+            <Link href="/" onClick={(e) => { if (pathname === "/") { e.preventDefault(); const el = document.querySelector("#home"); if (el) el.scrollIntoView({ behavior: "smooth" }); } }}>
               <div className="relative overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img

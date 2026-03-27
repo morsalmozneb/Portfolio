@@ -6,7 +6,7 @@ import { projects } from "./project-data"
 
 type ActiveDevice = "phone" | "tablet" | "laptop"
 
-/* ─── Shared iframe with loading spinner ────────────────────────── */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Shared iframe with loading spinner Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function ProtoIframe({
   src,
   accent,
@@ -67,19 +67,19 @@ function ProtoIframe({
           key={src}
           src={src}
           style={{
-            width: designSize ? `${designSize.width}px` : "100%",
-            height: designSize ? `${designSize.height}px` : "100%",
+            width: designSize ? `${designSize.width}px` : `${100 / zoom}%`,
+            height: designSize ? `${designSize.height}px` : `${100 / zoom}%`,
             border: "none",
             display: "block",
-            position: designSize ? "absolute" : "static",
-            top: designSize ? 0 : undefined,
-            left: designSize ? "50%" : undefined,
+            position: "absolute",
+            top: 0,
+            left: designSize ? "50%" : 0,
             transform: designSize
               ? `translateX(-50%) scale(${zoom})`
               : zoom !== 1
                 ? `scale(${zoom})`
                 : undefined,
-            transformOrigin: "center top",
+            transformOrigin: designSize ? "center top" : "top left",
             pointerEvents: interactive ? "auto" : "none",
             opacity: loaded ? 1 : 0,
             transition: "opacity 0.4s ease",
@@ -94,7 +94,7 @@ function ProtoIframe({
   )
 }
 
-/* ─── iPhone SE frame ────────────────────────────────────────────── */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ iPhone SE frame Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 const PH = { SCR_W: 256, SCR_H: 455, BZL_SIDE: 11, BZL_TOP: 42, BZL_BOT: 56, R: 34 }
 
 function PhoneFrame({
@@ -143,7 +143,7 @@ function PhoneFrame({
   )
 }
 
-/* ─── iPad Pro frame ─────────────────────────────────────────────── */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ iPad Pro frame Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 const TB = { SCR_W: 384, SCR_H: 512, BZL_SIDE: 13, BZL_TOP: 22, BZL_BOT: 22, R: 21 }
 
 function TabletFrame({ src, accent }: { src: string; accent: string }) {
@@ -174,7 +174,7 @@ function TabletFrame({ src, accent }: { src: string; accent: string }) {
   )
 }
 
-/* ─── MacBook frame ──────────────────────────────────────────────── */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ MacBook frame Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 const LT = { SCR_W: 420, SCR_H: 262, BZL_SIDE: 14, BZL_TOP: 22, BZL_BOT: 10, R: 8 }
 
 function LaptopFrame({ src, accent }: { src: string; accent: string }) {
@@ -204,7 +204,7 @@ function LaptopFrame({ src, accent }: { src: string; accent: string }) {
   )
 }
 
-/* ─── Device tab icons ───────────────────────────────────────────── */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Device tab icons Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 const PhoneIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor"/>
@@ -221,14 +221,14 @@ const LaptopIcon = () => (
   </svg>
 )
 
-/* ─── Device natural sizes (px) ─────────────────────────────────── */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Device natural sizes (px) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 const DEVICE_SIZE: Record<ActiveDevice, { w: number; h: number }> = {
   phone:  { w: PH.SCR_W + PH.BZL_SIDE * 2,         h: PH.SCR_H + PH.BZL_TOP + PH.BZL_BOT },
   tablet: { w: TB.SCR_W + TB.BZL_SIDE * 2,         h: TB.SCR_H + TB.BZL_TOP + TB.BZL_BOT },
   laptop: { w: LT.SCR_W + LT.BZL_SIDE * 2 + 40,   h: LT.SCR_H + LT.BZL_TOP + LT.BZL_BOT + 20 },
 }
 
-/* ─── Auto-scaling stage ─────────────────────────────────────────── */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Auto-scaling stage Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 function ScaledDeviceStage({
   active, project, isInView, tabs, setActive,
 }: {
@@ -275,7 +275,7 @@ function ScaledDeviceStage({
       transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       {/* Device frame */}
-      <div style={{ width: scaledW, height: scaledH, flexShrink: 0, transition: "width 0.3s ease, height 0.3s ease" }}>
+      <div style={{ width: scaledW, height: scaledH, flexShrink: 0, overflow: "hidden", transition: "width 0.3s ease, height 0.3s ease" }}>
         <div style={{
           width: natW,
           height: natH,
@@ -322,8 +322,8 @@ function ScaledDeviceStage({
         </div>
       </div>
 
-      {/* Device switcher buttons — SparkleButton style with sparkle particles */}
-      <div className="flex gap-3">
+      {/* Device switcher buttons Ã¢ÂÂ SparkleButton style with sparkle particles */}
+      <div className="flex flex-wrap gap-2 justify-center w-full">
         {tabs.map(({ id, label, Icon }) => {
           const isActive = active === id
           return (
@@ -337,7 +337,7 @@ function ScaledDeviceStage({
               style={{
                 position: "relative", overflow: "hidden",
                 display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 7,
-                height: 46, padding: "0 28px",
+                height: 46, padding: "0 20px",
                 borderRadius: "12px",
                 fontSize: "0.75rem", fontWeight: 600,
                 letterSpacing: "0.08em", textTransform: "uppercase",
@@ -409,7 +409,7 @@ function ScaledDeviceStage({
   )
 }
 
-/* ─── Section ────────────────────────────────────────────────────── */
+/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ Section Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 export function PhonePrototypeSection({
   selectedProjectId,
 }: {
@@ -454,7 +454,7 @@ export function PhonePrototypeSection({
 
       <div className="max-w-[1200px] w-full mx-auto px-6 lg:px-12 flex flex-col flex-1">
 
-        {/* Header — compact, left-aligned */}
+        {/* Header Ã¢ÂÂ compact, left-aligned */}
         <motion.div
           className="mb-6"
           initial={{ opacity: 0, y: -16 }}
@@ -470,7 +470,7 @@ export function PhonePrototypeSection({
           </h2>
         </motion.div>
 
-        {/* Device + buttons below — centred, fills remaining height */}
+        {/* Device + buttons below Ã¢ÂÂ centred, fills remaining height */}
         <ScaledDeviceStage active={active} project={project} isInView={isInView} tabs={tabs} setActive={setActive} />
 
       </div>

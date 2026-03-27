@@ -265,7 +265,8 @@ export function ProjectsHeroCarousel({
             </>
           ) : (
             /* Desktop/Tablet: fan carousel */
-            projects.map((p, i) => {
+            <>
+              {projects.map((p, i) => {
               const pos = getPos(i, current, total)
               if (Math.abs(pos) > 2) return null
               const cfg = getCfg(pos, POS)
@@ -289,7 +290,24 @@ export function ProjectsHeroCarousel({
                   <TabletMockup project={p} isActive={isMain} tabW={tabW} tabH={tabH} />
                 </motion.div>
               )
-            })
+              })}
+              <button
+                onClick={() => go(current - 1)}
+                className="absolute left-2 top-1/3 z-20 flex items-center justify-center w-10 h-10 rounded-full"
+                style={{ background: "rgba(140,145,247,0.12)", border: "1px solid rgba(140,145,247,0.25)" }}
+                aria-label="Previous project"
+              >
+                <ChevronLeft className="w-5 h-5 text-[#8C91F7]" />
+              </button>
+              <button
+                onClick={() => go(current + 1)}
+                className="absolute right-2 top-1/3 z-20 flex items-center justify-center w-10 h-10 rounded-full"
+                style={{ background: "rgba(140,145,247,0.12)", border: "1px solid rgba(140,145,247,0.25)" }}
+                aria-label="Next project"
+              >
+                <ChevronRight className="w-5 h-5 text-[#8C91F7]" />
+              </button>
+            </>
           )}
 
           {/* Pedestal — only on non-mobile */}

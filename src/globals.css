@@ -137,6 +137,7 @@ a, button, [role="button"], input, select, textarea, label[for], summary {
 /* Smooth scroll */
 html {
   scroll-behavior: smooth;
+  background: #0a0918;
 }
 
 @keyframes float-1 {
