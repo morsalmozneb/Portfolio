@@ -4,6 +4,7 @@ import { PageShell } from "@/components/page-shell"
 import { ContactForm } from "@/components/contact/contact-form"
 import { ContactInfo } from "@/components/contact/contact-info"
 import { Footer } from "@/components/footer"
+import { Seo } from "@/components/seo"
 
 function ContactHeader() {
   const ref = useRef(null)
@@ -49,6 +50,11 @@ function ContactHeader() {
 export default function ContactPage() {
   return (
     <PageShell>
+      <Seo
+        title="Contact | Morsal Mozneb"
+        description="Contact Morsal Mozneb for collaboration, project inquiries, freelance work, or questions about past portfolio projects."
+        path="/contact"
+      />
       <section className="relative overflow-hidden pt-10 pb-10 lg:py-16">
         <motion.div
           className="pointer-events-none absolute -top-24 left-[10%] h-72 w-72 rounded-full"

@@ -5,18 +5,19 @@ import { EmailIcon } from "@/components/icons/email-icon"
 import { YoutubeIcon } from "@/components/icons/youtube-icon"
 import { ResumeIcon } from "@/components/icons/resume-icon"
 import { ArrowUp } from "lucide-react"
+import { siteLinks } from "@/lib/site"
 
 const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/morsal-mozneb", icon: <LinkedinIcon /> },
-  { label: "Email", href: "mailto:morsalehmozneb@gmail.com", icon: <EmailIcon /> },
-  { label: "YouTube", href: "https://www.youtube.com/@MorsalMozneb95", icon: <YoutubeIcon /> },
-  { label: "Resume", href: "#", icon: <ResumeIcon /> },
+  { label: "LinkedIn", href: siteLinks.linkedin, icon: <LinkedinIcon /> },
+  { label: "Email", href: siteLinks.email, icon: <EmailIcon /> },
+  { label: "YouTube", href: siteLinks.youtube, icon: <YoutubeIcon /> },
+  { label: "Resume", href: siteLinks.resume, icon: <ResumeIcon /> },
 ]
 
 export function Footer() {
   return (
     <footer
-      className="relative py-10 border-t"
+      className="relative mt-16 border-t py-10 lg:mt-20"
       style={{
         borderColor: "rgba(140, 145, 247, 0.25)",
         borderImage:
