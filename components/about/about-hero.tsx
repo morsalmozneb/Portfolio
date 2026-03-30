@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useInView, useMotionValue, useAnimationFrame }
 import Image from "next/image"
 import { Briefcase, MapPin, Wrench, Heart, Sparkles, Cat } from "lucide-react"
 
-/* ─── Data ───────────────────────────────────────────────────── */
+/* ─── Data ──────────────────────────────────────────────────── */
 interface OrbitNode {
   label: string
   text: string
