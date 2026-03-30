@@ -11,6 +11,7 @@ import { ToolsSection } from "@/components/tools-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 import { ScrollParallax } from "@/components/scroll-parallax"
+import { GradualBlur } from "@/components/gradual-blur"
 import { Seo } from "@/components/seo"
 
 function useIsDesktop() {
@@ -46,6 +47,32 @@ function HomeInner() {
       <CustomCursor />
       <ParticleBackground />
       <BigBangOverlay onComplete={handleBigBangComplete} />
+
+      {/* Scroll blur overlays — same settings as PageShell for consistency */}
+      {showContent && (
+        <>
+          <GradualBlur
+            position="top"
+            height="7rem"
+            strength={2.5}
+            divCount={8}
+            curve="ease-out"
+            target="page"
+            zIndex={50}
+            style={{ pointerEvents: "none" }}
+          />
+          <GradualBlur
+            position="bottom"
+            height="7rem"
+            strength={2.5}
+            divCount={8}
+            curve="ease-out"
+            target="page"
+            zIndex={50}
+            style={{ pointerEvents: "none" }}
+          />
+        </>
+      )}
 
       {showContent && (
         <>

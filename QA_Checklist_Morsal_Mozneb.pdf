@@ -1,0 +1,541 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Length 2802 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 50 742 Tm
+/F2 20 Tf
+(Assignment 2 QA Checklist) Tj
+/F1 11 Tf
+0 -14 Td
+(Student: Morsal Mozneb) Tj
+0 -14 Td
+(Project: Portfolio Website) Tj
+0 -14 Td
+(Issue Tracking Platform: GitHub Issues - https://github.com/morsalmozneb/Portfolio/issues) Tj
+0 -14 Td
+(Instructor Invited as Collaborator: airrickdunfield-bcit) Tj
+0 -8 Td
+/F2 14 Tf
+0 -14 Td
+(QA Checklist Summary) Tj
+/F1 11 Tf
+0 -14 Td
+(This checklist was used to evaluate the portfolio website for launch readiness across) Tj
+0 -14 Td
+(navigation, layout, responsive behavior, browser support, metadata, content quality,) Tj
+0 -14 Td
+(deployment, and error handling. Issues found during testing were documented in GitHub) Tj
+0 -14 Td
+(Issues, fixed, and then retested.) Tj
+0 -8 Td
+/F2 14 Tf
+0 -14 Td
+(Primary Checklist) Tj
+/F2 11 Tf
+0 -14 Td
+(Item 1 - Navigation) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Clicking the site logo from the home page should return or scroll to the top) Tj
+0 -14 Td
+(correctly) Tj
+0 -14 Td
+(Expected Result: User is returned to the top of the home page without layout or navigation) Tj
+0 -14 Td
+(issues) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #38) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 2 - Project Showcase) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Prototype iframe should fit correctly inside the device frame when zoomed or) Tj
+0 -14 Td
+(resized) Tj
+0 -14 Td
+(Expected Result: Prototype remains aligned and fully visible inside the frame) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #39) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 3 - Mobile Layout) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Device toggle buttons should wrap and remain inside the screen on smaller) Tj
+0 -14 Td
+(devices) Tj
+0 -14 Td
+(Expected Result: Buttons remain visible and do not overflow outside the layout) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #40) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 4 - Mobile UX) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Mobile logo should not overlap page headings while scrolling) Tj
+0 -14 Td
+(Expected Result: Logo does not block text or overlap important content) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #41) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 5 - Layout / Visual QA) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: No black strip should appear at the bottom of the page) Tj
+0 -14 Td
+(Expected Result: Background fills the page smoothly without visible gaps) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #42) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 6 - Metadata) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Each route should have an appropriate page title) Tj
+0 -14 Td
+(Expected Result: Home, About, Projects, and Contact pages display correct page titles) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #43) Tj
+ET
+BT /F1 9 Tf 1 0 0 1 50 28 Tm (Page 1 of 4) Tj ET
+endstream
+endobj
+4 0 obj
+<< /Length 2716 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 50 742 Tm
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 7 - Carousel Functionality) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Desktop carousel should include working navigation arrows) Tj
+0 -14 Td
+(Expected Result: User can navigate through project items using visible controls) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #44) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 8 - Layout Containment) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Device stage wrapper should hide overflow correctly) Tj
+0 -14 Td
+(Expected Result: Elements stay inside their intended container without clipping errors) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #45) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 9 - External Links) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Footer social links should point to the correct personal profiles) Tj
+0 -14 Td
+(Expected Result: Each social link opens the correct destination) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #46) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 10 - Footer Layout) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Footer spacing should be visually consistent across pages) Tj
+0 -14 Td
+(Expected Result: Footer spacing appears balanced and consistent on all main pages) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #47) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 11 - Branding / Metadata) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Favicon should display in the browser tab) Tj
+0 -14 Td
+(Expected Result: Browser tab shows the site favicon correctly) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #48) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 12 - Social Sharing / SEO) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Open Graph tags should exist on all main pages) Tj
+0 -14 Td
+(Expected Result: Required Open Graph tags are present in the page head) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #49) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 13 - Metadata / SEO) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Meta description should exist on all main pages) Tj
+0 -14 Td
+(Expected Result: Each page includes a valid meta description tag) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #50) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 14 - Navigation / Documents) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Resume link in sidebar should function correctly) Tj
+0 -14 Td
+(Expected Result: Resume PDF opens or downloads successfully) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Linked Issue: #51) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 15 - Error Handling) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Invalid routes should show a custom 404 page) Tj
+0 -14 Td
+(Expected Result: User sees a custom 404 page with a way back to the site) Tj
+0 -14 Td
+(Status: Pass) Tj
+ET
+BT /F1 9 Tf 1 0 0 1 50 28 Tm (Page 2 of 4) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Length 2578 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 50 742 Tm
+(Linked Issue: #52) Tj
+0 -8 Td
+/F2 14 Tf
+0 -14 Td
+(Additional Launch Readiness Checklist) Tj
+/F2 11 Tf
+0 -14 Td
+(Item 16 - Portfolio Requirements) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Home, About, Projects, and Contact sections or pages are present) Tj
+0 -14 Td
+(Expected Result: All required portfolio sections are available and accessible) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Core requirement met) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 17 - Portfolio Requirements) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Project content is accurate and complete) Tj
+0 -14 Td
+(Expected Result: Project names, visuals, and descriptions match the intended content) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Manual review) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 18 - Browser Support) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Test site in Chrome) Tj
+0 -14 Td
+(Expected Result: Site loads and functions correctly in Chrome) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Primary browser) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 19 - Browser Support) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Test site in Safari) Tj
+0 -14 Td
+(Expected Result: Site loads and functions correctly in Safari) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Cross-browser check) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 20 - Browser Support) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Test site in Firefox if available) Tj
+0 -14 Td
+(Expected Result: Site remains functional and visually acceptable) Tj
+0 -14 Td
+(Status: Pass / N/A) Tj
+0 -14 Td
+(Notes: Optional if tested) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 21 - Responsive Design) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Test mobile screen sizes) Tj
+0 -14 Td
+(Expected Result: Layout adapts correctly to smaller screens) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Includes prior mobile bug fixes) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 22 - Responsive Design) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Test tablet screen sizes) Tj
+0 -14 Td
+(Expected Result: Layout remains readable and properly aligned) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Tablet layout checked) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 23 - Responsive Design) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Test desktop screen sizes) Tj
+0 -14 Td
+(Expected Result: Layout appears polished and consistent on desktop) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Desktop reviewed) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 24 - Content Accuracy) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: No spelling mistakes or placeholder text remain) Tj
+ET
+BT /F1 9 Tf 1 0 0 1 50 28 Tm (Page 3 of 4) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Length 2937 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 50 742 Tm
+(Expected Result: Written content appears professional and correct) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Manual proofreading) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 25 - Content Accuracy) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Contact information is accurate) Tj
+0 -14 Td
+(Expected Result: Email, LinkedIn, and resume information are correct) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Verified against live content) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 26 - Metadata) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Canonical and social metadata are present where needed) Tj
+0 -14 Td
+(Expected Result: Metadata supports search and social sharing expectations) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Added during QA fixes) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 27 - Code Optimization) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: No broken imports or missing assets in final deployment) Tj
+0 -14 Td
+(Expected Result: Site builds and deploys without asset path issues) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Deployment retested) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 28 - CMS Support) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: CMS functionality review) Tj
+0 -14 Td
+(Expected Result: Not applicable because this portfolio does not use a CMS) Tj
+0 -14 Td
+(Status: N/A) Tj
+0 -14 Td
+(Notes: Included per assignment requirement) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 29 - Accessibility) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Interactive elements are clearly visible and usable) Tj
+0 -14 Td
+(Expected Result: Buttons, links, and navigation are understandable and clickable) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Basic manual check) Tj
+0 -8 Td
+/F2 11 Tf
+0 -14 Td
+(Item 30 - Deployment) Tj
+/F1 11 Tf
+0 -14 Td
+(Checklist Item: Live deployed site reflects fixed issues) Tj
+0 -14 Td
+(Expected Result: Production site matches the corrected version) Tj
+0 -14 Td
+(Status: Pass) Tj
+0 -14 Td
+(Notes: Verified after deployment) Tj
+0 -8 Td
+/F2 14 Tf
+0 -14 Td
+(Bug Management Process) Tj
+/F1 11 Tf
+0 -14 Td
+(Issues identified during QA testing were documented in GitHub Issues using the detailed bug) Tj
+0 -14 Td
+(report format from Assignment 1. Each issue included a title, reproduction steps, expected) Tj
+0 -14 Td
+(result, actual result, labels, and retest information. After fixes were applied, each issue) Tj
+0 -14 Td
+(was retested and closed with notes describing how it was addressed.) Tj
+0 -8 Td
+/F2 14 Tf
+0 -14 Td
+(Testing Notes) Tj
+/F1 11 Tf
+0 -14 Td
+(- Testing focused on navigation, layout consistency, browser display, responsive behavior,) Tj
+0 -14 Td
+(  metadata, and content accuracy.) Tj
+0 -14 Td
+(- GitHub Issues was used to organize and manage bugs.) Tj
+0 -14 Td
+(- The instructor was provided with issues to retest using the linked issue tracker.) Tj
+0 -8 Td
+0 -14 Td
+(Issue Tracker Link: https://github.com/morsalmozneb/Portfolio/issues) Tj
+ET
+BT /F1 9 Tf 1 0 0 1 50 28 Tm (Page 4 of 4) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Pages /Kids [8 0 R 9 0 R 10 0 R 11 0 R] /Count 4 >>
+endobj
+8 0 obj
+<< /Type /Page /Parent 7 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
+endobj
+9 0 obj
+<< /Type /Page /Parent 7 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 4 0 R >>
+endobj
+10 0 obj
+<< /Type /Page /Parent 7 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
+endobj
+11 0 obj
+<< /Type /Page /Parent 7 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 6 0 R >>
+endobj
+12 0 obj
+<< /Type /Catalog /Pages 7 0 R >>
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000015 00000 n 
+0000000085 00000 n 
+0000000160 00000 n 
+0000003014 00000 n 
+0000005782 00000 n 
+0000008412 00000 n 
+0000011401 00000 n 
+0000011478 00000 n 
+0000011614 00000 n 
+0000011750 00000 n 
+0000011887 00000 n 
+0000012024 00000 n 
+trailer
+<< /Size 13 /Root 12 0 R >>
+startxref
+12074
+%%EOF

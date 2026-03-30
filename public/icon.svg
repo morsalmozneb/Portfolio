@@ -1,26 +1,11 @@
 <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    @media (prefers-color-scheme: light) {
-      .background { fill: black; }
-      .foreground { fill: white; }
-    }
-    @media (prefers-color-scheme: dark) {
-      .background { fill: white; }
-      .foreground { fill: black; }
-    }
-  </style>
-  <g clip-path="url(#clip0_7960_43945)">
-    <rect class="background" width="180" height="180" rx="37" />
-    <g style="transform: scale(95%); transform-origin: center">
-      <path class="foreground"
-        d="M101.141 53H136.632C151.023 53 162.689 64.6662 162.689 79.0573V112.904H148.112V79.0573C148.112 78.7105 148.098 78.3662 148.072 78.0251L112.581 112.898C112.701 112.902 112.821 112.904 112.941 112.904H148.112V126.672H112.941C98.5504 126.672 86.5638 114.891 86.5638 100.5V66.7434H101.141V100.5C101.141 101.15 101.191 101.792 101.289 102.422L137.56 66.7816C137.255 66.7563 136.945 66.7434 136.632 66.7434H101.141V53Z" />
-      <path class="foreground"
-        d="M65.2926 124.136L14 66.7372H34.6355L64.7495 100.436V66.7372H80.1365V118.47C80.1365 126.278 70.4953 129.958 65.2926 124.136Z" />
-    </g>
+  <!-- Dark background matching site theme, rounded corners -->
+  <rect width="180" height="180" rx="37" fill="#0f0d1e"/>
+  <!-- "M" letter from the MORSAL logo, scaled and centred -->
+  <g transform="translate(20, 24) scale(3.35) translate(-39, -2)">
+    <path
+      d="M75.6006 19.6596C75.6006 18.2278 73.7858 17.6099 72.9122 18.7443L61.1638 33.9985C60.5634 34.7782 59.3876 34.7782 58.7871 33.9986L46.9838 18.675C46.1101 17.5407 44.2955 18.1586 44.2955 19.5904V39.6395C44.2955 40.468 43.6239 41.1395 42.7955 41.1395H40.5C39.6716 41.1395 39 40.468 39 39.6395V4.37759C39 2.94875 40.8085 2.32906 41.6848 3.45764L58.7853 25.4808C59.3875 26.2564 60.5602 26.2538 61.1589 25.4755L78.0696 3.49499C78.9429 2.35985 80.7585 2.97743 80.7585 4.40965V39.6395C80.7585 40.468 80.0869 41.1395 79.2585 41.1395H77.1006C76.2721 41.1395 75.6006 40.468 75.6006 39.6395V19.6596Z"
+      fill="#C2BBD4"
+    />
   </g>
-  <defs>
-    <clipPath id="clip0_7960_43945">
-      <rect width="180" height="180" fill="white" />
-    </clipPath>
-  </defs>
 </svg>
