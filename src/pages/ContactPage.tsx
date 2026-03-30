@@ -55,7 +55,7 @@ export default function ContactPage() {
         description="Contact Morsal Mozneb for collaboration, project inquiries, freelance work, or questions about past portfolio projects."
         path="/contact"
       />
-      <section className="relative overflow-hidden pt-10 pb-10 lg:py-16">
+      <section className="relative overflow-hidden pt-16 md:pt-28 pb-10 lg:pb-16">
         <motion.div
           className="pointer-events-none absolute -top-24 left-[10%] h-72 w-72 rounded-full"
           style={{
