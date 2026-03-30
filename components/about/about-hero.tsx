@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useInView, useMotionValue, useAnimationFrame }
 import Image from "next/image"
 import { Briefcase, MapPin, Wrench, Heart, Sparkles, Cat } from "lucide-react"
 
-/* ─── Data ───────────────────────────────────────────────────── */
+/* ─── Data ──────────────────────────────────────────────────── */
 interface OrbitNode {
   label: string
   text: string
@@ -200,7 +200,7 @@ export function AboutHero() {
         @keyframes twinkle { 0%,100% { opacity: 0.15; } 50% { opacity: 0.5; } }
       `}</style>
 
-      <section ref={ref} className="relative pt-10 lg:pt-14 pb-6 overflow-visible">
+      <section ref={ref} className="relative pt-16 md:pt-28 pb-6 overflow-visible">
         <div className="w-full max-w-[1080px] mx-auto px-6 lg:px-12">
 
           {/* Header text */}
