@@ -4,7 +4,6 @@ import { SidebarProvider, useSidebar } from "@/components/sidebar-context"
 import { SidebarNav, SIDEBAR_FULL, SIDEBAR_RAIL } from "@/components/sidebar-nav"
 import { CustomCursor } from "@/components/custom-cursor"
 import { ParticleBackground } from "@/components/particle-background"
-import { GradualBlur } from "@/components/gradual-blur"
 import { useState, useEffect, type ReactNode } from "react"
 
 function useIsDesktop() {
@@ -36,28 +35,6 @@ function ShellInner({ children }: { children: ReactNode }) {
       <CustomCursor />
       <ParticleBackground />
       <SidebarNav />
-
-      {/* Scroll blur overlays — fixed to viewport, consistent across all pages */}
-      <GradualBlur
-        position="top"
-        height="7rem"
-        strength={2.5}
-        divCount={8}
-        curve="ease-out"
-        target="page"
-        zIndex={50}
-        style={{ pointerEvents: "none" }}
-      />
-      <GradualBlur
-        position="bottom"
-        height="7rem"
-        strength={2.5}
-        divCount={8}
-        curve="ease-out"
-        target="page"
-        zIndex={50}
-        style={{ pointerEvents: "none" }}
-      />
 
       <main
         className="relative z-10"
