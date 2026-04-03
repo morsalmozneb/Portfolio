@@ -1,3 +1,4 @@
+// HomePage — no scroll-blur overlays
 import { useState, useCallback, useEffect } from "react"
 import { BigBangOverlay } from "@/components/big-bang-overlay"
 import { SidebarProvider, useSidebar } from "@/components/sidebar-context"
