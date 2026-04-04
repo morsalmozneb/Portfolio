@@ -62,13 +62,13 @@ function TypewriterLines({
     }
     const line = lines[lineIndex]
     if (charIndex < line.length) {
-      const t = setTimeout(() => setCharIndex((c) => c + 1), 22)
+      const t = setTimeout(() => setCharIndex((c) => c + 1), 8)
       return () => clearTimeout(t)
     }
     const t = setTimeout(() => {
       setLineIndex((l) => l + 1)
       setCharIndex(0)
-    }, 60)
+    }, 25)
     return () => clearTimeout(t)
   }, [started, done, lineIndex, charIndex, lines])
 
@@ -137,7 +137,7 @@ export function HeroSection({ show }: { show: boolean }) {
         transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="w-full max-w-[1080px] mx-auto px-6 lg:px-12 pt-12 pb-16 lg:pb-20">
+      <div className="w-full max-w-[1080px] mx-auto px-6 lg:px-12 pt-20 md:pt-14 lg:pt-12 pb-16 lg:pb-20">
         <motion.div
           className="flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-16"
           variants={container}
@@ -204,7 +204,7 @@ export function HeroSection({ show }: { show: boolean }) {
 
           {/* ── Halftone Portrait (right column) ── */}
           <motion.div
-            className="flex-shrink-0 flex items-center justify-center"
+            className="flex-shrink-0 flex items-center justify-center w-full max-w-[260px] sm:max-w-[340px] lg:max-w-none mx-auto lg:mx-0 overflow-hidden"
             initial={{ opacity: 0, x: 60, scale: 0.88, filter: "blur(8px)" }}
             animate={{ opacity: 1, x: 0, scale: 1, filter: "blur(0px)" }}
             transition={{ delay: 0.42, duration: 0.95, ease: heroEase }}
