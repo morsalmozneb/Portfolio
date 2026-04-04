@@ -1,5 +1,6 @@
 "use client"
 import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
 import { SparkleButton } from "@/components/sparkle-button"
 import { HalftonePortrait } from "@/components/halftone-portrait"
 
@@ -34,6 +35,82 @@ const riseIn = {
     filter: "blur(0px)",
     transition: { duration: 0.7, ease: heroEase },
   },
+}
+
+function TypewriterLines({
+  lines,
+  startDelay = 0,
+}: {
+  lines: string[]
+  startDelay?: number
+}) {
+  const [started, setStarted] = useState(false)
+  const [lineIndex, setLineIndex] = useState(0)
+  const [charIndex, setCharIndex] = useState(0)
+  const [done, setDone] = useState(false)
+
+  useEffect(() => {
+    const t = setTimeout(() => setStarted(true), startDelay)
+    return () => clearTimeout(t)
+  }, [startDelay])
+
+  useEffect(() => {
+    if (!started || done) return
+    if (lineIndex >= lines.length) {
+      setDone(true)
+      return
+    }
+    const line = lines[lineIndex]
+    if (charIndex < line.length) {
+      const t = setTimeout(() => setCharIndex((c) => c + 1), 22)
+      return () => clearTimeout(t)
+    }
+    const t = setTimeout(() => {
+      setLineIndex((l) => l + 1)
+      setCharIndex(0)
+    }, 60)
+    return () => clearTimeout(t)
+  }, [started, done, lineIndex, charIndex, lines])
+
+  return (
+    <div className="space-y-0.5">
+      <style>{`
+        @keyframes cursor-blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        .typewriter-cursor {
+          display: inline-block;
+          width: 2px;
+          height: 0.85em;
+          background: #8C91F7;
+          margin-left: 2px;
+          vertical-align: text-bottom;
+          animation: cursor-blink 0.9s step-end infinite;
+        }
+      `}</style>
+
+      {lines.map((line, i) => {
+        if (i < lineIndex) {
+          return (
+            <p key={i} className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+              {line}
+              {done && i === lines.length - 1 && <span className="typewriter-cursor" />}
+            </p>
+          )
+        }
+        if (i === lineIndex && started && !done) {
+          return (
+            <p key={i} className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+              {line.slice(0, charIndex)}
+              <span className="typewriter-cursor" />
+            </p>
+          )
+        }
+        return null
+      })}
+    </div>
+  )
 }
 
 export function HeroSection({ show }: { show: boolean }) {
@@ -114,19 +191,7 @@ export function HeroSection({ show }: { show: boolean }) {
               </motion.span>
             </motion.h1>
 
-            <div className="space-y-0.5">
-              {bodyLines.map((line, i) => (
-                <motion.p
-                  key={i}
-                  className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed"
-                  initial={{ opacity: 0, x: -14, filter: "blur(6px)" }}
-                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                  transition={{ delay: 0.6 + i * 0.08, duration: 0.5, ease: heroEase }}
-                >
-                  {line}
-                </motion.p>
-              ))}
-            </div>
+            <TypewriterLines lines={bodyLines} startDelay={1200} />
 
             <motion.div
               className="flex flex-col sm:flex-row sm:flex-wrap gap-4 pt-4 w-full sm:w-auto"
