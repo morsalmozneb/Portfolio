@@ -9,7 +9,7 @@ const tools = [
   { abbr: "Ps",   name: "Adobe Photoshop",   desc: "Photo editing, compositing & retouching", img: "/images/Photoshop_Pic.png"       },
   { abbr: "Fi",   name: "Figma",             desc: "UI/UX design & interactive prototyping",  img: "/images/Figma_Pic.png"           },
   { abbr: "Id",   name: "Adobe InDesign",    desc: "Editorial layout & print design",         img: "/images/Id_Pic.png"              },
-  { abbr: "Ae",   name: "After Effects",     desc: "Motion graphics & visual effects",        img: "/images/Ae_Pic.png"              },
+  { abbr: "Ae",   name: "After Effects",     desc: "Motion graphics & visual effects",        img: "/images/Ae_Pic.png"             },
   { abbr: "Pr",   name: "Premiere Pro",      desc: "Video editing & colour grading",          img: "/images/Pr_Pic.png"              },
   { abbr: "Fr",   name: "Framer",            desc: "Interactive web & no-code publishing",    img: "/images/Framer_Pic.png"          },
   { abbr: "CSS",  name: "CSS3",              desc: "Styling, animations & responsive layouts", img: "/images/CSS_Pic.png"            },
@@ -72,8 +72,8 @@ export function ToolsSection() {
           transition={{ delay: 0.25, duration: 0.7 }}
           className="flex flex-col items-center gap-6"
         >
-          {/* Stage — no arrows */}
-          <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 300, height: 300, flexShrink: 0 }}>
+          {/* Stage */}
+          <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 300, height: 300, flexShrink: 0, overflow: "hidden" }}>
 
             {/* Rings */}
             <div style={{
