@@ -23,8 +23,6 @@ const devTools = [
 
 type ToolItem = { name: string; abbr: string; color: string; img: string; desc: string }
 
-/* OrbitRing: centering via marginLeft/marginTop so Framer Motion rotate
-   does NOT override the centering translate. */
 function OrbitRing({ radius, duration, color, dotSize = 6, reverse = false }: {
   radius: number; duration: number; color: string; dotSize?: number; reverse?: boolean
 }) {
@@ -71,7 +69,7 @@ function ToolOverlay({ tool, onClose }: { tool: ToolItem; onClose: () => void })
   return (
     <motion.div
       key="overlay-bg"
-      className="fixed inset-0 z-[200] flex items-center justify-center"
+      className="fixed top-0 bottom-0 right-0 left-0 lg:left-[260px] z-[200] flex items-center justify-center"
       style={{ backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)", background: "rgba(6,4,20,0.88)" }}
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
@@ -88,13 +86,11 @@ function ToolOverlay({ tool, onClose }: { tool: ToolItem; onClose: () => void })
         transition={{ type: "spring", stiffness: 260, damping: 22 }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Orbit stage — 240×240, rings centered via margin trick */}
         <div className="relative" style={{ width: 240, height: 240, flexShrink: 0 }}>
           <OrbitRing radius={108} duration={8}  color={tool.color} dotSize={7} />
           <OrbitRing radius={114} duration={13} color={tool.color} dotSize={5} reverse />
           <OrbitRing radius={118} duration={19} color={tool.color} dotSize={4} />
 
-          {/* Glow — margin-centered to avoid transform conflict */}
           <div style={{
             position: "absolute", top: "50%", left: "50%",
             width: 160, height: 160, marginLeft: -80, marginTop: -80,
@@ -103,7 +99,6 @@ function ToolOverlay({ tool, onClose }: { tool: ToolItem; onClose: () => void })
             filter: "blur(14px)",
           }} />
 
-          {/* Icon — absolutely centered inside the rings */}
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <motion.img
               src={tool.img} alt={tool.name} draggable={false}
