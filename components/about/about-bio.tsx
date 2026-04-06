@@ -12,6 +12,8 @@ const bioLines = [
   "",
   "My toolkit spans Figma, Adobe Creative Suite, Framer, and front-end basics like HTML, CSS, and JavaScript. I'm just as comfortable running a design sprint as I am fine-tuning spacing in a prototype.",
   "",
+  "Currently wrapping up my final term in the New Media Design and Web Development program at BCIT, I'm actively seeking a practicum host company and internship opportunities in the design industry. I'm particularly drawn to studios, agencies, and in-house design teams in the Vancouver area that work across UX/UI, branding, and digital experience — environments where thoughtful design and strategic thinking go hand in hand. If you're a company looking for a motivated designer who brings both creative execution and a marketing-informed perspective, I'd love to start a conversation.",
+  "",
   "Outside of work, I'm usually hanging out with my cat Bella, who keeps me grounded.",
 ]
 
@@ -27,7 +29,6 @@ export function AboutBio() {
             if (line === "") {
               return <div key={i} className="h-4" />
             }
-
             return (
               <motion.p
                 key={i}

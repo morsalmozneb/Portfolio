@@ -5,25 +5,24 @@ import { motion, useInView, AnimatePresence } from "framer-motion"
 import MagicRings from "./magic-rings"
 
 const tools = [
-  { abbr: "Ai",  name: "Adobe Illustrator", desc: "Vector graphics & brand illustration",         img: "/images/AI_Pic.png"             },
-  { abbr: "Ps",  name: "Adobe Photoshop",   desc: "Photo editing, compositing & retouching",      img: "/images/Photoshop_Pic.png"      },
-  { abbr: "Fi",  name: "Figma",             desc: "UI/UX design & interactive prototyping",        img: "/images/Figma_Pic.png"          },
-  { abbr: "Id",  name: "Adobe InDesign",    desc: "Editorial layout & print design",               img: "/images/Id_Pic.png"             },
-  { abbr: "Ae",  name: "After Effects",     desc: "Motion graphics & visual effects",              img: "/images/Ae_Pic.png"             },
-  { abbr: "Pr",  name: "Premiere Pro",      desc: "Video editing & colour grading",                img: "/images/Pr_Pic.png"             },
-  { abbr: "Fr",  name: "Framer",            desc: "Interactive web & no-code publishing",          img: "/images/Framer_Pic.png"         },
-  { abbr: "CSS", name: "CSS3",              desc: "Styling, animations & responsive layouts",      img: "/images/CSS_Pic.png"            },
-  { abbr: "HTML",name: "HTML5",             desc: "Semantic markup & web structure",               img: "/images/HTML5_Pic.png"          },
-  { abbr: "JS",  name: "JavaScript",        desc: "Interactive UI & front-end responsive scripting",img: "/images/JavaScript_Pic.png"    },
-  { abbr: "GH",  name: "GitHub",            desc: "Version control & team collaboration",          img: "/images/GitHub_Pic.png"         },
-  { abbr: "Re",  name: "React",             desc: "Component-based dynamic web apps",              img: "/images/React_Pic.png"          },
-  { abbr: "MS",  name: "Microsoft Office",  desc: "Docs, spreadsheets & presentations",            img: "/images/MicrosoftOffice_Pic.png"},
-  { abbr: "VS",  name: "VS Code",           desc: "Code editing, debugging & extensions",          img: "/images/VSC_Pic.png"            },
+  { abbr: "Ai",   name: "Adobe Illustrator", desc: "Vector graphics & brand illustration",          img: "/images/AI_Pic.png"              },
+  { abbr: "Ps",   name: "Adobe Photoshop",   desc: "Photo editing, compositing & retouching",       img: "/images/Photoshop_Pic.png"       },
+  { abbr: "Fi",   name: "Figma",             desc: "UI/UX design & interactive prototyping",        img: "/images/Figma_Pic.png"           },
+  { abbr: "Id",   name: "Adobe InDesign",    desc: "Editorial layout & print design",               img: "/images/Id_Pic.png"              },
+  { abbr: "Ae",   name: "After Effects",     desc: "Motion graphics & visual effects",              img: "/images/Ae_Pic.png"              },
+  { abbr: "Pr",   name: "Premiere Pro",      desc: "Video editing & colour grading",                img: "/images/Pr_Pic.png"              },
+  { abbr: "Fr",   name: "Framer",            desc: "Interactive web & no-code publishing",          img: "/images/Framer_Pic.png"          },
+  { abbr: "CSS",  name: "CSS3",              desc: "Styling, animations & responsive layouts",      img: "/images/CSS_Pic.png"             },
+  { abbr: "HTML", name: "HTML5",             desc: "Semantic markup & web structure",               img: "/images/HTML5_Pic.png"           },
+  { abbr: "JS",   name: "JavaScript",        desc: "Interactive UI & front-end responsive scripting", img: "/images/JavaScript_Pic.png"   },
+  { abbr: "GH",   name: "GitHub",            desc: "Version control & team collaboration",          img: "/images/GitHub_Pic.png"          },
+  { abbr: "Re",   name: "React",             desc: "Component-based dynamic web apps",              img: "/images/React_Pic.png"           },
+  { abbr: "MS",   name: "Microsoft Office",  desc: "Docs, spreadsheets & presentations",            img: "/images/MicrosoftOffice_Pic.png" },
+  { abbr: "VS",   name: "VS Code",           desc: "Code editing, debugging & extensions",          img: "/images/VSC_Pic.png"             },
 ]
 
 const INTERVAL_MS = 3000
 
-/* — Radar ring (moved here from contact section) ————————————————————— */
 function RadarRing({ delay }: { delay: number }) {
   return (
     <motion.div
@@ -71,7 +70,6 @@ export function ToolsSection() {
     <section ref={sectionRef} className="relative py-10 lg:py-16">
       <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
 
-        {/* Header */}
         <motion.div
           className="mb-10 lg:mb-14"
           initial={{ opacity: 0, x: -60 }}
@@ -85,17 +83,14 @@ export function ToolsSection() {
           </h2>
         </motion.div>
 
-        {/* Carousel */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.25, duration: 0.7 }}
           className="flex flex-col items-center gap-6"
         >
-          {/* Stage */}
-          <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 340, height: 340 }}>
+          <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 340, height: 340, flexShrink: 0 }}>
 
-            {/* Magic rings canvas */}
             <div style={{
               position: "absolute",
               top: "50%", left: "50%",
@@ -127,7 +122,6 @@ export function ToolsSection() {
               />
             </div>
 
-            {/* Radar rings around the tool image */}
             {isInView && (
               <>
                 <RadarRing delay={0} />
@@ -136,7 +130,6 @@ export function ToolsSection() {
               </>
             )}
 
-            {/* Floating image with soft faded edges */}
             <AnimatePresence initial={false} custom={direction} mode="wait">
               <motion.div
                 key={tool.abbr}
@@ -171,7 +164,6 @@ export function ToolsSection() {
             </AnimatePresence>
           </div>
 
-          {/* Name + description */}
           <AnimatePresence mode="wait">
             <motion.div
               key={tool.abbr + "-text"}
@@ -191,7 +183,6 @@ export function ToolsSection() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Dots */}
           <div className="flex gap-2 items-center pt-1">
             {tools.map((t, i) => (
               <button key={t.abbr} onClick={() => goTo(i)} aria-label={t.name}
