@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
 import { SparkleButton } from "@/components/sparkle-button"
 
-/* ── Typewriter hook ──────────────────────────────────────────────── */
+/* — Typewriter hook ————————————————————————————————————————————————— */
 function useTypewriter(text: string, trigger: boolean, speed = 55, delay = 0) {
   const [typed, setTyped] = useState("")
   useEffect(() => {
@@ -24,41 +24,18 @@ function useTypewriter(text: string, trigger: boolean, speed = 55, delay = 0) {
   return typed
 }
 
-/* ── Radar ring ───────────────────────────────────────────────────── */
-function RadarRing({ delay }: { delay: number }) {
-  return (
-    <motion.div
-      className="absolute rounded-full pointer-events-none"
-      style={{
-        border: "1px solid rgba(140,145,247,0.35)",
-        top: "50%", left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-      initial={{ width: 0, height: 0, opacity: 0.8 }}
-      animate={{ width: 600, height: 600, opacity: 0 }}
-      transition={{
-        duration: 3.5, delay,
-        repeat: Infinity, ease: "easeOut", repeatDelay: 0.5,
-      }}
-    />
-  )
-}
-
-/* ── Main component ───────────────────────────────────────────────── */
+/* — Main component ————————————————————————————————————————————————— */
 export function ContactSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  const lines = [
+    "I'd love to hear from you! Whether you have a project in mind, want to",
+    "collaborate, or just want to say hi, let's connect.",
+  ]
+
   return (
     <section id="contact" className="relative py-10 lg:py-16 overflow-hidden" ref={ref}>
-
-      {/* Radar rings */}
-      {isInView && (
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
-          <RadarRing delay={0} />
-          <RadarRing delay={1.1} />
-          <RadarRing delay={2.2} />
-        </div>
-      )}
 
       <div className="max-w-[1080px] mx-auto px-6 lg:px-12 relative z-10">
 
@@ -73,7 +50,10 @@ export function ContactSection() {
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-[#E4E4E4] font-mono">
             {"Let's "}
-            <span className="text-[#8C91F7]" style={{ textShadow: "0 0 20px rgba(140,145,247,0.3)" }}>
+            <span
+              className="text-[#8C91F7]"
+              style={{ textShadow: "0 0 20px rgba(140,145,247,0.3)" }}
+            >
               Create
             </span>
             {" Together"}
@@ -82,16 +62,13 @@ export function ContactSection() {
 
         <div className="mt-10">
           <div className="space-y-0.5 mb-8">
-            {[
-              "I'd love to hear from you! Whether you have a project in mind, want to",
-              "collaborate, or just want to say hi, let's connect.",
-            ].map((line, i) => (
+            {lines.map((line, idx) => (
               <motion.p
-                key={i}
-                className="text-[#E4E4E4]/60 text-base md:text-lg leading-relaxed"
-                initial={{ opacity: 0, y: 12 }}
+                key={idx}
+                className="text-[#E4E4E4]/60 text-sm md:text-base leading-relaxed"
+                initial={{ opacity: 0, y: 10 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.3 + i * 0.12, duration: 0.5 }}
+                transition={{ delay: 0.35 + idx * 0.12, duration: 0.5 }}
               >
                 {line}
               </motion.p>
@@ -106,6 +83,7 @@ export function ContactSection() {
             <SparkleButton href="/contact">Get In Touch</SparkleButton>
           </motion.div>
         </div>
+
       </div>
     </section>
   )
