@@ -88,7 +88,7 @@ export const projects: Project[] = [
     previewImage: "/images/Saffron_Flame_Tablet.png",
     cardImage: "/images/Saffron_Home.png",
     mobileProtoUrl: "https://embed.figma.com/proto/fXwzPVgMMwtavaYn0SGS5g/Mobile-Web?node-id=72-402&starting-point-node-id=72-402&embed-host=share&scaling=min-zoom&content-scaling=fixed&show-proto-sidebar=0&hide-ui=1",
-    tabletProtoUrl: "https://embed.figma.com/proto/fXwzPVgMMwtavaYn0SGS5g/Mobile-Web?node-id=109-1467&starting-point-node-id=109-1467&t=RTsuzg64ZE7uzijo-1&scaling=min-zoom&content-scaling=fixed&embed-host=share&hide-ui=1&show-proto-sidebar=0",
+    tabletProtoUrl: "https://embed.figma.com/proto/fXwzPVgMMwtavaYn0SGS5g/Mobile-Web?page-id=1%3A2&node-id=109-1467&t=rAQIJ8Fr6lPfKkPg-1&scaling=scale-down-width&embed-host=share&hide-ui=1&show-proto-sidebar=0",
     desktopProtoUrl: "https://embed.figma.com/proto/fXwzPVgMMwtavaYn0SGS5g/Mobile-Web?page-id=121-164&node-id=156-429&embed-host=share&scaling=scale-down-width&show-proto-sidebar=0&hide-ui=1",
   },
   {
