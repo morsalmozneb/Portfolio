@@ -28,14 +28,11 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  /* Unified radius token — 12px used everywhere for interactive elements */
   --radius: 0.75rem;
-  /* Card/image radius — 16px for larger surface areas */
   --radius-card: 1rem;
-  /* ─── 12-Column Grid System ─── */
   --content-max: 1080px;
-  --grid-gutter: 1.5rem;   /* 24px */
-  --grid-gutter-lg: 3rem;  /* 48px */
+  --grid-gutter: 1.5rem;
+  --grid-gutter-lg: 3rem;
   --sidebar: oklch(0.12 0.025 280);
   --sidebar-foreground: oklch(0.9 0 0);
   --sidebar-primary: oklch(0.65 0.2 280);
@@ -48,7 +45,6 @@
   --brand-purple-light: #A8ADFF;
   --brand-purple-dark: #6B70D4;
   --glow-purple: rgba(140, 145, 247, 0.3);
-  /* Sidebar widths */
   --sidebar-w-expanded: 220px;
   --sidebar-w-collapsed: 72px;
 }
@@ -95,50 +91,24 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
 }
 
-/* Custom cursor - hide default but allow pointer detection */
-* {
-  cursor: none;
-}
-a, button, [role="button"], input, select, textarea, label[for], summary {
-  cursor: pointer;
-}
+* { cursor: none; }
+a, button, [role="button"], input, select, textarea, label[for], summary { cursor: pointer; }
 
-/* On mobile, restore default cursor */
 @media (max-width: 767px) {
   * { cursor: auto !important; }
-  a, button, [role="button"], input, select, textarea, label[for], summary {
-    cursor: pointer !important;
-  }
+  a, button, [role="button"], input, select, textarea, label[for], summary { cursor: pointer !important; }
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: oklch(0.1 0.02 280);
-}
-::-webkit-scrollbar-thumb {
-  background: oklch(0.3 0.04 280);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.4 0.06 280);
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: oklch(0.1 0.02 280); }
+::-webkit-scrollbar-thumb { background: oklch(0.3 0.04 280); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: oklch(0.4 0.06 280); }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-  background: #0a0918;
-}
+html { scroll-behavior: smooth; background: #0a0918; }
 
 @keyframes float-1 {
   0%   { transform: translate(0px, 0px); }
@@ -148,7 +118,6 @@ html {
   80%  { transform: translate(-25px, -55px); }
   100% { transform: translate(0px, 0px); }
 }
-
 @keyframes float-2 {
   0%   { transform: translate(0px, 0px); }
   25%  { transform: translate(65px, -45px); }
@@ -156,51 +125,41 @@ html {
   75%  { transform: translate(-55px, -30px); }
   100% { transform: translate(0px, 0px); }
 }
-
 @keyframes float-3 {
   0%   { transform: translate(0px, 0px); }
   33%  { transform: translate(-45px, -60px); }
   66%  { transform: translate(60px, -35px); }
   100% { transform: translate(0px, 0px); }
 }
-
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.2; transform: scale(1); }
   50% { opacity: 0.85; transform: scale(1.4); }
 }
-
 @keyframes icon-pulse {
   0%, 100% { transform: scale(1); opacity: 0.85; }
   50% { transform: scale(1.08); opacity: 1; }
 }
 
-/* Glass card style */
 .glass-card {
   background: linear-gradient(135deg, rgba(140, 145, 247, 0.08) 0%, rgba(20, 18, 40, 0.6) 100%);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(140, 145, 247, 0.15);
 }
-
 .glass-card:hover {
   border-color: rgba(140, 145, 247, 0.35);
   box-shadow: 0 0 30px rgba(140, 145, 247, 0.12), 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-/* Letter highlight animation */
 @keyframes letter-chase {
   0%, 100% { color: rgba(228, 228, 228, 1); }
   50% { color: #8C91F7; text-shadow: 0 0 10px rgba(140, 145, 247, 0.5); }
 }
-
-/* Footer logo scan animation */
 @keyframes logo-scan {
   0% { transform: translateX(-120%); }
   40% { transform: translateX(120%); }
   100% { transform: translateX(120%); }
 }
 
-
-/* Subtle horizontal section divider */
 .section-divider {
   width: 100%;
   height: 1px;
@@ -208,709 +167,250 @@ html {
   margin: 0 auto;
 }
 
-/* Smooth section fade-in utility */
-.section-reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.section-reveal.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
+.section-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.section-reveal.in-view { opacity: 1; transform: translateY(0); }
 
-/* CTA sparkle button */
-.sparkle-btn {
-  position: relative;
-  isolation: isolate;
-}
-
-/* Sparkle particles - hidden by default, twinkle on hover near button edges */
+.sparkle-btn { position: relative; isolation: isolate; }
 .sparkle-particle {
-  position: absolute;
-  pointer-events: none;
-  z-index: 0;
-  left: calc(var(--x, 50) * 1%);
-  top: calc(var(--y, 50) * 1%);
-  width: var(--size, 8px);
-  height: var(--size, 8px);
-  color: rgba(140, 145, 247, 0.85);
-  opacity: 0;
-  visibility: hidden;
+  position: absolute; pointer-events: none; z-index: 0;
+  left: calc(var(--x, 50) * 1%); top: calc(var(--y, 50) * 1%);
+  width: var(--size, 8px); height: var(--size, 8px);
+  color: rgba(140, 145, 247, 0.85); opacity: 0; visibility: hidden;
 }
-.sparkle-particle svg {
-  width: 100%;
-  height: 100%;
-}
+.sparkle-particle svg { width: 100%; height: 100%; }
 .sparkle-btn:hover .sparkle-particle {
   visibility: visible;
   animation: sparkle-twinkle calc(var(--duration, 3) * 1s) calc(var(--delay, 0) * -1s) ease-in-out infinite;
 }
-
 @keyframes sparkle-twinkle {
   0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
   25% { opacity: 1; transform: scale(1) rotate(45deg); }
   50% { opacity: 0.4; transform: scale(0.6) rotate(90deg); }
   75% { opacity: 0.9; transform: scale(0.9) rotate(135deg); }
 }
-
-/* Glint sweep inside button */
-.sparkle-glint {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
-  border-radius: inherit;
-}
+.sparkle-glint { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; border-radius: inherit; }
 .sparkle-glint::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.04) 20%,
-    rgba(140, 145, 247, 0.08) 40%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(140, 145, 247, 0.08) 60%,
-    rgba(255, 255, 255, 0.04) 80%,
-    transparent 100%
-  );
+  content: ''; position: absolute; top: 0; left: 0; width: 40%; height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 20%, rgba(140,145,247,0.08) 40%, rgba(255,255,255,0.1) 50%, rgba(140,145,247,0.08) 60%, rgba(255,255,255,0.04) 80%, transparent 100%);
   transform: translateX(-120%) skewX(-15deg);
   animation: sparkle-glide 4s ease-in-out infinite;
 }
 .sparkle-btn:hover .sparkle-glint::after {
   animation: sparkle-glide 2.2s ease-in-out infinite;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.06) 20%,
-    rgba(140, 145, 247, 0.14) 40%,
-    rgba(255, 255, 255, 0.16) 50%,
-    rgba(140, 145, 247, 0.14) 60%,
-    rgba(255, 255, 255, 0.06) 80%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 20%, rgba(140,145,247,0.14) 40%, rgba(255,255,255,0.16) 50%, rgba(140,145,247,0.14) 60%, rgba(255,255,255,0.06) 80%, transparent 100%);
 }
 
-/* Contact page icon floating animations */
 @keyframes contact-float-1 {
   0%, 100% { transform: translateY(0px) translateX(0px); }
   25% { transform: translateY(-3px) translateX(1.5px); }
   50% { transform: translateY(-1px) translateX(-2px); }
   75% { transform: translateY(-4px) translateX(1px); }
 }
-
 @keyframes contact-float-2 {
   0%, 100% { transform: translateY(0px) translateX(0px); }
   25% { transform: translateY(-2px) translateX(-2px); }
   50% { transform: translateY(-4px) translateX(1px); }
   75% { transform: translateY(-1.5px) translateX(-1px); }
 }
-
 @keyframes contact-float-3 {
   0%, 100% { transform: translateY(0px) translateX(0px); }
   25% { transform: translateY(-4px) translateX(1px); }
   50% { transform: translateY(-2px) translateX(-1.5px); }
   75% { transform: translateY(-3px) translateX(2px); }
 }
-
-/* Pause float on hover, brighten */
-.contact-icon-float {
-  transition: all 0.3s ease;
-}
+.contact-icon-float { transition: all 0.3s ease; }
 a:hover .contact-icon-float {
   animation-play-state: paused !important;
   background: rgba(140, 145, 247, 0.1) !important;
   box-shadow: 0 0 16px rgba(140, 145, 247, 0.2);
 }
 
-/* Pulsing green availability dot */
 @keyframes availability-pulse {
   0%, 100% { opacity: 0.4; transform: scale(1); }
   50% { opacity: 0.8; transform: scale(1.5); }
 }
-
 @keyframes sparkle-glide {
   0% { transform: translateX(-120%) skewX(-15deg); }
   100% { transform: translateX(250%) skewX(-15deg); }
 }
 
-/* ─── 12-Column Grid System ──────────────────────────────────────── */
-.bleed-section {
-  width: 100%;
-  position: relative;
-}
-
+.bleed-section { width: 100%; position: relative; }
 .content-wrap {
-  max-width: var(--content-max);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--grid-gutter);
-  padding-right: var(--grid-gutter);
-  width: 100%;
+  max-width: var(--content-max); margin-left: auto; margin-right: auto;
+  padding-left: var(--grid-gutter); padding-right: var(--grid-gutter); width: 100%;
 }
-
 @media (min-width: 1024px) {
-  .content-wrap {
-    padding-left: var(--grid-gutter-lg);
-    padding-right: var(--grid-gutter-lg);
-  }
+  .content-wrap { padding-left: var(--grid-gutter-lg); padding-right: var(--grid-gutter-lg); }
 }
 
-/* Unified page-level heading style */
-.page-heading {
-  font-size: 2.25rem;
-  line-height: 1.1;
-  font-weight: 700;
-  color: #e4e4e4;
-  text-wrap: balance;
-  font-family: var(--font-mono);
+.page-heading { font-size: 2.25rem; line-height: 1.1; font-weight: 700; color: #e4e4e4; text-wrap: balance; font-family: var(--font-mono); }
+.whitespace-nowrap { text-wrap: nowrap !important; white-space: nowrap !important; }
+h1.page-heading { word-spacing: -0.12em; }
+@media (min-width: 768px) { .page-heading { font-size: 3rem; } }
+@media (min-width: 1024px) { .page-heading { font-size: 3.75rem; } }
+
+.spline-wrap, .spline-wrap canvas, .spline-wrap > div, .spline-wrap > div > canvas {
+  background: transparent !important; background-color: transparent !important;
 }
 
-/* whitespace-nowrap must always win over text-wrap: balance
-   (used on hero h1 to keep "Hi, I'm Morsal" on one line) */
-.whitespace-nowrap {
-  text-wrap: nowrap !important;
-  white-space: nowrap !important;
-}
-
-/* Tighten word-spacing on hero h1 (mono font makes spaces wider) */
-h1.page-heading {
-  word-spacing: -0.12em;
-}
-
-@media (min-width: 768px) {
-  .page-heading {
-    font-size: 3rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .page-heading {
-    font-size: 3.75rem;
-  }
-}
-
-/* Remove Spline's white background */
-.spline-wrap,
-.spline-wrap canvas,
-.spline-wrap > div,
-.spline-wrap > div > canvas {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-/* 12-column grid */
-.col-grid {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--grid-gutter);
-}
-
+.col-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--grid-gutter); }
 .col-full    { grid-column: span 12; }
 .col-half    { grid-column: span 6; }
 .col-third   { grid-column: span 4; }
 .col-quarter { grid-column: span 3; }
-
 @media (max-width: 767px) {
-  .col-half,
-  .col-third,
-  .col-quarter { grid-column: span 12; }
+  .col-half, .col-third, .col-quarter { grid-column: span 12; }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   RESPONSIVE LAYOUT — Mobile-first overrides
-   ═══════════════════════════════════════════════════════════════════ */
-
-/* ── Mobile bottom nav: hidden on desktop ── */
-.mobile-nav-wrapper {
-  display: none;
-}
+.mobile-nav-wrapper { display: none; }
 
 @media (max-width: 767px) {
-  .mobile-nav-wrapper {
-    display: block;
+  .mobile-nav-wrapper { display: block; }
+  body[data-mobile="true"] main, body[data-mobile="true"] [role="main"] {
+    margin-left: 0 !important; padding-left: 0 !important;
   }
-
-  /* ── Hide desktop sidebar on mobile ──
-     The sidebar-nav typically renders as <nav> with fixed positioning.
-     On mobile we hide it and show the bottom nav instead. */
-  body[data-mobile="true"] nav:not(.sidebar-mobile-nav):not([class*="bottom"]) {
-    /* Hide fixed-position sidebars only (position:fixed is key identifier) */
-  }
-
-  /* Main content area: remove left offset added by the sidebar */
-  /* The page-shell wraps content in a div that has padding-left = sidebar width */
-  /* We override any inline margin-left/padding-left values */
-  body[data-mobile="true"] main,
-  body[data-mobile="true"] [role="main"] {
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-  }
-
-  /* Add bottom padding so content isn't hidden behind bottom nav */
-  body[data-mobile="true"] main,
-  body[data-mobile="true"] [role="main"],
-  body {
+  body[data-mobile="true"] main, body[data-mobile="true"] [role="main"], body {
     padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
   }
-
-  /* Ensure the entire app content area shifts to full width on mobile */
-  /* Target the typical page-shell pattern: a flex container with sidebar + content */
-  body[data-mobile="true"] > #root > *,
-  body[data-mobile="true"] > div > *:not(.sidebar-mobile-nav):not(.mobile-nav-wrapper) {
+  body[data-mobile="true"] > #root > *, body[data-mobile="true"] > div > *:not(.sidebar-mobile-nav):not(.mobile-nav-wrapper) {
     margin-left: 0 !important;
   }
 }
 
-/* ── Sidebar: ensure it hides on small screens ──
-   Using display:none on mobile for any fixed nav with a sidebar-like pattern */
 @media (max-width: 767px) {
-  /* Hide the desktop sidebar navigation */
-  /* The sidebar is typically a <nav> element positioned fixed on the left */
-  nav[class*="sidebar"],
-  aside[class*="sidebar"],
-  [data-sidebar],
-  nav:has(+ main),
-  nav:has(+ [role="main"]) {
-    display: none !important;
-  }
-
-  /* Also target Tailwind hidden/show classes */
+  nav[class*="sidebar"], aside[class*="sidebar"], [data-sidebar], nav:has(+ main), nav:has(+ [role="main"]) { display: none !important; }
   .hidden-mobile { display: none !important; }
 }
 
-/* ── Page layout fix for mobile ── */
 @media (max-width: 767px) {
-  /* Remove any fixed left-offset from the main content */
-  /* This targets the page wrapper pattern: flex row with sidebar + content */
-  .flex.min-h-screen > *:last-child,
-  .flex.h-screen > *:last-child,
-  .flex > main {
-    flex: 1;
-    min-width: 0;
-    margin-left: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
+  .flex.min-h-screen > *:last-child, .flex.h-screen > *:last-child, .flex > main {
+    flex: 1; min-width: 0; margin-left: 0 !important; width: 100% !important; max-width: 100% !important;
   }
-
-  /* Reduce section vertical padding on mobile */
-  section.relative {
-    padding-top: clamp(3rem, 8vw, 5rem) !important;
-    padding-bottom: clamp(2rem, 6vw, 3.5rem) !important;
-  }
-
-  /* Ensure horizontal padding is consistent */
-  .max-w-\[1080px\],
-  .max-w-\[1200px\] {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
+  section.relative { padding-top: clamp(3rem, 8vw, 5rem) !important; padding-bottom: clamp(2rem, 6vw, 3.5rem) !important; }
+  .max-w-\[1080px\], .max-w-\[1200px\] { padding-left: 1rem !important; padding-right: 1rem !important; }
 }
 
-/* ── Hero section responsive ── */
 @media (max-width: 767px) {
-  /* Scale down 3D/canvas elements in hero */
-  .spline-wrap {
-    height: clamp(240px, 55vw, 380px) !important;
-    width: 100% !important;
-  }
-
-  /* Hero text — ensure it fits on mobile */
-  h1.page-heading,
-  .hero-heading {
-    font-size: clamp(1.8rem, 7vw, 2.5rem) !important;
-  }
-
-  /* Hero subtext */
-  .hero-sub,
-  .hero-description {
-    font-size: 0.9rem !important;
-  }
+  .spline-wrap { height: clamp(240px, 55vw, 380px) !important; width: 100% !important; }
+  h1.page-heading, .hero-heading { font-size: clamp(1.8rem, 7vw, 2.5rem) !important; }
+  .hero-sub, .hero-description { font-size: 0.9rem !important; }
 }
 
-/* ── Tools section responsive ── */
 @media (max-width: 767px) {
-  /* The 3D laptop/keyboard mockup — scale it down */
-  section[id="tools"] .perspective-container,
-  section .tools-laptop-wrap {
-    transform: scale(0.75) !important;
-    transform-origin: center top !important;
-  }
-
-  /* Tools grid — reduce columns */
-  .tools-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-  }
+  section[id="tools"] .perspective-container, section .tools-laptop-wrap { transform: scale(0.75) !important; transform-origin: center top !important; }
+  .tools-grid { grid-template-columns: repeat(3, 1fr) !important; }
 }
 
-/* ── About page responsive ── */
 @media (max-width: 767px) {
-  /* Stack any two-column layouts */
-  .about-grid,
-  .bio-grid,
-  .careers-grid,
-  .stats-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
-  }
-
-  /* Reduce about page hero image size */
-  .about-portrait,
-  .halftone-portrait-wrap {
-    max-width: 280px !important;
-    margin: 0 auto !important;
-  }
+  .about-grid, .bio-grid, .careers-grid, .stats-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+  .about-portrait, .halftone-portrait-wrap { max-width: 280px !important; margin: 0 auto !important; }
 }
 
-/* ── Contact page responsive ── */
 @media (max-width: 767px) {
-  /* Contact layout: stack form + info */
-  .contact-grid,
-  .contact-layout {
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
-  }
+  .contact-grid, .contact-layout { grid-template-columns: 1fr !important; gap: 2rem !important; }
 }
 
-/* ── Projects section responsive ── */
 @media (max-width: 767px) {
-  /* Project cards grid */
-  .projects-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Project card horizontal scroll */
-  .projects-scroll {
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  .projects-scroll > * {
-    scroll-snap-align: start !important;
-    flex-shrink: 0 !important;
-  }
+  .projects-grid { grid-template-columns: 1fr !important; }
+  .projects-scroll { overflow-x: auto !important; scroll-snap-type: x mandatory !important; -webkit-overflow-scrolling: touch !important; }
+  .projects-scroll > * { scroll-snap-align: start !important; flex-shrink: 0 !important; }
 }
 
-/* ── Overflow prevention ── */
 @media (max-width: 767px) {
-  /* Prevent horizontal scroll from overflowing elements */
-  body {
-    overflow-x: hidden;
-  }
-
-  /* Clamp any fixed-width elements that might overflow */
-  img, video, canvas, iframe {
-    max-width: 100%;
-  }
-
-  /* Prevent large text overflow */
-  h1, h2, h3 {
-    overflow-wrap: break-word;
-    word-break: break-word;
-  }
+  body { overflow-x: hidden; }
+  img, video, canvas, iframe { max-width: 100%; }
+  h1, h2, h3 { overflow-wrap: break-word; word-break: break-word; }
 }
 
-/* ── Footer responsive ── */
 @media (max-width: 767px) {
-  footer .footer-grid,
-  footer .footer-cols {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
-  }
-
-  footer .footer-links {
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 1rem !important;
-  }
+  footer .footer-grid, footer .footer-cols { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+  footer .footer-links { flex-wrap: wrap !important; justify-content: center !important; gap: 1rem !important; }
 }
 
-/* ── Touch interaction improvements ── */
 @media (max-width: 767px) {
-  /* Increase touch targets */
-  button, a, [role="button"] {
-    min-height: 44px;
-    min-width: 44px;
-  }
-
-  /* Disable hover effects that don't work on touch */
+  button, a, [role="button"] { min-height: 44px; min-width: 44px; }
   .hover-only { display: none !important; }
 }
 
-/* ── Tablet breakpoint (768px – 1023px) ── */
 @media (min-width: 768px) and (max-width: 1023px) {
-  /* Sidebar starts appearing, but content may need adjustment */
-  .page-heading {
-    font-size: 2.6rem;
-  }
-
-  /* Slightly tighter section padding */
-  section.relative.py-16 {
-    padding-top: 3.5rem;
-    padding-bottom: 3.5rem;
-  }
+  .page-heading { font-size: 2.6rem; }
+  section.relative.py-16 { padding-top: 3.5rem; padding-bottom: 3.5rem; }
 }
 
-/* ── Utility: hide on mobile / show on mobile ── */
-@media (max-width: 767px) {
-  .hide-mobile { display: none !important; }
-}
-
+@media (max-width: 767px) { .hide-mobile { display: none !important; } }
 @media (min-width: 768px) {
   .show-mobile-only { display: none !important; }
-  /* Hide the mobile bottom nav on desktop */
   .mobile-nav-wrapper { display: none !important; }
   .sidebar-mobile-nav { display: none !important; }
 }
 
-/* ── Safe-area support for iPhone notch/home-indicator ── */
 @supports (padding: env(safe-area-inset-bottom)) {
-  .pb-safe {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
 }
 
-/* ── Scrollbar: hide on mobile to save space ── */
 @media (max-width: 767px) {
   ::-webkit-scrollbar { display: none; }
   * { scrollbar-width: none; }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   INLINE STYLE OVERRIDES — for sidebar margin-left set by page-shell
-   (page-shell.tsx was built without isMobile; uses inline style directly)
-   ═══════════════════════════════════════════════════════════════════ */
-
 @media (max-width: 767px) {
-  /* Override inline marginLeft: 220px (sidebar expanded) */
-  [style*="margin-left: 220px"],
-  [style*="margin-left:220px"],
-  [style*="margin-left: 72px"],
-  [style*="margin-left:72px"] {
-    margin-left: 0 !important;
-  }
-
-  /* Override inline width: 220px / 72px (the sidebar itself — hide it on mobile) */
-  /* Only target fixed/sticky positioned ones to avoid hiding content cards */
-  [style*="position: fixed"][style*="width: 220px"],
-  [style*="position: fixed"][style*="width: 72px"],
-  [style*="position:fixed"][style*="width:220px"],
-  [style*="position:fixed"][style*="width:72px"] {
-    display: none !important;
-  }
-
-  /* Also hide any fixed nav/aside that is to the left */
-  [style*="position: fixed"][style*="left: 0"],
-  [style*="position:fixed"][style*="left:0"] {
-    display: none !important;
-  }
-
-  /* Exception: mobile-nav-wrapper and sidebar-mobile-nav are always visible */
-  .mobile-nav-wrapper,
-  .sidebar-mobile-nav,
-  .mobile-nav-wrapper * {
-    display: revert !important;
-  }
-  .sidebar-mobile-nav {
-    display: flex !important;
-  }
+  [style*="margin-left: 220px"], [style*="margin-left:220px"],
+  [style*="margin-left: 72px"], [style*="margin-left:72px"] { margin-left: 0 !important; }
+  [style*="position: fixed"][style*="width: 220px"], [style*="position: fixed"][style*="width: 72px"],
+  [style*="position:fixed"][style*="width:220px"], [style*="position:fixed"][style*="width:72px"] { display: none !important; }
+  [style*="position: fixed"][style*="left: 0"], [style*="position:fixed"][style*="left:0"] { display: none !important; }
+  .mobile-nav-wrapper, .sidebar-mobile-nav, .mobile-nav-wrapper * { display: revert !important; }
+  .sidebar-mobile-nav { display: flex !important; }
 }
 
-/* ── Sidebar transition: ensure smooth collapse/expand on desktop ── */
 @media (min-width: 768px) {
-  /* Smooth transition for content margin shift */
-  [style*="margin-left"] {
-    transition: margin-left 0.3s ease;
-  }
+  [style*="margin-left"] { transition: margin-left 0.3s ease; }
 }
-
-/* ═══════════════════════════════════════════════════════════════════
-   HERO SECTION — scale down heavy 3D / full-screen layouts on mobile
-   ═══════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 767px) {
-  /* Any canvas or iframe in hero should be contained */
-  section:first-of-type canvas,
-  section:first-of-type iframe {
-    max-width: 100vw !important;
-    max-height: 60vw !important;
-  }
-
-  /* Stack hero content vertically if it's flex-row */
-  section:first-of-type .flex-row,
-  section:first-of-type [class*="flex-row"] {
-    flex-direction: column !important;
-  }
-
-  /* Text scaling for hero headings */
-  section:first-of-type h1 {
-    font-size: clamp(1.75rem, 8vw, 2.4rem) !important;
-    line-height: 1.15 !important;
-  }
-
-  section:first-of-type p {
-    font-size: clamp(0.85rem, 3.5vw, 1rem) !important;
-  }
+  section:first-of-type canvas, section:first-of-type iframe { max-width: 100vw !important; max-height: 60vw !important; }
+  section:first-of-type .flex-row, section:first-of-type [class*="flex-row"] { flex-direction: column !important; }
+  section:first-of-type h1 { font-size: clamp(1.75rem, 8vw, 2.4rem) !important; line-height: 1.15 !important; }
+  section:first-of-type p { font-size: clamp(0.85rem, 3.5vw, 1rem) !important; }
 }
-
-/* ═══════════════════════════════════════════════════════════════════
-   EXPERTISE SECTION — responsive grid
-   ═══════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 767px) {
-  /* Expertise cards: 1 column on mobile */
-  .expertise-grid,
-  [class*="expertise"] .grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Skill/tag lists: wrap */
-  [class*="expertise"] [class*="flex"] {
-    flex-wrap: wrap !important;
-  }
+  .expertise-grid, [class*="expertise"] .grid { grid-template-columns: 1fr !important; }
+  [class*="expertise"] [class*="flex"] { flex-wrap: wrap !important; }
 }
-
 @media (min-width: 768px) and (max-width: 1023px) {
-  /* Expertise cards: 2 columns on tablet */
-  .expertise-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
+  .expertise-grid { grid-template-columns: repeat(2, 1fr) !important; }
 }
-
-/* ═══════════════════════════════════════════════════════════════════
-   ABOUT PAGE — comprehensive responsive fixes for all about sections
-   ═══════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 767px) {
-  /* About hero: stack portrait + text */
-  .about-hero-wrap,
-  [class*="about-hero"] {
-    flex-direction: column !important;
-    text-align: center !important;
-  }
-
-  /* About bio: reduce font sizes */
-  .about-bio h1,
-  .about-bio h2,
-  [class*="about"] h1,
-  [class*="about"] h2 {
-    font-size: clamp(1.5rem, 7vw, 2rem) !important;
-  }
-
-  /* About stats: single column */
-  .about-stats,
-  [class*="stats-grid"],
-  [class*="stat-grid"] {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 1rem !important;
-  }
-
-  /* About careers: stack timeline */
-  .careers-list,
-  [class*="careers"],
-  [class*="career-item"] {
-    padding-left: 1rem !important;
-  }
-
-  /* About tools grid: 3 cols on mobile (icons) */
-  [class*="about-tools"] .grid,
-  [class*="tools-grid"] {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 0.75rem !important;
-  }
+  .about-hero-wrap, [class*="about-hero"] { flex-direction: column !important; text-align: center !important; }
+  .about-bio h1, .about-bio h2, [class*="about"] h1, [class*="about"] h2 { font-size: clamp(1.5rem, 7vw, 2rem) !important; }
+  .about-stats, [class*="stats-grid"], [class*="stat-grid"] { grid-template-columns: repeat(2, 1fr) !important; gap: 1rem !important; }
+  .careers-list, [class*="careers"], [class*="career-item"] { padding-left: 1rem !important; }
+  [class*="about-tools"] .grid, [class*="tools-grid"] { grid-template-columns: repeat(3, 1fr) !important; gap: 0.75rem !important; }
 }
-
-/* ═══════════════════════════════════════════════════════════════════
-   SECTION PADDING — universal tighter padding on mobile
-   ═══════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 767px) {
-  /* All sections get tighter vertical padding */
-  section {
-    padding-top: clamp(3rem, 10vw, 5rem) !important;
-    padding-bottom: clamp(2rem, 7vw, 3.5rem) !important;
-  }
-
-  /* Ensure horizontal padding stays consistent */
-  section > div,
-  section > .content-wrap {
-    padding-left: max(1rem, env(safe-area-inset-left)) !important;
-    padding-right: max(1rem, env(safe-area-inset-right)) !important;
-  }
-
-  /* The max-width inner wrappers */
-  .max-w-\[1080px\],
-  .max-w-\[980px\],
-  [style*="max-width: 1080px"],
-  [style*="max-width: 980px"] {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-    max-width: 100% !important;
-  }
+  section { padding-top: clamp(3rem, 10vw, 5rem) !important; padding-bottom: clamp(2rem, 7vw, 3.5rem) !important; }
+  section > div, section > .content-wrap { padding-left: max(1rem, env(safe-area-inset-left)) !important; padding-right: max(1rem, env(safe-area-inset-right)) !important; }
+  .max-w-\[1080px\], .max-w-\[980px\], [style*="max-width: 1080px"], [style*="max-width: 980px"] { padding-left: 1rem !important; padding-right: 1rem !important; max-width: 100% !important; }
 }
-
-/* ═══════════════════════════════════════════════════════════════════
-   TEXT SCALING — fluid typography across breakpoints
-   ═══════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 767px) {
-  /* Section headings */
-  h2 {
-    font-size: clamp(1.4rem, 6.5vw, 2rem) !important;
-  }
-  h3 {
-    font-size: clamp(1.1rem, 5vw, 1.5rem) !important;
-  }
-  p, li {
-    font-size: clamp(0.875rem, 3.5vw, 1rem) !important;
-  }
+  h2 { font-size: clamp(1.4rem, 6.5vw, 2rem) !important; }
+  h3 { font-size: clamp(1.1rem, 5vw, 1.5rem) !important; }
+  p, li { font-size: clamp(0.875rem, 3.5vw, 1rem) !important; }
 }
-
-/* ═══════════════════════════════════════════════════════════════════
-   GRID & FLEX CONTAINERS — responsive column collapse
-   ═══════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 640px) {
-  /* Any 2+ column grid collapses to 1 column on small mobile */
-  .grid-cols-2, .grid-cols-3, .grid-cols-4,
-  [class*="grid-cols-2"], [class*="grid-cols-3"], [class*="grid-cols-4"] {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Flex rows stack on very small screens */
-  .sm\:flex-row {
-    flex-direction: column !important;
-  }
+  .grid-cols-2, .grid-cols-3, .grid-cols-4, [class*="grid-cols-2"], [class*="grid-cols-3"], [class*="grid-cols-4"] { grid-template-columns: 1fr !important; }
+  .sm\:flex-row { flex-direction: column !important; }
 }
-
 @media (min-width: 641px) and (max-width: 767px) {
-  /* 3+ column grids collapse to 2 on medium mobile */
-  .grid-cols-3, .grid-cols-4,
-  [class*="grid-cols-3"], [class*="grid-cols-4"] {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
+  .grid-cols-3, .grid-cols-4, [class*="grid-cols-3"], [class*="grid-cols-4"] { grid-template-columns: repeat(2, 1fr) !important; }
 }
-
-/* ═══════════════════════════════════════════════════════════════════
-   FIXED / ABSOLUTE POSITIONED ELEMENTS — clamp sizes on mobile
-   ═══════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 767px) {
-  /* Prevent absolutely/fixed positioned decorative elements from overflowing */
-  [style*="position: absolute"],
-  [style*="position:absolute"] {
-    max-width: 100vw;
-  }
-
-  /* Constrain canvas sizes */
-  canvas {
-    max-width: 100% !important;
-  }
+  [style*="position: absolute"], [style*="position:absolute"] { max-width: 100vw; }
+  canvas { max-width: 100% !important; height: auto !important; }
 }
