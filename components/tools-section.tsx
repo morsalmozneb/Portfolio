@@ -1,33 +1,32 @@
 "use client"
-
 import { useRef, useState, useEffect, useCallback } from "react"
 import { motion, useInView, AnimatePresence } from "framer-motion"
 import MagicRings from "./magic-rings"
 
 const tools = [
-  { abbr: "Ai",   name: "Adobe Illustrator", desc: "Vector graphics & brand illustration",   img: "/images/AI_Pic.png"              },
-  { abbr: "Ps",   name: "Adobe Photoshop",   desc: "Photo editing, compositing & retouching", img: "/images/Photoshop_Pic.png"       },
-  { abbr: "Fi",   name: "Figma",             desc: "UI/UX design & interactive prototyping",  img: "/images/Figma_Pic.png"           },
-  { abbr: "Id",   name: "Adobe InDesign",    desc: "Editorial layout & print design",         img: "/images/Id_Pic.png"              },
-  { abbr: "Ae",   name: "After Effects",     desc: "Motion graphics & visual effects",        img: "/images/Ae_Pic.png"             },
-  { abbr: "Pr",   name: "Premiere Pro",      desc: "Video editing & colour grading",          img: "/images/Pr_Pic.png"              },
-  { abbr: "Fr",   name: "Framer",            desc: "Interactive web & no-code publishing",    img: "/images/Framer_Pic.png"          },
-  { abbr: "CSS",  name: "CSS3",              desc: "Styling, animations & responsive layouts", img: "/images/CSS_Pic.png"            },
-  { abbr: "HTML", name: "HTML5",             desc: "Semantic markup & web structure",         img: "/images/HTML5_Pic.png"           },
-  { abbr: "JS",   name: "JavaScript",        desc: "Interactive UI & front-end scripting",    img: "/images/JavaScript_Pic.png"      },
-  { abbr: "GH",   name: "GitHub",            desc: "Version control & team collaboration",    img: "/images/GitHub_Pic.png"          },
-  { abbr: "Re",   name: "React",             desc: "Component-based dynamic web apps",        img: "/images/React_Pic.png"           },
-  { abbr: "MS",   name: "Microsoft Office",  desc: "Docs, spreadsheets & presentations",      img: "/images/MicrosoftOffice_Pic.png" },
-  { abbr: "VS",   name: "VS Code",           desc: "Code editing, debugging & extensions",    img: "/images/VSC_Pic.png"             },
+  { abbr: "Ai",   name: "Adobe Illustrator", desc: "Vector graphics & brand illustration",          img: "/images/AI_Pic.png" },
+  { abbr: "Ps",   name: "Adobe Photoshop",   desc: "Photo editing, compositing & retouching",       img: "/images/Photoshop_Pic.png" },
+  { abbr: "Fi",   name: "Figma",             desc: "UI/UX design & interactive prototyping",        img: "/images/Figma_Pic.png" },
+  { abbr: "Id",   name: "Adobe InDesign",    desc: "Editorial layout & print design",               img: "/images/Id_Pic.png" },
+  { abbr: "Ae",   name: "After Effects",     desc: "Motion graphics & visual effects",              img: "/images/Ae_Pic.png" },
+  { abbr: "Pr",   name: "Premiere Pro",      desc: "Video editing & colour grading",                img: "/images/Pr_Pic.png" },
+  { abbr: "Fr",   name: "Framer",            desc: "Interactive web & no-code publishing",          img: "/images/Framer_Pic.png" },
+  { abbr: "CSS",  name: "CSS3",              desc: "Styling, animations & responsive layouts",      img: "/images/CSS_Pic.png" },
+  { abbr: "HTML", name: "HTML5",             desc: "Semantic markup & web structure",               img: "/images/HTML5_Pic.png" },
+  { abbr: "JS",   name: "JavaScript",        desc: "Interactive UI & front-end scripting",          img: "/images/JavaScript_Pic.png" },
+  { abbr: "GH",   name: "GitHub",            desc: "Version control & team collaboration",          img: "/images/GitHub_Pic.png" },
+  { abbr: "Re",   name: "React",             desc: "Component-based dynamic web apps",              img: "/images/React_Pic.png" },
+  { abbr: "MS",   name: "Microsoft Office",  desc: "Docs, spreadsheets & presentations",            img: "/images/MicrosoftOffice_Pic.png" },
+  { abbr: "VS",   name: "VS Code",           desc: "Code editing, debugging & extensions",          img: "/images/VSC_Pic.png" },
 ]
 
 const INTERVAL_MS = 3000
 
 export function ToolsSection() {
   const sectionRef = useRef<HTMLElement>(null)
-  const isInView   = useInView(sectionRef, { once: true, margin: "-100px" })
-  const timerRef   = useRef<ReturnType<typeof setInterval> | null>(null)
-  const [current, setCurrent]     = useState(0)
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const [current, setCurrent] = useState(0)
   const [direction, setDirection] = useState(1)
 
   const startTimer = useCallback(() => {
@@ -43,7 +42,11 @@ export function ToolsSection() {
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
   }, [isInView, startTimer])
 
-  const goTo = (idx: number) => { setDirection(idx > current ? 1 : -1); setCurrent(idx); startTimer() }
+  const goTo = (idx: number) => {
+    setDirection(idx > current ? 1 : -1)
+    setCurrent(idx)
+    startTimer()
+  }
 
   const tool = tools[current]
 
@@ -72,15 +75,24 @@ export function ToolsSection() {
           transition={{ delay: 0.25, duration: 0.7 }}
           className="flex flex-col items-center gap-6"
         >
-          {/* Stage */}
-          <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 300, height: 300, flexShrink: 0, overflow: "hidden" }}>
-
+          {/* Stage — no overflow:hidden so the glow bleeds naturally */}
+          <div style={{
+            position: "relative",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 300,
+            height: 300,
+            flexShrink: 0,
+          }}>
             {/* Rings */}
             <div style={{
               position: "absolute",
-              top: "50%", left: "50%",
+              top: "50%",
+              left: "50%",
               transform: "translate(-50%, -50%)",
-              width: 780, height: 780,
+              width: 780,
+              height: 780,
               pointerEvents: "none",
               zIndex: 0,
               borderRadius: "50%",
@@ -124,11 +136,11 @@ export function ToolsSection() {
                   animate={{ y: [0, -14, 0] }}
                   transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
                   style={{
-                    width:      300,
-                    height:     300,
-                    objectFit:  "contain",
-                    display:    "block",
-                    filter:     "drop-shadow(0 0 22px rgba(140,145,247,0.8)) drop-shadow(0 8px 32px rgba(99,102,241,0.6))",
+                    width: 300,
+                    height: 300,
+                    objectFit: "contain",
+                    display: "block",
+                    filter: "drop-shadow(0 0 22px rgba(140,145,247,0.8)) drop-shadow(0 8px 32px rgba(99,102,241,0.6))",
                     userSelect: "none",
                   }}
                 />
@@ -159,8 +171,20 @@ export function ToolsSection() {
           {/* Dots */}
           <div className="flex gap-2 items-center pt-1">
             {tools.map((t, i) => (
-              <button key={t.abbr} onClick={() => goTo(i)} aria-label={t.name}
-                style={{ width: i === current ? 20 : 6, height: 6, borderRadius: 3, background: i === current ? "#8C91F7" : "rgba(140,145,247,0.25)", border: "none", padding: 0, cursor: "pointer", transition: "all 0.3s ease" }}
+              <button
+                key={t.abbr}
+                onClick={() => goTo(i)}
+                aria-label={t.name}
+                style={{
+                  width: i === current ? 20 : 6,
+                  height: 6,
+                  borderRadius: 3,
+                  background: i === current ? "#8C91F7" : "rgba(140,145,247,0.25)",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer",
+                  transition: "all 0.3s ease",
+                }}
               />
             ))}
           </div>
