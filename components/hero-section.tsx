@@ -1,16 +1,7 @@
 "use client"
-
 import { motion } from "framer-motion"
 import { SparkleButton } from "@/components/sparkle-button"
 import { HalftonePortrait } from "@/components/halftone-portrait"
-
-const bodyLines = [
-  "Annoyingly detail-oriented, chronically online,",
-  "somewhere between a brand strategist",
-  "and a Figma addict.",
-  "I turn 'can you make it pop?'",
-  "into something you actually want to show people.",
-]
 
 const heroEase = [0.16, 1, 0.3, 1] as const
 
@@ -37,7 +28,6 @@ const riseIn = {
 
 export function HeroSection({ show }: { show: boolean }) {
   if (!show) return null
-
   return (
     <section id="home" className="relative min-h-screen flex items-start overflow-hidden">
       {/* Ambient motion layers for depth */}
@@ -60,17 +50,15 @@ export function HeroSection({ show }: { show: boolean }) {
         transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="w-full max-w-[1080px] mx-auto px-6 lg:px-12 pt-12 pb-16 lg:pb-20">
+      <div className="w-full max-w-[1080px] mx-auto px-6 lg:px-12 pt-20 md:pt-14 lg:pt-12 pb-16 lg:pb-20">
         <motion.div
           className="flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-16"
           variants={container}
           initial="hidden"
           animate="show"
         >
-
           {/* ── Text (left column) ── */}
           <div className="flex-1 space-y-6 w-full">
-
             {/* Availability badge */}
             <motion.div
               variants={riseIn}
@@ -95,7 +83,10 @@ export function HeroSection({ show }: { show: boolean }) {
               </span>
             </motion.div>
 
-            <motion.h1 className="page-heading whitespace-nowrap" variants={riseIn}>
+            <motion.h1
+              className="page-heading whitespace-nowrap"
+              variants={riseIn}
+            >
               <motion.span
                 className="inline-block"
                 initial={{ opacity: 0, x: -26 }}
@@ -116,19 +107,32 @@ export function HeroSection({ show }: { show: boolean }) {
               </motion.span>
             </motion.h1>
 
-            <div className="space-y-0.5">
-              {bodyLines.map((line, i) => (
-                <motion.p
-                  key={i}
-                  className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed"
-                  initial={{ opacity: 0, x: -14, filter: "blur(6px)" }}
-                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                  transition={{ delay: 0.6 + i * 0.08, duration: 0.5, ease: heroEase }}
-                >
-                  {line}
-                </motion.p>
-              ))}
-            </div>
+            <motion.div
+              className="space-y-0.5"
+              variants={riseIn}
+            >
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                I build things people are proud to share,
+              </p>
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                somewhere between brand strategy and pixel-perfect design,
+              </p>
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                with a lot of heart in between.
+              </p>
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                I speak fluent Figma, think in systems,
+              </p>
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                and get genuinely excited about the details most people skip.
+              </p>
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                Every project is a chance to make something
+              </p>
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                that looks as good as it works.
+              </p>
+            </motion.div>
 
             <motion.div
               className="flex flex-col sm:flex-row sm:flex-wrap gap-4 pt-4 w-full sm:w-auto"
@@ -141,14 +145,13 @@ export function HeroSection({ show }: { show: boolean }) {
 
           {/* ── Halftone Portrait (right column) ── */}
           <motion.div
-            className="flex-shrink-0 flex items-center justify-center"
+            className="flex-shrink-0 flex items-center justify-center w-full max-w-[260px] sm:max-w-[340px] lg:w-auto overflow-hidden lg:overflow-visible mx-auto lg:mx-0"
             initial={{ opacity: 0, x: 60, scale: 0.88, filter: "blur(8px)" }}
             animate={{ opacity: 1, x: 0, scale: 1, filter: "blur(0px)" }}
             transition={{ delay: 0.42, duration: 0.95, ease: heroEase }}
           >
             <HalftonePortrait />
           </motion.div>
-
         </motion.div>
       </div>
     </section>

@@ -32,3 +32,6 @@ jobs:
           server-dir: "morsalmozneb.com/"
           protocol: ftps
           port: 21
+          dangerous-clean-slate: true
+
+

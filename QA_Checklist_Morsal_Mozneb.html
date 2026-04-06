@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment 2 QA Checklist - Morsal Mozneb</title>
+    <style>
+      @page {
+        margin: 0.6in;
+        size: Letter;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        color: #1d1d1f;
+        line-height: 1.35;
+        font-size: 11px;
+        margin: 0;
+      }
+
+      h1, h2, h3, p {
+        margin: 0;
+      }
+
+      .header {
+        margin-bottom: 18px;
+      }
+
+      .title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .meta {
+        margin-bottom: 2px;
+      }
+
+      .section {
+        margin-top: 18px;
+      }
+
+      .section-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .summary {
+        margin-bottom: 10px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        margin-bottom: 10px;
+      }
+
+      th, td {
+        border: 1px solid #c9d2db;
+        padding: 6px 7px;
+        vertical-align: top;
+        word-wrap: break-word;
+      }
+
+      th {
+        background: #2f74b5;
+        color: #fff;
+        font-weight: 700;
+        text-align: left;
+      }
+
+      .narrow {
+        width: 6%;
+      }
+
+      .category {
+        width: 16%;
+      }
+
+      .status {
+        width: 9%;
+      }
+
+      .issue {
+        width: 10%;
+      }
+
+      .note-box {
+        border: 1px solid #c9d2db;
+        padding: 10px;
+        background: #f7f9fb;
+      }
+
+      ul {
+        margin: 6px 0 0 18px;
+        padding: 0;
+      }
+
+      li {
+        margin: 0 0 4px 0;
+      }
+
+      .small {
+        font-size: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1 class="title">Assignment 2 QA Checklist</h1>
+      <p class="meta"><strong>Student:</strong> Morsal Mozneb</p>
+      <p class="meta"><strong>Project:</strong> Portfolio Website</p>
+      <p class="meta"><strong>Issue Tracking Platform:</strong> GitHub Issues - https://github.com/morsalmozneb/Portfolio/issues</p>
+      <p class="meta"><strong>Instructor Invited as Collaborator:</strong> airrickdunfield-bcit</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">QA Checklist Summary</h2>
+      <p class="summary">
+        This checklist was used to evaluate the portfolio website for launch readiness across navigation,
+        layout, responsive behavior, browser support, metadata, content quality, deployment, and error handling.
+        Issues found during testing were documented in GitHub Issues, fixed, and then retested.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th class="narrow">ID</th>
+            <th class="category">Category</th>
+            <th>Checklist Item</th>
+            <th>Expected Result</th>
+            <th class="status">Status</th>
+            <th class="issue">Linked Issue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Navigation</td><td>Clicking the site logo from the home page should return or scroll to the top correctly</td><td>User is returned to the top of the home page without layout or navigation issues</td><td>Pass</td><td>#38</td></tr>
+          <tr><td>2</td><td>Project Showcase</td><td>Prototype iframe should fit correctly inside the device frame when zoomed or resized</td><td>Prototype remains aligned and fully visible inside the frame</td><td>Pass</td><td>#39</td></tr>
+          <tr><td>3</td><td>Mobile Layout</td><td>Device toggle buttons should wrap and remain inside the screen on smaller devices</td><td>Buttons remain visible and do not overflow outside the layout</td><td>Pass</td><td>#40</td></tr>
+          <tr><td>4</td><td>Mobile UX</td><td>Mobile logo should not overlap page headings while scrolling</td><td>Logo does not block text or overlap important content</td><td>Pass</td><td>#41</td></tr>
+          <tr><td>5</td><td>Layout / Visual QA</td><td>No black strip should appear at the bottom of the page</td><td>Background fills the page smoothly without visible gaps</td><td>Pass</td><td>#42</td></tr>
+          <tr><td>6</td><td>Metadata</td><td>Each route should have an appropriate page title</td><td>Home, About, Projects, and Contact pages display correct page titles</td><td>Pass</td><td>#43</td></tr>
+          <tr><td>7</td><td>Carousel Functionality</td><td>Desktop carousel should include working navigation arrows</td><td>User can navigate through project items using visible controls</td><td>Pass</td><td>#44</td></tr>
+          <tr><td>8</td><td>Layout Containment</td><td>Device stage wrapper should hide overflow correctly</td><td>Elements stay inside their intended container without clipping errors</td><td>Pass</td><td>#45</td></tr>
+          <tr><td>9</td><td>External Links</td><td>Footer social links should point to the correct personal profiles</td><td>Each social link opens the correct destination</td><td>Pass</td><td>#46</td></tr>
+          <tr><td>10</td><td>Footer Layout</td><td>Footer spacing should be visually consistent across pages</td><td>Footer spacing appears balanced and consistent on all main pages</td><td>Pass</td><td>#47</td></tr>
+          <tr><td>11</td><td>Branding / Metadata</td><td>Favicon should display in the browser tab</td><td>Browser tab shows the site favicon correctly</td><td>Pass</td><td>#48</td></tr>
+          <tr><td>12</td><td>Social Sharing / SEO</td><td>Open Graph tags should exist on all main pages</td><td>Required Open Graph tags are present in the page head</td><td>Pass</td><td>#49</td></tr>
+          <tr><td>13</td><td>Metadata / SEO</td><td>Meta description should exist on all main pages</td><td>Each page includes a valid meta description tag</td><td>Pass</td><td>#50</td></tr>
+          <tr><td>14</td><td>Navigation / Documents</td><td>Resume link in sidebar should function correctly</td><td>Resume PDF opens or downloads successfully</td><td>Pass</td><td>#51</td></tr>
+          <tr><td>15</td><td>Error Handling</td><td>Invalid routes should show a custom 404 page</td><td>User sees a custom 404 page with a way back to the site</td><td>Pass</td><td>#52</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Additional Launch Readiness Checklist</h2>
+      <table>
+        <thead>
+          <tr>
+            <th class="narrow">ID</th>
+            <th class="category">Category</th>
+            <th>Checklist Item</th>
+            <th>Expected Result</th>
+            <th class="status">Status</th>
+            <th class="issue">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>16</td><td>Portfolio Requirements</td><td>Home, About, Projects, and Contact sections or pages are present</td><td>All required portfolio sections are available and accessible</td><td>Pass</td><td>Core requirement met</td></tr>
+          <tr><td>17</td><td>Portfolio Requirements</td><td>Project content is accurate and complete</td><td>Project names, visuals, and descriptions match the intended content</td><td>Pass</td><td>Manual review</td></tr>
+          <tr><td>18</td><td>Browser Support</td><td>Test site in Chrome</td><td>Site loads and functions correctly in Chrome</td><td>Pass</td><td>Primary browser</td></tr>
+          <tr><td>19</td><td>Browser Support</td><td>Test site in Safari</td><td>Site loads and functions correctly in Safari</td><td>Pass</td><td>Cross-browser check</td></tr>
+          <tr><td>20</td><td>Browser Support</td><td>Test site in Firefox if available</td><td>Site remains functional and visually acceptable</td><td>Pass / N/A</td><td>Optional if tested</td></tr>
+          <tr><td>21</td><td>Responsive Design</td><td>Test mobile screen sizes</td><td>Layout adapts correctly to smaller screens</td><td>Pass</td><td>Includes prior mobile bug fixes</td></tr>
+          <tr><td>22</td><td>Responsive Design</td><td>Test tablet screen sizes</td><td>Layout remains readable and properly aligned</td><td>Pass</td><td>Tablet layout checked</td></tr>
+          <tr><td>23</td><td>Responsive Design</td><td>Test desktop screen sizes</td><td>Layout appears polished and consistent on desktop</td><td>Pass</td><td>Desktop reviewed</td></tr>
+          <tr><td>24</td><td>Content Accuracy</td><td>No spelling mistakes or placeholder text remain</td><td>Written content appears professional and correct</td><td>Pass</td><td>Manual proofreading</td></tr>
+          <tr><td>25</td><td>Content Accuracy</td><td>Contact information is accurate</td><td>Email, LinkedIn, and resume information are correct</td><td>Pass</td><td>Verified against live content</td></tr>
+          <tr><td>26</td><td>Metadata</td><td>Canonical and social metadata are present where needed</td><td>Metadata supports search and social sharing expectations</td><td>Pass</td><td>Added during QA fixes</td></tr>
+          <tr><td>27</td><td>Code Optimization</td><td>No broken imports or missing assets in final deployment</td><td>Site builds and deploys without asset path issues</td><td>Pass</td><td>Deployment retested</td></tr>
+          <tr><td>28</td><td>CMS Support</td><td>CMS functionality review</td><td>Not applicable because this portfolio does not use a CMS</td><td>N/A</td><td>Included per assignment requirement</td></tr>
+          <tr><td>29</td><td>Accessibility</td><td>Interactive elements are clearly visible and usable</td><td>Buttons, links, and navigation are understandable and clickable</td><td>Pass</td><td>Basic manual check</td></tr>
+          <tr><td>30</td><td>Deployment</td><td>Live deployed site reflects fixed issues</td><td>Production site matches the corrected version</td><td>Pass</td><td>Verified after deployment</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Bug Management Process</h2>
+      <div class="note-box">
+        Issues identified during QA testing were documented in GitHub Issues using the detailed bug report format
+        from Assignment 1. Each issue included a title, reproduction steps, expected result, actual result,
+        labels, and retest information. After fixes were applied, each issue was retested and closed with notes
+        describing how it was addressed.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Testing Notes</h2>
+      <div class="note-box">
+        <ul>
+          <li>Testing focused on navigation, layout consistency, browser display, responsive behavior, metadata, and content accuracy.</li>
+          <li>GitHub Issues was used to organize and manage bugs.</li>
+          <li>The instructor was provided with issues to retest using the linked issue tracker.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section small">
+      <p><strong>Issue Tracker Link:</strong> https://github.com/morsalmozneb/Portfolio/issues</p>
+    </div>
+  </body>
+  </html>
