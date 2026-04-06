@@ -1,18 +1,7 @@
 "use client"
 import { motion } from "framer-motion"
-import { useState, useEffect } from "react"
 import { SparkleButton } from "@/components/sparkle-button"
 import { HalftonePortrait } from "@/components/halftone-portrait"
-
-const bodyLines = [
-  "I build things people are proud to share,",
-  "somewhere between brand strategy and pixel-perfect design,",
-  "with a lot of heart in between.",
-  "I speak fluent Figma, think in systems,",
-  "and get genuinely excited about the details most people skip.",
-  "Every project is a chance to make something",
-  "that looks as good as it works.",
-]
 
 const heroEase = [0.16, 1, 0.3, 1] as const
 
@@ -35,81 +24,6 @@ const riseIn = {
     filter: "blur(0px)",
     transition: { duration: 0.7, ease: heroEase },
   },
-}
-
-function TypewriterLines({
-  lines,
-  startDelay = 0,
-}: {
-  lines: string[]
-  startDelay?: number
-}) {
-  const [started, setStarted] = useState(false)
-  const [lineIndex, setLineIndex] = useState(0)
-  const [charIndex, setCharIndex] = useState(0)
-  const [done, setDone] = useState(false)
-
-  useEffect(() => {
-    const t = setTimeout(() => setStarted(true), startDelay)
-    return () => clearTimeout(t)
-  }, [startDelay])
-
-  useEffect(() => {
-    if (!started || done) return
-    if (lineIndex >= lines.length) {
-      setDone(true)
-      return
-    }
-    const line = lines[lineIndex]
-    if (charIndex < line.length) {
-      const t = setTimeout(() => setCharIndex((c) => c + 1), 8)
-      return () => clearTimeout(t)
-    }
-    const t = setTimeout(() => {
-      setLineIndex((l) => l + 1)
-      setCharIndex(0)
-    }, 25)
-    return () => clearTimeout(t)
-  }, [started, done, lineIndex, charIndex, lines])
-
-  return (
-    <div className="space-y-0.5">
-      <style>{`
-        @keyframes cursor-blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-        .typewriter-cursor {
-          display: inline-block;
-          width: 2px;
-          height: 0.85em;
-          background: #8C91F7;
-          margin-left: 2px;
-          vertical-align: text-bottom;
-          animation: cursor-blink 0.9s step-end infinite;
-        }
-      `}</style>
-      {lines.map((line, i) => {
-        if (i < lineIndex) {
-          return (
-            <p key={i} className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
-              {line}
-              {done && i === lines.length - 1 && <span className="typewriter-cursor" />}
-            </p>
-          )
-        }
-        if (i === lineIndex && started && !done) {
-          return (
-            <p key={i} className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
-              {line.slice(0, charIndex)}
-              <span className="typewriter-cursor" />
-            </p>
-          )
-        }
-        return null
-      })}
-    </div>
-  )
 }
 
 export function HeroSection({ show }: { show: boolean }) {
@@ -193,7 +107,32 @@ export function HeroSection({ show }: { show: boolean }) {
               </motion.span>
             </motion.h1>
 
-            <TypewriterLines lines={bodyLines} startDelay={1200} />
+            <motion.div
+              className="space-y-0.5"
+              variants={riseIn}
+            >
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                I build things people are proud to share,
+              </p>
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                somewhere between brand strategy and pixel-perfect design,
+              </p>
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                with a lot of heart in between.
+              </p>
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                I speak fluent Figma, think in systems,
+              </p>
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                and get genuinely excited about the details most people skip.
+              </p>
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                Every project is a chance to make something
+              </p>
+              <p className="text-[#E4E4E4]/65 text-base md:text-lg leading-relaxed">
+                that looks as good as it works.
+              </p>
+            </motion.div>
 
             <motion.div
               className="flex flex-col sm:flex-row sm:flex-wrap gap-4 pt-4 w-full sm:w-auto"
@@ -206,7 +145,7 @@ export function HeroSection({ show }: { show: boolean }) {
 
           {/* ── Halftone Portrait (right column) ── */}
           <motion.div
-            className="flex-shrink-0 flex items-center justify-center w-full max-w-[260px] sm:max-w-[340px] lg:w-auto lg:max-w-[460px] mx-auto lg:mx-0 overflow-hidden"
+            className="flex-shrink-0 flex items-center justify-center w-full max-w-[260px] sm:max-w-[340px] lg:w-auto overflow-hidden lg:overflow-visible mx-auto lg:mx-0"
             initial={{ opacity: 0, x: 60, scale: 0.88, filter: "blur(8px)" }}
             animate={{ opacity: 1, x: 0, scale: 1, filter: "blur(0px)" }}
             transition={{ delay: 0.42, duration: 0.95, ease: heroEase }}
