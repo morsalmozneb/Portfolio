@@ -89,7 +89,6 @@ function TypewriterLines({
           animation: cursor-blink 0.9s step-end infinite;
         }
       `}</style>
-
       {lines.map((line, i) => {
         if (i < lineIndex) {
           return (
@@ -170,7 +169,10 @@ export function HeroSection({ show }: { show: boolean }) {
               </span>
             </motion.div>
 
-            <motion.h1 className="page-heading whitespace-nowrap" variants={riseIn}>
+            <motion.h1
+              className="page-heading whitespace-nowrap"
+              variants={riseIn}
+            >
               <motion.span
                 className="inline-block"
                 initial={{ opacity: 0, x: -26 }}
@@ -204,7 +206,7 @@ export function HeroSection({ show }: { show: boolean }) {
 
           {/* ── Halftone Portrait (right column) ── */}
           <motion.div
-            className="flex-shrink-0 flex items-center justify-center w-full max-w-[260px] sm:max-w-[340px] lg:max-w-none mx-auto lg:mx-0 overflow-hidden"
+            className="flex-shrink-0 flex items-center justify-center w-full max-w-[260px] sm:max-w-[340px] lg:w-auto lg:max-w-[460px] mx-auto lg:mx-0 overflow-hidden"
             initial={{ opacity: 0, x: 60, scale: 0.88, filter: "blur(8px)" }}
             animate={{ opacity: 1, x: 0, scale: 1, filter: "blur(0px)" }}
             transition={{ delay: 0.42, duration: 0.95, ease: heroEase }}
