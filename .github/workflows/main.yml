@@ -1,4 +1,4 @@
-on: 
+on:
   push:
     branches: [ main ]
 
@@ -9,29 +9,32 @@ jobs:
     name: 🚀 Deploy React
     runs-on: ubuntu-latest
     steps:
-      - name: Get latest code
-        uses: actions/checkout@v4
+    - name: Get latest code
+      uses: actions/checkout@v4
 
-      - name: Use Node.js 20
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
+    - name: Use Node.js 20
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
 
-      - name: ⛏️ Build Project
-        run: |
-          npm install
-          npx vite build
+    - name: ⛏️ Build Project
+      run: |
+        npm install
+        npx vite build
+        cp public/.htaccess dist/.htaccess
 
-      - name: 📁 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: "dist/"
-          server-dir: "morsalmozneb.com/"
-          protocol: ftps
-          port: 21
-          dangerous-clean-slate: true
-
-
+    - name: 📁 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USER }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: "dist/"
+        server-dir: "morsalmozneb.com/"
+        protocol: ftps
+        port: 21
+        dangerous-clean-slate: true
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
