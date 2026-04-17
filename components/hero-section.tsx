@@ -29,7 +29,7 @@ const riseIn = {
 export function HeroSection({ show }: { show: boolean }) {
   if (!show) return null
   return (
-    <section id="home" className="relative overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Ambient motion layers for depth */}
       <motion.div
         className="pointer-events-none absolute -top-24 left-[8%] h-64 w-64 rounded-full hidden md:block"
