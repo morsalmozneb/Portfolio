@@ -29,7 +29,7 @@ const riseIn = {
 export function HeroSection({ show }: { show: boolean }) {
   if (!show) return null
   return (
-    <section id="home" className="relative min-h-screen flex items-start overflow-hidden">
+    <section id="home" className="relative overflow-hidden">
       {/* Ambient motion layers for depth */}
       <motion.div
         className="pointer-events-none absolute -top-24 left-[8%] h-64 w-64 rounded-full hidden md:block"
@@ -50,7 +50,7 @@ export function HeroSection({ show }: { show: boolean }) {
         transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="w-full max-w-[1080px] xl:max-w-[1280px] 2xl:max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16 pt-20 md:pt-14 lg:pt-12 pb-16 lg:pb-20">
+         <div className="w-full max-w-[1080px] xl:max-w-[1280px] 2xl:max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16 pt-20 md:pt-14 lg:pt-12 pb-10 lg:pb-16">
         <motion.div
           className="flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-16 xl:gap-20"
           variants={container}
