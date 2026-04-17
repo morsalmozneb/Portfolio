@@ -12,8 +12,8 @@ const contactLinks = [
   {
     icon: <EmailIcon className="w-5 h-5" />,
     label: "EMAIL",
-    detail: "morsalmozneb@gmail.com",
-    href: "mailto:morsalmozneb@gmail.com",
+    detail: "morsalehmozneb@gmail.com",
+    href: "mailto:morsalehmozneb@gmail.com",
     floatAnimation: "contact-float-1",
   },
   {

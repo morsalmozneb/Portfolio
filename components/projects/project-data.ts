@@ -177,4 +177,32 @@ export const projects: Project[] = [
     previewImage: "/images/Leaders_Taekwondo_Tablet.png",
     cardImage: "/images/Leaders_Home.png",
   },
+  {
+    id: "next-project",
+    slug: "next-project",
+    label: "COMING SOON",
+    title: "Next Case Study — Coming Soon",
+    overview:
+      "This project is currently in development and will be published on the portfolio shortly. Check back soon for the full case study, including research, design process, responsibilities, and the final interactive prototype.",
+    process: [
+      "A full case-study walkthrough is in progress. Documentation covering research, wireframing, and high-fidelity design will be added here once the project wraps up.",
+    ],
+    responsibilities: [
+      "Role breakdown and contribution details will be shared once the project is publicly announced.",
+    ],
+    devices: [
+      {
+        type: "tablet",
+        figmaEmbedUrl: "",
+        isPrimary: true,
+      },
+    ],
+    tools: [
+      { name: "Figma", icon: "figma" },
+    ],
+    previewBg: "linear-gradient(160deg, #14112e 0%, #0d0b22 55%, #080714 100%)",
+    previewAccent: "#8C91F7",
+    previewImage: "/images/Coming_Soon_Tablet.svg",
+    cardImage: "/images/Coming_Soon_Home.svg",
+  },
 ]

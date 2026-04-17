@@ -273,7 +273,7 @@ export function ProjectDetail({ selectedProjectId }: { selectedProjectId?: strin
 
   return (
     <section className="relative py-12 md:py-16 overflow-hidden" ref={ref}>
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12">
+      <div className="max-w-[1200px] xl:max-w-[1400px] 2xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
 
         {/* Title */}
         <motion.div

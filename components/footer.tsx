@@ -25,7 +25,7 @@ export function Footer() {
         boxShadow: "0 -1px 12px rgba(140, 145, 247, 0.06)",
       }}
     >
-      <div className="max-w-[1080px] mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="max-w-[1080px] xl:max-w-[1280px] 2xl:max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16 flex flex-col md:flex-row items-center justify-between gap-6">
 
         {/* Logo + copyright */}
         <div className="flex flex-col items-center md:items-start gap-2">

@@ -75,7 +75,7 @@ export default function ContactPage() {
           transition={{ duration: 12.5, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
+        <div className="max-w-[1080px] xl:max-w-[1280px] 2xl:max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16">
           <ContactHeader />
 
           <div className="mt-10 lg:mt-14 flex flex-col lg:flex-row gap-10 lg:gap-14 items-start lg:items-stretch">

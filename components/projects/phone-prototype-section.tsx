@@ -451,7 +451,7 @@ export function PhonePrototypeSection({
         background: `radial-gradient(ellipse 60% 50% at 50% 50%, ${project.previewAccent}08 0%, transparent 70%)`,
       }} />
 
-      <div className="max-w-[1200px] w-full mx-auto px-6 lg:px-12 flex flex-col flex-1">
+      <div className="max-w-[1200px] xl:max-w-[1400px] 2xl:max-w-[1500px] w-full mx-auto px-6 lg:px-12 xl:px-16 flex flex-col flex-1">
 
         {/* Header – compact, left-aligned */}
         <motion.div

@@ -63,12 +63,14 @@ export function ToolsSection() {
   }, [isInView, startTimer])
 
   const goTo = (idx: number) => { setDirection(idx > current ? 1 : -1); setCurrent(idx); startTimer() }
+  const goPrev = () => { setDirection(-1); setCurrent(prev => (prev - 1 + tools.length) % tools.length); startTimer() }
+  const goNext = () => { setDirection(1);  setCurrent(prev => (prev + 1) % tools.length); startTimer() }
 
   const tool = tools[current]
 
   return (
     <section ref={sectionRef} className="relative py-10 lg:py-16">
-      <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
+      <div className="max-w-[1080px] xl:max-w-[1280px] 2xl:max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16">
 
         <motion.div
           className="mb-10 lg:mb-14"
@@ -183,12 +185,80 @@ export function ToolsSection() {
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex gap-2 items-center pt-1">
-            {tools.map((t, i) => (
-              <button key={t.abbr} onClick={() => goTo(i)} aria-label={t.name}
-                style={{ width: i === current ? 20 : 6, height: 6, borderRadius: 3, background: i === current ? "#8C91F7" : "rgba(140,145,247,0.25)", transition: "all 0.3s ease", border: "none", cursor: "pointer", padding: 0 }}
-              />
-            ))}
+          <div className="flex items-center gap-4 pt-1">
+            <button
+              onClick={goPrev}
+              aria-label="Previous tool"
+              className="group"
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                background: "rgba(140,145,247,0.08)",
+                border: "1px solid rgba(140,145,247,0.25)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                padding: 0,
+                transition: "background 0.25s ease, border-color 0.25s ease, transform 0.25s ease",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLButtonElement).style.background = "rgba(140,145,247,0.18)"
+                ;(e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(140,145,247,0.5)"
+                ;(e.currentTarget as HTMLButtonElement).style.transform = "translateX(-2px)"
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLButtonElement).style.background = "rgba(140,145,247,0.08)"
+                ;(e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(140,145,247,0.25)"
+                ;(e.currentTarget as HTMLButtonElement).style.transform = "translateX(0)"
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M9 2L4 7l5 5" stroke="#8C91F7" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+
+            <div className="flex gap-2 items-center">
+              {tools.map((t, i) => (
+                <button key={t.abbr} onClick={() => goTo(i)} aria-label={t.name}
+                  style={{ width: i === current ? 20 : 6, height: 6, borderRadius: 3, background: i === current ? "#8C91F7" : "rgba(140,145,247,0.25)", transition: "all 0.3s ease", border: "none", cursor: "pointer", padding: 0 }}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={goNext}
+              aria-label="Next tool"
+              className="group"
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                background: "rgba(140,145,247,0.08)",
+                border: "1px solid rgba(140,145,247,0.25)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                padding: 0,
+                transition: "background 0.25s ease, border-color 0.25s ease, transform 0.25s ease",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLButtonElement).style.background = "rgba(140,145,247,0.18)"
+                ;(e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(140,145,247,0.5)"
+                ;(e.currentTarget as HTMLButtonElement).style.transform = "translateX(2px)"
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLButtonElement).style.background = "rgba(140,145,247,0.08)"
+                ;(e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(140,145,247,0.25)"
+                ;(e.currentTarget as HTMLButtonElement).style.transform = "translateX(0)"
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M5 2l5 5-5 5" stroke="#8C91F7" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
           </div>
 
         </motion.div>

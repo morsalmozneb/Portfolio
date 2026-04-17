@@ -201,7 +201,7 @@ export function AboutHero() {
       `}</style>
 
       <section ref={ref} className="relative pt-20 md:pt-28 pb-6 overflow-visible">
-        <div className="w-full max-w-[1080px] mx-auto px-6 lg:px-12">
+        <div className="w-full max-w-[1080px] xl:max-w-[1280px] 2xl:max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16">
 
           {/* Header text */}
           <motion.p className="text-xs tracking-[0.4em] text-[#8C91F7] uppercase mb-2 font-mono"

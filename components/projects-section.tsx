@@ -208,7 +208,7 @@ export function ProjectsSection() {
 
   return (
     <section id="projects" className="relative py-10 lg:py-16" ref={ref}>
-      <div className="max-w-[1080px] mx-auto px-6 lg:px-12">
+      <div className="max-w-[1080px] xl:max-w-[1280px] 2xl:max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16">
 
         {/* Loading bar */}
         <LoadingBar trigger={isInView} />
@@ -358,7 +358,7 @@ export function ProjectsSection() {
               </div>
 
               {/* CTA button */}
-              <SparkleButton href={`/projects/${project.slug}`} className="shrink-0">
+              <SparkleButton href="/projects" className="shrink-0">
                 View Case Study
               </SparkleButton>
             </div>

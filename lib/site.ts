@@ -1,7 +1,7 @@
 const rawBasePath = import.meta.env.BASE_URL ?? "/"
 
 export const BASE_PATH = rawBasePath.endsWith("/") ? rawBasePath : `${rawBasePath}/`
-export const SITE_URL = "https://morsalmozneb.github.io/Portfolio"
+export const SITE_URL = "https://morsalmozneb.com"
 
 export const withBase = (path: string) => {
   const cleanPath = path.startsWith("/") ? path.slice(1) : path

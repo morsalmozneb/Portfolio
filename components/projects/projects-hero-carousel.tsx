@@ -185,7 +185,7 @@ export function ProjectsHeroCarousel({
 
   return (
     <section ref={ref} className="relative pt-16 pb-12 sm:pt-20 sm:pb-16 md:pt-28 md:pb-20 overflow-hidden">
-      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-12">
+      <div className="max-w-[1080px] xl:max-w-[1280px] 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
 
         {/* Section header */}
         <motion.div

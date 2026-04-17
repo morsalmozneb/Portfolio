@@ -50,9 +50,9 @@ export function HeroSection({ show }: { show: boolean }) {
         transition={{ duration: 9.5, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="w-full max-w-[1080px] mx-auto px-6 lg:px-12 pt-20 md:pt-14 lg:pt-12 pb-16 lg:pb-20">
+      <div className="w-full max-w-[1080px] xl:max-w-[1280px] 2xl:max-w-[1400px] mx-auto px-6 lg:px-12 xl:px-16 pt-20 md:pt-14 lg:pt-12 pb-16 lg:pb-20">
         <motion.div
-          className="flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-16"
+          className="flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-16 xl:gap-20"
           variants={container}
           initial="hidden"
           animate="show"
@@ -84,7 +84,7 @@ export function HeroSection({ show }: { show: boolean }) {
             </motion.div>
 
             <motion.h1
-              className="page-heading whitespace-nowrap"
+              className="page-heading"
               variants={riseIn}
             >
               <motion.span
@@ -145,7 +145,7 @@ export function HeroSection({ show }: { show: boolean }) {
 
           {/* ── Halftone Portrait (right column) ── */}
           <motion.div
-            className="flex-shrink-0 flex items-center justify-center w-full max-w-[260px] sm:max-w-[340px] lg:w-auto overflow-hidden lg:overflow-visible mx-auto lg:mx-0"
+            className="flex-shrink-0 flex items-center justify-center w-full max-w-[260px] sm:max-w-[340px] lg:max-w-[460px] xl:max-w-[520px] overflow-hidden lg:overflow-visible mx-auto lg:mx-0"
             initial={{ opacity: 0, x: 60, scale: 0.88, filter: "blur(8px)" }}
             animate={{ opacity: 1, x: 0, scale: 1, filter: "blur(0px)" }}
             transition={{ delay: 0.42, duration: 0.95, ease: heroEase }}
